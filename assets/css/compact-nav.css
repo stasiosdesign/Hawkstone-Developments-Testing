@@ -1,0 +1,79 @@
+/* =========================================================
+   Hawkstone — compact top-right header
+   Shared by every service landing page (full pages and holding
+   pages alike), so the treatment lives in one place rather than
+   being duplicated per page.
+
+   Deliberately self-contained: it declares its own colours and
+   font stack rather than leaning on main.css / service-page.css /
+   workspace.css tokens, so it drops into any of them unchanged.
+   ========================================================= */
+.qnav{
+  --qnav-black:#121212;
+  --qnav-amber:#EEB53C;
+  --qnav-size:clamp(48px,4.4vw,66px);
+  --qnav-gap:clamp(6px,.55vw,8px);
+  --qnav-radius:4px;
+
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:var(--qnav-gap);
+  padding:clamp(16px,2.6vw,39px) clamp(16px,2.6vw,42px);
+  font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+
+/* ---------- black square menu button (links to the site root) ---------- */
+.qnav__menu{
+  flex:0 0 auto;
+  display:inline-flex;align-items:center;justify-content:center;
+  width:var(--qnav-size);height:var(--qnav-size);
+  background:var(--qnav-black);
+  border-radius:var(--qnav-radius);
+  text-decoration:none;
+  transition:opacity .15s ease;
+}
+.qnav__menu:hover{opacity:.85}
+.qnav__bars{
+  display:block;position:relative;
+  width:clamp(15px,1.1vw,20px);height:3px;
+  background:#fff;border-radius:1px;
+}
+.qnav__bars::before{
+  content:"";position:absolute;left:0;top:-7px;
+  width:100%;height:3px;background:#fff;border-radius:1px;
+}
+
+/* ---------- amber "Get In Touch" control (visual only) ---------- */
+.qnav__cta{
+  flex:0 0 auto;
+  display:inline-flex;align-items:center;
+  gap:clamp(10px,1vw,16px);
+  height:var(--qnav-size);
+  padding-inline:clamp(14px,1.4vw,22px) clamp(6px,.6vw,9px);
+  background:var(--qnav-amber);
+  border-radius:var(--qnav-radius);
+}
+.qnav__cta-label{
+  color:var(--qnav-black);
+  font-size:clamp(.95rem,1.45vw,1.4rem);
+  font-weight:500;
+  letter-spacing:-.01em;
+  line-height:1;
+  white-space:nowrap;
+}
+.qnav__cta-arrow{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:calc(var(--qnav-size) * .64);height:calc(var(--qnav-size) * .73);
+  background:var(--qnav-black);
+  border-radius:calc(var(--qnav-radius) - 1px);
+  color:#fff;
+}
+.qnav__cta-arrow svg{width:52%;height:auto;display:block}
+
+/* ---------- small screens: keep the pair tight and on one line ---------- */
+@media (max-width:480px){
+  .qnav{--qnav-size:46px;gap:6px;padding:14px}
+  .qnav__cta{padding-inline:12px 5px}
+  .qnav__cta-label{font-size:.9rem}
+}
