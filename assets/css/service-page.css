@@ -326,7 +326,14 @@ p:last-child{margin-bottom:0}
   font-family:var(--serif);font-size:1.05rem;color:var(--accent);
   letter-spacing:.06em;margin:0 0 14px;
 }
-.route h3{margin-bottom:16px;max-width:22ch}
+.route h3,.route__title{margin:0 0 16px;max-width:22ch}
+/* Non-heading card title, same appearance as .route h3. Used on pages whose
+   brief reserves H3 for the FAQ alone (Planning Applications), so a card
+   title that is visually a heading is marked up as a styled paragraph. */
+.route__title{
+  font-family:var(--serif);font-weight:400;letter-spacing:-.014em;
+  font-size:clamp(1.16rem,1.6vw,1.38rem);line-height:1.24;
+}
 .route p{color:var(--ink-2)}
 .route__foot{margin-top:auto;padding-top:clamp(22px,2.4vw,30px)}
 .route__foot::before{
@@ -697,8 +704,13 @@ p:last-child{margin-bottom:0}
   margin-top:clamp(38px,4.4vw,58px);
 }
 .classcard{border-top:2px solid var(--accent);padding-top:20px}
-.classcard h3{margin-bottom:14px;font-size:clamp(1.05rem,1.4vw,1.22rem);max-width:16ch}
+.classcard h3,.classcard__title{margin:0 0 14px;font-size:clamp(1.05rem,1.4vw,1.22rem);max-width:16ch}
+/* Non-heading equivalent of .classcard h3 — see .route__title above for why. */
+.classcard__title{
+  font-family:var(--serif);font-weight:400;letter-spacing:-.014em;line-height:1.24;
+}
 .classcard p{margin:0;color:var(--ink-2);font-size:.96rem;line-height:1.58}
+.classcard p + p{margin-top:.8em}
 @media (max-width:900px){.classgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 28px}}
 @media (max-width:540px){.classgrid{grid-template-columns:1fr;gap:28px}}
 
@@ -821,3 +833,57 @@ p:last-child{margin-bottom:0}
 /* 13 · Closing — a lower-emphasis secondary line under the primary
    button, for a phone number rather than another button. */
 .closing__tel{margin-top:clamp(20px,2.2vw,28px);color:var(--on-dark-2);font-size:.98rem}
+.closing__tel a{color:inherit;text-decoration:underline;text-decoration-color:rgba(237,237,235,.4);text-underline-offset:3px}
+.closing__tel a:hover{color:var(--on-dark);text-decoration-color:var(--on-dark)}
+
+/* =========================================================
+   New variants — needed for Planning Applications, whose brief asks
+   for a two-column reference grid (deliverables list), a narrower
+   editorial split with a stacked link rail (site appraisal), and a
+   third, lighter card density (related services) distinct from both
+   the qualification cards (.route) and the classification grid.
+   ========================================================= */
+
+/* 3 · Scope of service — the same bold-lead-in list .criteria already
+   provides, run as a two-column reference grid instead of a single
+   sticky-rail column, since this section carries no rail of its own. */
+.criteria--grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:0 var(--colgap);
+}
+.criteria--grid > li{border-top:1px solid var(--rule);padding:clamp(20px,2.2vw,28px) 0}
+.criteria--grid > li:nth-child(-n+2){border-top:0;padding-top:0}
+@media (max-width:760px){
+  .criteria--grid{grid-template-columns:1fr}
+  .criteria--grid > li:nth-child(-n+2){border-top:1px solid var(--rule);padding-top:clamp(20px,2.2vw,28px)}
+  .criteria--grid > li:first-child{border-top:0;padding-top:0}
+}
+
+/* 5 · Site appraisal — a wide prose column beside a narrower stacked
+   rail of short guide links, distinct from .textmedia (which pairs
+   prose with a photograph, not a link list). */
+.appraisal{
+  display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);
+  gap:var(--colgap);align-items:start;
+}
+.appraisal__text p{color:var(--ink-2)}
+.appraisal__links{display:grid;gap:0;align-content:start}
+.appraisal__links .eyebrow{margin-bottom:18px}
+.appraisal__links a{
+  display:block;text-decoration:none;color:var(--ink);
+  border-top:1px solid var(--rule);padding:18px 0;
+  font-family:var(--serif);font-size:1.02rem;line-height:1.32;letter-spacing:-.01em;
+  transition:color .16s;
+}
+.appraisal__links a:first-of-type{border-top:0;padding-top:0}
+.appraisal__links a:hover{color:var(--accent)}
+@media (max-width:900px){
+  .appraisal{grid-template-columns:1fr;gap:clamp(28px,4.4vw,40px)}
+}
+
+/* 11 · Related services — three compact cards, lighter than both the
+   qualification cards (.route, bordered box) and the classification
+   grid (.classgrid, four columns). Thin rule only, no card body. */
+.classgrid--three{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:760px){.classgrid--three{grid-template-columns:1fr}}
+.classcard__link{margin-top:14px;display:inline-block}

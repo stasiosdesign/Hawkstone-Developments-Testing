@@ -15,7 +15,7 @@ services/rural-conversions/index.html      Barn & Rural Conversions — live, fi
 services/listed-buildings/index.html       Listed Buildings — live, built to the 7 Sep heritage brief
                                               (supersedes and replaces the former Heritage Projects page)
 services/luxury-architecture/index.html    Luxury Architecture — live, held pending Part C
-services/planning-applications/index.html  Holding page
+services/planning-applications/index.html  Planning Applications — live, built to the 7 Sep brief
 services/project-management/index.html     Holding page
 services/3d-visualisations/index.html      Holding page
 
@@ -70,7 +70,7 @@ resolves directories with no configuration required.
 | `/services/rural-conversions/` | Barn & Rural Conversions — live |
 | `/services/listed-buildings/` | Listed Buildings — live |
 | `/services/luxury-architecture/` | Luxury Architecture — live, held pending Part C |
-| `/services/planning-applications/` | Holding page |
+| `/services/planning-applications/` | Planning Applications — live |
 | `/services/project-management/` | Holding page |
 | `/services/3d-visualisations/` | Holding page |
 
@@ -303,11 +303,92 @@ the previous brief's instruction to withhold project values.
 Project page slugs (`/projects/sandboro-house-farm`, `/projects/furs-house`)
 are assumed from this repository's convention, not confirmed.
 
+### Planning Applications (`services/planning-applications/index.html`)
+
+Built from a self-contained 12-section brief (a single standalone prototype
+page spec — hero, qualification, scope, application types, site appraisal,
+refusals, projects, process, territory, FAQ, related services, closing CTA).
+One H1, eleven H2s, ten H3s — and, per the brief's own final checklist, the
+ten H3s are used *only* for the FAQ questions. Every other section title
+that reuses an existing card component (`.route`, `.classcard`) needed a
+non-heading equivalent instead of that component's default `<h3>`, so two
+new modifier classes were added to `service-page.css`: `.route__title` and
+`.classcard__title`, both styled identically to the `<h3>` they replace.
+
+The brief's own copy is written as a standalone `index.html` + `styles.css`
+prototype with its own header (a wordmark and a six-item nav) and footer
+copy, and asks for nothing else in `<head>`. This page instead follows the
+established convention every other page in this repository already uses —
+`service-page.css`, the fixed `.backdir`/`.skip` pair in place of a header,
+the shared `.site-footer` (brand + nav of the other live pages, Projects,
+Contact), a canonical link, meta description and Service+FAQPage JSON-LD —
+because it is being built directly into that existing, multi-page site
+rather than hosted in isolation, and diverging from the other three live
+pages' chrome would break the one thing they're all consistent about. The
+title tag is likewise built from the brief's own target-keyword note
+("planning permission architects (primary, H1)") plus the sibling pages'
+"Service | Counties" convention, rather than the brief's literal default
+("Planning Permission Architects | Hawkstone Developments").
+
+Two link destinations were substituted for the same reason the rest of the
+site already treats them this way:
+- **"heritage projects service"** points to `/services/listed-buildings/`,
+  not the brief's literal `/services/heritage-projects` — that page no
+  longer exists in this repository (see the Listed Buildings entry above),
+  and every other link on every other page that used to point to it now
+  points here instead.
+- **"rural conversions"** uses `/services/rural-conversions` exactly as the
+  brief gives it — this one needed no change, since `vercel.json` already
+  redirects it to `/services/barn-conversions`, the same handling Listed
+  Buildings and Luxury Architecture rely on.
+
+New `service-page.css` components, all appended after the existing Listed
+Buildings variants: `.criteria--grid` (the eight-item scope-of-service list
+as a two-column reference grid rather than a single sticky-rail column),
+`.appraisal` + `.appraisal__links` (a wide prose column beside a narrower
+stacked rail of three guide links, for the site-appraisal section), and
+`.classgrid--three` (a three-card row for Related Services, lighter than
+both `.route` and the four-column `.classgrid`). The existing `.deflist`,
+`.routes--three`, `.steps`, `.places`/`.countylinks`, `.pgrid`, `.faq`,
+`.cta-band`, `.sectionfoot` and `.closing` components account for every
+other section, so Sections 3, 4, 6, 7 and 8 each read as a visibly
+different layout, per the brief's own requirement.
+
+Omitted, pending content: the hero image and each of the three project
+cards' photographs — no assets are supplied in this repository, so no
+placeholder text is rendered in their place, only an HTML comment noting
+what each image should show.
+
+**Link destinations used exactly as the brief specifies, several of which
+are still 404 in this repository** (consistent with how the other live
+pages already handle unresolved destinations): `/contact`, `/projects` and
+its three project pages, all four `/news/...` guides, `/services/technical-
+design` (no such folder exists here), and the three `/locations/...` county
+pages. `/services/3d-visualisations` and `/services/project-management`
+resolve to this repository's existing holding pages rather than a bare 404.
+
+**The telephone number is published**, unlike Listed Buildings' final CTA —
+this brief supplies `01332 498 052` as page copy rather than leaving it to
+be confirmed, so it renders as a `tel:` link in both the closing section and
+(per Part 1) nowhere else, since this page carries no separate footer of its
+own beyond the shared `.site-footer`.
+
+Not resolved, blocking publication:
+1. The hero photograph and all three project-card photographs.
+2. `/contact`, `/projects` and its three project pages, all four
+   `/news/...` guides, `/services/technical-design`, and the three
+   `/locations/...` pages — none exist in this repository yet.
+3. The three project cards' stated planning routes are inferred by the
+   brief itself from other pages' existing copy, flagged there for the
+   client to confirm before production; published here as written, per the
+   brief's own instruction to use the copy as given regardless.
+4. GA4 key events — not configured.
+
 ---
 
 ## Schema
 
-Luxury Architecture and Listed Buildings both carry
+Luxury Architecture, Listed Buildings and Planning Applications all carry
 Service + FAQPage JSON-LD, structurally validated (required properties
 present, FAQ questions match the rendered heading text exactly, no bracket
 placeholders in any schema string) — the same pattern Rural Conversions
