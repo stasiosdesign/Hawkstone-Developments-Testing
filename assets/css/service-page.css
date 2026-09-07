@@ -654,3 +654,143 @@ p:last-child{margin-bottom:0}
    stay a fixed, balanced width instead of stretching to fill a
    forced 3-column track. */
 .pgrid--loose{grid-template-columns:repeat(auto-fit,minmax(280px,320px))}
+
+/* =========================================================
+   New variants — needed for Listed Buildings, whose brief asks
+   for a distinct visual treatment per section (a text-led
+   classification grid, a reversible text/image split, a
+   deliverables panel, a compact single-column band, a dark
+   editorial section carrying its own image, a light horizontal
+   stepper, and a comparison pair with a closing note).
+   ========================================================= */
+
+/* 2 · Classification grid — four text-led cards, one per building
+   type. Deliberately not image-led, so it never reads as the same
+   component as the photographic project grid (.pgrid) later on the
+   page. Collapses 4 -> 2 -> 1 column as the viewport narrows. */
+.classgrid{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:clamp(28px,3vw,var(--colgap)) var(--colgap);
+  margin-top:clamp(38px,4.4vw,58px);
+}
+.classcard{border-top:2px solid var(--accent);padding-top:20px}
+.classcard h3{margin-bottom:14px;font-size:clamp(1.05rem,1.4vw,1.22rem);max-width:16ch}
+.classcard p{margin:0;color:var(--ink-2);font-size:.96rem;line-height:1.58}
+@media (max-width:900px){.classgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 28px}}
+@media (max-width:540px){.classgrid{grid-template-columns:1fr;gap:28px}}
+
+/* Closing note under a grid or a pair of panels: separated by a
+   rule, quieter than the content above it. Reused for the
+   classification grid's qualifying line and the "right service"
+   comparison's Green Belt note. */
+.sectionfoot{
+  margin-top:clamp(30px,3.4vw,44px);padding-top:clamp(24px,2.6vw,32px);
+  border-top:1px solid var(--rule-2);color:var(--ink-2);
+  font-size:.98rem;line-height:1.6;max-width:64ch;
+}
+
+/* 3/4 · Text/image split — a narrow prose column beside a single
+   photograph, reversible so a pair of adjacent sections can mirror
+   each other instead of repeating the same layout. */
+.textmedia{
+  display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);
+  gap:var(--colgap);align-items:center;
+}
+.textmedia__text{max-width:56ch}
+.textmedia__text p{color:var(--ink-2)}
+.textmedia__text h3{margin:clamp(28px,3vw,38px) 0 16px}
+.textmedia__media{aspect-ratio:4/5}
+.textmedia--reverse .textmedia__media{order:-1}
+@media (max-width:900px){
+  .textmedia{grid-template-columns:1fr;gap:clamp(28px,4.4vw,40px)}
+  .textmedia--reverse .textmedia__media{order:0}
+  .textmedia__media{aspect-ratio:16/10}
+}
+
+/* Plain list grouped visually rather than run as prose — used for
+   the "work this typically includes" list, where the .ticks accent
+   mark would wrongly suggest a qualifying checklist. */
+.plainlist{list-style:none;margin:clamp(18px,2vw,22px) 0 0;padding:0;display:grid;gap:14px}
+.plainlist li{position:relative;padding-left:26px;color:var(--ink-2);font-size:.97rem;line-height:1.55}
+.plainlist li::before{
+  content:"";position:absolute;left:0;top:.62em;width:12px;height:1px;background:var(--accent);
+}
+
+/* 5 · Deliverables split — argument on one side, what gets prepared
+   as a bordered panel on the other. Distinct from .condition (a
+   single highlighted note) because both sides carry equal weight. */
+.workscope{
+  display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);
+  gap:var(--colgap);align-items:start;margin-top:clamp(34px,4vw,52px);
+}
+.workscope__text p{color:var(--ink-2)}
+.workscope__panel{
+  background:var(--card);border:1px solid var(--rule);border-top:2px solid var(--accent);
+  border-radius:var(--radius);padding:clamp(26px,3vw,42px);
+}
+.workscope__panel h3{margin-bottom:18px}
+@media (max-width:900px){.workscope{grid-template-columns:1fr;gap:clamp(28px,4.4vw,40px)}}
+
+/* 6 · Compact band — a shorter, single-column section for content
+   that doesn't need a grid or a card treatment of its own. */
+.section--compact{padding-block:clamp(48px,6vw,84px)}
+.proseblock{max-width:68ch}
+.proseblock p{color:var(--ink-2)}
+
+/* 7 · Dark editorial with its own image — larger type, a single
+   photograph, generous whitespace, meant to read as a pause in the
+   page rather than another information block. */
+.approach--media{align-items:start}
+.approach--media > .eyebrow{grid-column:1/13}
+.approach--media h2{grid-column:1/8;margin-bottom:clamp(34px,4vw,52px);max-width:15ch}
+.approach--media .approach__col{grid-column:1/7}
+.approach--media .approach__col p{color:var(--on-dark-2);font-size:1rem;line-height:1.64}
+.approach--media .approach__col p:first-child{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(1.16rem,1.85vw,1.5rem);line-height:1.46;
+  color:var(--on-dark);letter-spacing:-.012em;
+}
+.approach--media .approach__col p:not(:first-child){margin-top:1.05em}
+.approach--media .approach__media{grid-column:8/13;aspect-ratio:3/4;background:var(--dark-2)}
+.approach--media .approach__media::after{border-color:rgba(198,170,113,.16)}
+@media (max-width:960px){
+  .approach--media h2{grid-column:1/13}
+  .approach--media .approach__col{grid-column:1/13}
+  .approach--media .approach__media{grid-column:1/13;margin-top:clamp(34px,4.4vw,52px);aspect-ratio:16/10}
+}
+
+/* 8 · Light horizontal stepper — six stages as bordered columns with
+   a circled numeral, running the row on desktop and stacking on
+   mobile. Kept on a light background and deliberately unlike the
+   dark connected-circle .steps used elsewhere, so the process reads
+   as its own distinct layout on the page. */
+.stepper{
+  display:grid;grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:clamp(28px,3vw,var(--colgap)) var(--colgap);
+  margin-top:clamp(40px,4.6vw,64px);counter-reset:sp;
+}
+.stepitem{counter-increment:sp;border-top:2px solid var(--rule-2);padding-top:20px}
+.stepitem::before{
+  content:counter(sp,decimal-leading-zero);
+  display:flex;align-items:center;justify-content:center;
+  width:36px;height:36px;border-radius:50%;border:1px solid var(--accent);
+  color:var(--accent);font-family:var(--serif);font-size:.85rem;
+  margin-bottom:18px;
+}
+.stepitem h3{font-size:1.04rem;margin-bottom:10px;max-width:16ch}
+.stepitem p{margin:0;color:var(--ink-2);font-size:.92rem;line-height:1.55}
+@media (max-width:1100px){.stepper{grid-template-columns:repeat(3,minmax(0,1fr));gap:36px 28px}}
+@media (max-width:640px){
+  .stepper{grid-template-columns:1fr;gap:0}
+  .stepitem{padding:22px 0;border-top:1px solid var(--rule-2)}
+  .stepitem:first-child{border-top:2px solid var(--rule-2)}
+}
+
+/* FAQ questions as real <h3> elements inside <summary> — this
+   brief requires the heading tag; the summary keeps carrying the
+   type so the question reads no differently than before. */
+.faq summary h3{font:inherit;letter-spacing:inherit;color:inherit;margin:0}
+
+/* 13 · Closing — a lower-emphasis secondary line under the primary
+   button, for a phone number rather than another button. */
+.closing__tel{margin-top:clamp(20px,2.2vw,28px);color:var(--on-dark-2);font-size:.98rem}

@@ -9,10 +9,12 @@ iterate on independently.
 
 ```
 index.html                                 Root index — a single "Services" folder
-services/index.html                        Services index — six service folders
+services/index.html                        Services index — seven service folders
 
 services/rural-conversions/index.html      Barn & Rural Conversions — live, finished page
-services/heritage-projects/index.html      Heritage Projects — live, held pending Part C
+services/heritage-projects/index.html      Heritage Projects — live, held pending Part C (superseded
+                                              by Listed Buildings below; kept, not removed)
+services/listed-buildings/index.html       Listed Buildings — live, built to the 7 Sep heritage brief
 services/luxury-architecture/index.html    Luxury Architecture — live, held pending Part C
 services/planning-applications/index.html  Holding page
 services/project-management/index.html     Holding page
@@ -65,9 +67,10 @@ resolves directories with no configuration required.
 | Route | Page |
 |---|---|
 | `/` | Root index (one folder: Services) |
-| `/services/` | Services index (six folders) |
+| `/services/` | Services index (seven folders) |
 | `/services/rural-conversions/` | Barn & Rural Conversions — live |
 | `/services/heritage-projects/` | Heritage Projects — live, held pending Part C |
+| `/services/listed-buildings/` | Listed Buildings — live |
 | `/services/luxury-architecture/` | Luxury Architecture — live, held pending Part C |
 | `/services/planning-applications/` | Holding page |
 | `/services/project-management/` | Holding page |
@@ -177,6 +180,79 @@ Project page slugs (`/projects/barrow-house-barrow-upon-trent`,
 `/projects/castle-street-melbourne`, `/projects/55-derby-road-melbourne`) are
 assumed from this repository's convention, not confirmed.
 
+### Listed Buildings (`services/listed-buildings/index.html`)
+
+Built from a separate, later brief that supersedes Heritage Projects' content
+(different H1, different section structure, different link set) without
+replacing the file — Heritage Projects is left in place, unlinked from
+navigation, per that brief's own "replaces nothing directly" instruction.
+
+One H1, twelve H2s, matching the brief's thirteen numbered sections one for
+one (the hero carries no H2). Every section uses a different layout
+component deliberately, per the brief's requirement that sections doing
+different jobs not look the same: a text-led four-card classification grid
+(`.classgrid`), two mirrored text/image splits (`.textmedia`, one reversed),
+a deliverables split with a bordered panel (`.workscope`), a compact
+single-column band (`.section--compact` + `.proseblock`), a dark editorial
+section carrying its own image (`.approach--media`), a light six-item
+horizontal stepper (`.stepper`, deliberately unlike the dark connected-circle
+`.steps` used elsewhere so the process reads as its own layout), the existing
+photographic project grid and paired qualification panels, and the FAQ
+accordion. All four new components are additions to `service-page.css` (see
+the comment block near the end of that file) — `main.css` is untouched.
+
+The FAQ questions are real `<h3>` elements inside `<summary>` (this brief
+requires the heading tag, unlike Heritage Projects and Luxury Architecture,
+which style the `<summary>` text directly) — a small CSS rule
+(`.faq summary h3`) makes the heading inherit the summary's own type so nothing
+looks different. All nine answers are open by default and present in the
+served HTML.
+
+**"Architect" appears only where the brief places it** — the FAQ question "Do
+I need a listed building architect?", the searcher-facing phrase inside its
+answer, "architectural details" (Section 8), "architectural design" (title,
+H1, JSON-LD), and "luxury architecture" / "rural conversions" as other
+services' names. Nothing else was added; no ARB claim, credential or "our
+architects" phrasing appears anywhere.
+
+Omitted, pending content:
+- hero image (brief specifies a case-study property, Barrow House or Castle
+  Street) — no `og:image` is rendered either, rather than pointing at a
+  placeholder
+- five further photographs the brief calls for (the extension, the
+  renovation, the approach section, and the three project cards)
+- the telephone number in the final CTA's secondary line — the brief says to
+  confirm it against the live `/contact` page, which does not exist in this
+  repository, so the required copy ("Or call us to talk it through.") renders
+  without a `tel:` link rather than publish an unconfirmed number
+
+**Link destinations used exactly as the brief specifies**, several of which
+are still 404 in this repository (consistent with how the other two heritage
+pages already handle unresolved destinations): `/contact`, `/projects` and
+the three project pages, both `/news/...` guides, and all nine
+`/locations/architectural-services-...` pages (a different slug pattern than
+the three live pages' existing `/locations/architectural-design-...` links —
+not reconciled, because the brief's link list is given as final copy).
+`/services/rural-conversions` is used as given and resolves via the existing
+`vercel.json` redirect to `/services/barn-conversions`, so it is not a 404.
+
+**The brief's own numbers disagree.** Part 1.9 and the final checklist call
+for "14 internal links," but the per-section "Internal links" and "CTA"
+lists in Part 2 itemise more than that once every anchor-text link and
+button destination is counted individually. Every link named anywhere in
+Part 2 is implemented, with the exact anchor text and destination given; none
+were dropped to force a match with the summary count.
+
+Not resolved, blocking publication:
+1. ARB status — decides the H1/title swap given at the end of the brief. Not
+   confirmed, so the primary (non-ARB) versions are published.
+2. All six photographs named above.
+3. The `/contact` phone number.
+4. The nine `/locations/...` destinations, both `/news/...` guides and the
+   Green Belt guide, and `/projects` and its three project pages — none exist
+   in this repository yet.
+5. GA4 key events — not configured.
+
 ### Luxury Architecture (`services/luxury-architecture/index.html`)
 
 Rebuilt against a new client brief that replaces the page's copy wholesale and
@@ -269,11 +345,12 @@ are assumed from this repository's convention, not confirmed.
 
 ## Schema
 
-Both Heritage Projects and Luxury Architecture carry Service + FAQPage
-JSON-LD, structurally validated (required properties present, FAQ questions
-match the rendered `<summary>` text exactly, no bracket placeholders in any
-schema string) — the same pattern Rural Conversions already uses. None has
-been run through Google's Rich Results Test, which needs a public URL.
+Heritage Projects, Luxury Architecture and Listed Buildings all carry
+Service + FAQPage JSON-LD, structurally validated (required properties
+present, FAQ questions match the rendered heading text exactly, no bracket
+placeholders in any schema string) — the same pattern Rural Conversions
+already uses. None has been run through Google's Rich Results Test, which
+needs a public URL.
 
 ## Publication status
 
