@@ -9,19 +9,18 @@ iterate on independently.
 
 ```
 index.html                                 Root index — a single "Services" folder
-services/index.html                        Services index — seven service folders
+services/index.html                        Services index — six service folders
 
 services/rural-conversions/index.html      Barn & Rural Conversions — live, finished page
-services/heritage-projects/index.html      Heritage Projects — live, held pending Part C (superseded
-                                              by Listed Buildings below; kept, not removed)
 services/listed-buildings/index.html       Listed Buildings — live, built to the 7 Sep heritage brief
+                                              (supersedes and replaces the former Heritage Projects page)
 services/luxury-architecture/index.html    Luxury Architecture — live, held pending Part C
 services/planning-applications/index.html  Holding page
 services/project-management/index.html     Holding page
 services/3d-visualisations/index.html      Holding page
 
 assets/css/main.css          Barn & Rural Conversions' own stylesheet — do not edit
-assets/css/service-page.css  Shared design system for Heritage Projects and Luxury
+assets/css/service-page.css  Shared design system for Listed Buildings and Luxury
                               Architecture (and future full service pages)
 assets/css/workspace.css     Styles for the root/services index and holding pages
 assets/js/smooth-scroll.js   Shared Lenis init, loaded on every page except
@@ -40,7 +39,7 @@ finished, client-approved work and **must never be edited** — not even as a
 side effect of styling something else. `service-page.css` is a fork of it
 (same tokens, layout primitives, typography and component vocabulary, plus a
 handful of new section variants — see the comment at its head) used by
-Heritage Projects and Luxury Architecture, and available for any future
+Listed Buildings and Luxury Architecture, and available for any future
 service page. The two files can drift from each other over time; that's the
 point. If you need a new component for a future page, add it to
 `service-page.css`, not `main.css`.
@@ -67,9 +66,8 @@ resolves directories with no configuration required.
 | Route | Page |
 |---|---|
 | `/` | Root index (one folder: Services) |
-| `/services/` | Services index (seven folders) |
+| `/services/` | Services index (six folders) |
 | `/services/rural-conversions/` | Barn & Rural Conversions — live |
-| `/services/heritage-projects/` | Heritage Projects — live, held pending Part C |
 | `/services/listed-buildings/` | Listed Buildings — live |
 | `/services/luxury-architecture/` | Luxury Architecture — live, held pending Part C |
 | `/services/planning-applications/` | Holding page |
@@ -143,49 +141,13 @@ Still 404: `/services/consultation`, `/projects` and the three individual
 project pages, both `/news/...` guides, the three `/locations/...` county
 pages.
 
-### Heritage Projects (`services/heritage-projects/index.html`)
-
-One H1, ten H2s, three H3s (the three consent stages in B4 — Listed Building
-Consent & planning permission, heritage statements, conservation officer
-engagement). These are sequential stages of one process rather than
-alternative routes, so they render as a stacked full-width sequence
-(`.routes--stack`) instead of Rural's 2-up peer grid.
-
-Omitted, pending content:
-- hero image (Barrow House or Castle Street)
-- the "Our guide to Listed Building Consent" and "Planning permission in a
-  conservation area" links — both destination URLs unconfirmed
-- all three project cards' description and consent-status lines, and any
-  listing grade (never state one unless confirmed — none was)
-- the testimonial block
-- the Green Belt guide link in FAQ Q8
-
-**Not resolved, blocking publication per the brief's own Part C:**
-1. ARB status — decides "architects" vs "architecture" in the title/H1. The
-   alternative title is in an HTML comment at the top of the file.
-2. Project details and consent statuses for the three cards.
-3. A real, attributable heritage testimonial, or confirmation to leave it out.
-4. Nav label — the brief flags "Heritage Projects" vs "Heritage Design" as
-   unresolved. This build uses "Heritage Projects" throughout, because that's
-   the label the *unmodified* Rural Conversions page already links with in
-   two places — using anything else would make an existing, untouched link
-   inconsistent with the page it points to.
-5. **Legal accuracy sign-off on every FAQ answer**, particularly the
-   unauthorised-works question (Q9) — flagged explicitly by the brief as the
-   one most needing a planning expert's review. Nothing in this FAQ has had
-   that review; all ten answers are published as drafted.
-6. GA4 key events — not configured.
-
-Project page slugs (`/projects/barrow-house-barrow-upon-trent`,
-`/projects/castle-street-melbourne`, `/projects/55-derby-road-melbourne`) are
-assumed from this repository's convention, not confirmed.
-
 ### Listed Buildings (`services/listed-buildings/index.html`)
 
-Built from a separate, later brief that supersedes Heritage Projects' content
-(different H1, different section structure, different link set) without
-replacing the file — Heritage Projects is left in place, unlinked from
-navigation, per that brief's own "replaces nothing directly" instruction.
+Built from a later, more detailed heritage brief that superseded an earlier
+Heritage Projects page (different H1, different section structure, different
+link set). Heritage Projects has since been removed from the repository —
+every link that pointed to it (in Barn Conversions, Luxury Architecture and
+the services index) now points here instead.
 
 One H1, twelve H2s, matching the brief's thirteen numbered sections one for
 one (the hero carries no H2). Every section uses a different layout
@@ -202,8 +164,8 @@ accordion. All four new components are additions to `service-page.css` (see
 the comment block near the end of that file) — `main.css` is untouched.
 
 The FAQ questions are real `<h3>` elements inside `<summary>` (this brief
-requires the heading tag, unlike Heritage Projects and Luxury Architecture,
-which style the `<summary>` text directly) — a small CSS rule
+requires the heading tag, unlike Luxury Architecture, which styles the
+`<summary>` text directly) — a small CSS rule
 (`.faq summary h3`) makes the heading inherit the summary's own type so nothing
 looks different. All nine answers are open by default and present in the
 served HTML.
@@ -227,8 +189,8 @@ Omitted, pending content:
   without a `tel:` link rather than publish an unconfirmed number
 
 **Link destinations used exactly as the brief specifies**, several of which
-are still 404 in this repository (consistent with how the other two heritage
-pages already handle unresolved destinations): `/contact`, `/projects` and
+are still 404 in this repository (consistent with how the other live pages
+already handle unresolved destinations): `/contact`, `/projects` and
 the three project pages, both `/news/...` guides, and all nine
 `/locations/architectural-services-...` pages (a different slug pattern than
 the three live pages' existing `/locations/architectural-design-...` links —
@@ -345,7 +307,7 @@ are assumed from this repository's convention, not confirmed.
 
 ## Schema
 
-Heritage Projects, Luxury Architecture and Listed Buildings all carry
+Luxury Architecture and Listed Buildings both carry
 Service + FAQPage JSON-LD, structurally validated (required properties
 present, FAQ questions match the rendered heading text exactly, no bracket
 placeholders in any schema string) — the same pattern Rural Conversions
