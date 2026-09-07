@@ -1,104 +1,140 @@
-# Hawkstone — Rural Conversions
+# Hawkstone — site workspace
 
-Marketing site for Hawkstone's rural conversions service. The Rural Conversions
-page is the primary page and is served from the root URL `/`.
+Internal testing site for Hawkstone's landing pages. The root URL is a simple
+folder-style index, not a public marketing homepage — it exists to organise
+service pages as they're built and to make each one easy to open, review and
+iterate on independently.
 
 ## Structure
 
 ```
-index.html            The Rural Conversions page (served at /)
-assets/css/main.css   All page styles, organised section by section
+index.html                              Root index — a single "Services" folder
+services/index.html                     Services index — six service folders
+services/rural-conversions/index.html   Barn & Rural Conversions — the completed page
+services/luxury-architecture/index.html Holding page
+services/heritage-projects/index.html   Holding page
+services/planning-applications/index.html  Holding page
+services/project-management/index.html  Holding page
+services/3d-visualisations/index.html   Holding page
+
+assets/css/main.css        Styles for the Barn & Rural Conversions page only
+assets/css/workspace.css   Styles for the root/services index and holding pages
 ```
 
-The page is plain HTML and CSS. There is no build step, no bundler and no
-runtime JavaScript — the FAQ accordion uses native `<details>`/`<summary>` and
-the only `<script>` in the page is the JSON-LD block.
+Every page is plain HTML and CSS — no build step, no bundler, no framework.
+The only runtime JavaScript anywhere in the site is the FAQ accordion on the
+Rural Conversions page, which uses native `<details>`/`<summary>` (no
+JavaScript at all), plus that same page's JSON-LD `<script>` block.
 
-`assets/css/main.css` is ordered to mirror the page: design tokens, layout
-primitives, typography, shared components (links, buttons, content slots),
-then one clearly commented block per numbered page section.
+`main.css` and `workspace.css` are deliberately separate stylesheets. The
+Rural Conversions page is finished, client-supplied copy — it must not be
+touched by changes made to the workspace chrome, so the workspace pages carry
+their own small stylesheet rather than extending or importing `main.css`.
+
+## Routes
+
+All folder pages are `index.html` files served at their directory path with a
+trailing slash (`/services/`, `/services/rural-conversions/`, etc.) — the
+standard static-hosting convention, and how Vercel resolves directories with
+no configuration required.
+
+| Route | Page |
+|---|---|
+| `/` | Root index (one folder: Services) |
+| `/services/` | Services index (six folders) |
+| `/services/rural-conversions/` | Barn & Rural Conversions — completed page |
+| `/services/luxury-architecture/` | Holding page |
+| `/services/heritage-projects/` | Holding page |
+| `/services/planning-applications/` | Holding page |
+| `/services/project-management/` | Holding page |
+| `/services/3d-visualisations/` | Holding page |
+
+`heritage-projects` and `luxury-architecture` reuse the exact slugs the Rural
+Conversions page already links to internally, so those two links now resolve
+instead of 404ing — no edits were needed on that page for that to happen.
+
+To add another service, create `services/<slug>/index.html` and add one
+folder tile linking to it from `services/index.html`.
 
 ## Local development
 
-Open `index.html` in a browser, or serve the folder with any static server:
+Serve the repository root with any static file server, e.g.:
 
 ```bash
 npx serve .
 ```
 
+Opening `index.html` directly as a `file://` URL will not resolve the
+absolute-path stylesheet and page links correctly — use a local server.
+
 ## Deployment (Vercel)
 
-This is a zero-config static site. Vercel serves `index.html` from the
-repository root at `/`, with no install or build step required.
+This is a zero-config static site. Vercel serves each directory's `index.html`
+at that directory's path with no install or build step required.
 
 In the Vercel project settings the **Framework Preset** must be **Other**, with
-**Build Command**, **Output Directory** and **Install Command** left empty. No
-`vercel.json` is needed.
+**Build Command**, **Output Directory** and **Install Command** left empty.
 
-## Content
-
-Page copy is authoritative and supplied by the client — do not rewrite,
-shorten, expand or paraphrase it when editing this page. Headings in
-particular are exact: the H1/H2/H3 hierarchy carries the keyword targets, and
-the page has exactly one H1, ten H2s and three H3s (the three planning
-routes). Do not add heading levels — project card titles and the bold
-lead-ins in the feasibility, process and qualification sections are
-deliberately styled paragraphs, not headings.
-
-Sections carry no label copy above their headings, so the anchor above each H2
-is a short rule (`.kicker`) rather than a word.
-
-**No square-bracket placeholders may be published.** Where content was not
-supplied, the element is omitted rather than shipped with placeholder text.
-Currently omitted, pending content:
-
-- **Hero image** — the panel renders as a flat tonal block. Replace the
-  `div.hero__media` with an `img` once the photograph is supplied.
-- **Project card description and planning route/status lines** — omitted
-  entirely until the planning lead confirms them.
-- **Testimonial block** — deleted. Only a real, attributable rural conversion
-  quote may be added; existing site testimonials must not be reused.
-- **Green Belt guide link** — the brief left the destination URL unfilled, so
-  the link is not rendered.
-
-Two FAQ answers contain facts flagged for confirmation before publication (the
-planning determination periods, and the current Class Q extension allowance).
-Both are marked with `UNCONFIRMED` comments in `index.html`.
-
-## Known gaps
-
-The page links out to pages that do not exist in this repository yet, so those
-routes currently 404:
-
-- `/services/consultation`
-- `/services/heritage-projects`
-- `/services/luxury-architecture`
-- `/projects` and the three individual project pages
-- `/news/class-q-barn-conversion-planning-guide`
-- `/news/green-belt-guide-2026`
-- the three `/locations/...` county pages
-
-These are the target URLs specified in the copy document and have been left as
-written. They will resolve once those pages are added.
-
-The three `/locations/...` URLs and the three `/projects/...` URLs are assumed
-from this repository's own convention — the copy brief names the links but does
-not give their destinations. Confirm them before launch.
-
-The copy brief specifies this page's slug as `/services/rural-conversions`. It
-is currently served at `/` as the site's primary page, with `<link rel="canonical">`
-pointing at `/` to match, and `/services/rural-conversions` redirecting to `/`
-(see `vercel.json`). If the site later grows a full page tree, move the page to
-`/services/rural-conversions`, drop that redirect, and update the canonical and
-the nav link.
+`vercel.json` carries one redirect only (see below) — it sets no framework or
+build command, so zero-config static detection is unaffected.
 
 ## Redirects
 
-`vercel.json` carries redirects only — it does not set a framework or build
-command, so zero-config static detection still applies.
-
 - `/blog-posts/class-q-barn-conversion-planning-guide` → `/news/class-q-barn-conversion-planning-guide` (301)
-- `/services/rural-conversions` → `/` (307, while the page is served at the root)
 
-Note the 301 destination does not exist yet — the guide page still needs to be
-built.
+Note the destination does not exist yet — the guide page still needs to be
+built. The `/services/rural-conversions` → `/` redirect that previously stood
+in for this page (while it was served at the root) has been removed now that
+the page lives at its real slug.
+
+## The Barn & Rural Conversions page
+
+`services/rural-conversions/index.html` is complete, client-approved copy —
+do not rewrite, shorten, expand or paraphrase it, and do not change its
+design or layout. Moving it into `services/rural-conversions/` from the
+repository root required exactly four mechanical edits, and nothing else in
+the file was touched:
+
+- `<link rel="canonical">` updated to the page's real URL
+- its stylesheet `<link>` changed from a relative to an absolute path
+  (`/assets/css/main.css`), since the page no longer lives at the root
+- the two self-referencing "Rural Conversions" nav links (header and footer)
+  updated to point at the page's own new URL instead of `/`
+
+Content notes carried over from that page's own brief:
+
+Page copy is authoritative and supplied by the client. Headings are exact:
+the H1/H2/H3 hierarchy carries keyword targets — one H1, ten H2s, exactly
+three H3s (the three planning routes). Project card titles and the bold
+lead-ins in the feasibility, process and qualification sections are styled
+paragraphs, not headings, and should stay that way.
+
+**No square-bracket placeholders may be published.** Currently omitted,
+pending content:
+
+- **Hero image** — renders as a flat tonal block. Replace `div.hero__media`
+  with an `img` once the photograph is supplied.
+- **Project card description and planning route/status lines** — omitted
+  until the planning lead confirms them.
+- **Testimonial block** — deleted. Only a real, attributable rural
+  conversion quote may be added; existing site testimonials must not be
+  reused.
+- **Green Belt guide link** — the brief left the destination URL unfilled,
+  so the link is not rendered.
+
+Two FAQ answers contain facts flagged for confirmation before publication
+(the planning determination periods, and the current Class Q extension
+allowance). Both are marked with `UNCONFIRMED` comments in the file.
+
+The page links out to routes that don't exist yet, so these still 404:
+
+- `/services/consultation`
+- `/services/luxury-architecture` and `/services/heritage-projects` now
+  resolve (to their holding pages); the rest below do not
+- `/projects` and the three individual project pages
+- `/news/class-q-barn-conversion-planning-guide` and `/news/green-belt-guide-2026`
+- the three `/locations/...` county pages
+
+The three `/locations/...` URLs and the three `/projects/...` URLs are
+assumed from this repository's own convention — the copy brief names the
+links but does not give their destinations. Confirm them before launch.

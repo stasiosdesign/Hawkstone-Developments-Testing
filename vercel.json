@@ -5,11 +5,6 @@
       "source": "/blog-posts/class-q-barn-conversion-planning-guide",
       "destination": "/news/class-q-barn-conversion-planning-guide",
       "permanent": true
-    },
-    {
-      "source": "/services/rural-conversions",
-      "destination": "/",
-      "permanent": false
     }
   ]
 }
