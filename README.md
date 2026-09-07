@@ -179,56 +179,88 @@ assumed from this repository's convention, not confirmed.
 
 ### Luxury Architecture (`services/luxury-architecture/index.html`)
 
-One H1, ten H2s, three H3s (the three project types in B4 — bespoke new
-homes, replacement dwellings, complete redesigns). Section order follows the
-brief exactly: Where We Work (B9) and Related Services (B11) are two separate
-sections with the FAQ between them, not merged into one block the way Rural
-and Heritage do it.
+Rebuilt against a new client brief that replaces the page's copy wholesale and
+restructures it. One H1 and eleven H2s, no H3s — the three project types are
+now full H2 sections of their own rather than three H3 cards inside one
+section, which is what the new brief's heading hierarchy specifies.
+
+Structural changes the new brief required:
+
+- The old **Positioning** block ("What 'luxury' means in our work") is replaced
+  by **Design standard** ("Luxury residential architecture, as we practise it")
+  and moves from third to fifth, after the three project types.
+- The old **Planning** block (the four countryside planning routes) is gone.
+  Its Green Belt and Paragraph 84 material is now inside project type one,
+  where the new brief puts it.
+- **Certainty** ("Budget and planning certainty before you commit") is new, and
+  separates the budget/planning argument from the process steps, which the old
+  page combined in one dark section.
+- **Where we work** and **Related services** were two sections with the FAQ
+  between them. The new brief folds territory and the two service boundaries
+  into a single block, so Related Services is gone and its two lines sit under
+  Where We Work.
+- Section order is now hero → statement → three project types → design standard
+  → certainty → projects → who-for → process → FAQ → territory + boundaries →
+  closing CTA.
+
+No new layout was invented: every block reuses a component service-page.css
+already carries (`.prose-split`, `.approach`, `.criteria`, `.cta-band`,
+`.pair`, `.steps`, `.faq`, `.places`, `.boundaries`, `.closing`). The one CSS
+addition is `.pcard__desc`, because this is the first project card on any page
+whose brief supplies a description.
+
+The title tag uses the brief's given 62-character default; both alternatives
+(ARB-confirmed, and the "bespoke-leads" variant if Semrush comes back at 2x or
+more) are in an HTML comment above it.
 
 Omitted, pending content:
-- hero image (Sandboro House Farm or Furs House)
-- the "Knock down and rebuild, or renovate?", "What you can build in the
-  Green Belt" and "cost of building a bespoke home" links — all destination
-  URLs unconfirmed
-- any award claim for Sandboro ("award-winning" is not stated anywhere,
-  because the brief is explicit that it must not appear without the award
-  being named, and none was supplied)
-- project values and client names — not published, per the brief
+- hero image (Sandboro House Farm, exterior)
+- the "Building a new house", "Paragraph 84 homes explained", "Knock down and
+  rebuild", "Green Belt" and "cost of building a bespoke home" links — the
+  brief names all five but supplies no destination URLs
+- Sandboro's award name and year ("confirm before publishing")
+- every project card's planning route and status ("do not state unless
+  confirmed")
+- the testimonial block, which the brief makes conditional on a real,
+  attributable bespoke-home client quote existing
 
-**Project cards — the biggest content gap on this page.** Of the brief's
-three cards, only fragments are confirmed:
-- **Sandboro House Farm**: renders with "Derbyshire" only — the specific town
-  (`[place]`) was left blank in the brief.
-- **Furs House**: renders with no place line at all — neither town nor county
-  was supplied.
-- **Third card**: not rendered. The brief offers two unconfirmed alternative
-  names ("Private Dwelling" / "Primrose Bank") rather than a settled title,
-  so nothing was guessed. The projects grid currently shows two cards, not
-  three (`.pgrid--loose`, sized so two cards sit balanced rather than
-  stretching to fill a phantom third column).
+**The project value range is the one judgement call.** The brief's qualifying
+bullet reads "Your project value is in the region of £500,000 to £3 million and
+you want one practice to design it, gain planning and see it through", followed
+by "[Confirm the range with the client before publishing]". The figure is
+therefore an unconfirmed business claim and is not published; the rest of the
+bullet, which asserts nothing unconfirmed, renders as "You want one practice to
+design it, gain planning and see it through." Publishing the range is a
+one-line change once it is confirmed.
 
-**"Typical project values" (B8) is not on the page at all.** The brief calls
-this "the single most useful qualifying statement on the page" and instructs
-that if no figure is confirmed, a qualitative fallback statement should be
-used instead of deleting the block — but supplies no such statement, only
-instructions for what should eventually go there. Inventing one would mean
-publishing an unconfirmed business claim, so nothing was added. This is the
-single highest-priority gap to close on this page.
+**Sandboro's £1.65m construction value is published**, because this brief
+supplies it as page copy rather than as a bracketed placeholder. That reverses
+the previous brief's instruction to withhold project values.
 
-**Not resolved, blocking publication per the brief's own Part C:**
-1. The Semrush export decision (does "bespoke" or "luxury" lead the title
-   tag) — the brief's own given default title tag is used as-is in the
-   meantime; this only affects a possible future refinement.
-2. ARB status — same handling as Heritage Projects; alternative title in an
-   HTML comment.
-3. Naming the Sandboro award, or confirming there isn't one to name.
-4. Permission to publish project values and client names, and what they are.
-5. **The typical project value range or qualitative statement** — see above.
-6. A real, attributable testimonial, or confirmation to leave it out.
-7. The fate of `/services/design-build`, which the brief says overlaps this
-   page's territory. Nothing in the supplied copy links to that URL, so
-   there's no code change pending on this — it's a site-level decision only.
-8. GA4 key events — not configured.
+**Project cards.** Still two, not three, for the same reason as before:
+- **Sandboro House Farm**: name, "Derbyshire", and the supplied description.
+- **Furs House**: name only — the brief gives `[place]` and a bracketed
+  description placeholder.
+- **Third card**: not rendered. "Private Dwelling, [place]" has no confirmed
+  name, description or status.
+
+**Not resolved, blocking publication per the brief's own build notes:**
+1. ARB status — decides "architects" in the title tag and the intro.
+2. The Semrush volume for "bespoke house/home architects" — decides which
+   title tag variant is used.
+3. The Sandboro award name and year.
+4. The Furs House place and description, and the third project's identity.
+5. The £500k–£3m project range — see above.
+6. The planning determination period. The eight-to-thirteen week figure in FAQ
+   4 is published as written pending sign-off from the client's planning lead,
+   flagged `UNCONFIRMED` in the file — the same handling Rural Conversions uses.
+7. A real, attributable testimonial, or confirmation to leave it out.
+8. The launch redirect the brief specifies —
+   `/news/luxury-architecture-in-derbyshire` and its `/blog-posts/` duplicate →
+   this page. Not configured here; `vercel.json` carries no redirects yet.
+9. The inbound links the brief lists (three county pages, town pages, the five
+   guides, services overview) — none of those pages exist in this repository.
+10. GA4 key events — not configured.
 
 Project page slugs (`/projects/sandboro-house-farm`, `/projects/furs-house`)
 are assumed from this repository's convention, not confirmed.
@@ -245,6 +277,11 @@ been run through Google's Rich Results Test, which needs a public URL.
 
 ## Publication status
 
-Heritage Projects and Luxury Architecture are held on a branch, not merged to
-`main`, per each brief's own instruction to leave the page unpublished until
-its Part C is resolved.
+Everything lives on `main`. This repository uses a single branch by
+instruction — no staging, development or feature branches — so a page being
+on `main` means it is in the testing site, not that it is signed off for the
+public site.
+
+What still blocks public launch is listed per page above: each brief's Part C
+items, the unconfirmed facts held out of the copy, and the destination URLs
+for links the briefs name but do not supply.
