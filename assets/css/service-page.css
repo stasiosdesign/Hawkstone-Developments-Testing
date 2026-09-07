@@ -39,7 +39,7 @@
 
   --radius:3px;
   --maxw:1200px;
-  --gutter:clamp(20px,5vw,64px);
+  --gutter:clamp(16px,3vw,40px);
   --sec-y:clamp(64px,9vw,140px);
   --colgap:clamp(20px,2.6vw,40px);
 

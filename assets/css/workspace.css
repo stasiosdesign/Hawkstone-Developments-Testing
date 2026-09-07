@@ -20,7 +20,7 @@
 
   --radius:6px;
   --maxw:960px;
-  --gutter:clamp(20px,5vw,48px);
+  --gutter:clamp(16px,3vw,32px);
 
   --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
