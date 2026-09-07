@@ -16,13 +16,13 @@ services/listed-buildings/index.html       Listed Buildings — live, built to t
                                               (supersedes and replaces the former Heritage Projects page)
 services/luxury-architecture/index.html    Luxury Architecture — live, held pending Part C
 services/planning-applications/index.html  Planning Applications — live, built to the 7 Sep brief
-services/project-management/index.html     Holding page
+services/project-management/index.html     Project Management — live, built to the 8 Sep brief
 services/3d-visualisations/index.html      3D Visualisations — live, built to the 8 Sep brief
 
 assets/css/main.css          Barn & Rural Conversions' own stylesheet — do not edit
 assets/css/service-page.css  Shared design system for Listed Buildings and Luxury
                               Architecture (and future full service pages)
-assets/css/workspace.css     Styles for the root/services index and holding pages
+assets/css/workspace.css     Styles for the root and services index pages
 assets/js/smooth-scroll.js   Shared Lenis init, loaded on every page except
                               Barn & Rural Conversions
 ```
@@ -44,9 +44,10 @@ service page. The two files can drift from each other over time; that's the
 point. If you need a new component for a future page, add it to
 `service-page.css`, not `main.css`.
 
-`workspace.css` is smaller and separate again, for the root index, services
-index and the still-holding pages — internal-tool chrome, not landing-page
-design.
+`workspace.css` is smaller and separate again, for the root index and the
+services index — internal-tool chrome, not landing-page design. It also
+carries the holding-page styles, though no holding pages are left: all six
+service folders now hold a live page.
 
 ## Smooth scroll (Lenis)
 
@@ -71,7 +72,7 @@ resolves directories with no configuration required.
 | `/services/listed-buildings/` | Listed Buildings — live |
 | `/services/luxury-architecture/` | Luxury Architecture — live, held pending Part C |
 | `/services/planning-applications/` | Planning Applications — live |
-| `/services/project-management/` | Holding page |
+| `/services/project-management/` | Project Management — live |
 | `/services/3d-visualisations/` | 3D Visualisations — live |
 
 To add another service, create `services/<slug>/index.html` and add one
@@ -365,7 +366,8 @@ pages already handle unresolved destinations): `/contact`, `/projects` and
 its three project pages, all four `/news/...` guides, `/services/technical-
 design` (no such folder exists here), and the three `/locations/...` county
 pages. `/services/3d-visualisations` and `/services/project-management`
-resolve to this repository's existing holding pages rather than a bare 404.
+resolve to this repository's own pages (both were holding pages when this
+page was built; both are live now) rather than a bare 404.
 
 **The telephone number is published**, unlike Listed Buildings' final CTA —
 this brief supplies `01332 498 052` as page copy rather than leaving it to
@@ -478,3 +480,109 @@ Not resolved, blocking publication:
    flagged `UNCONFIRMED` in the file and published as written pending client
    sign-off — the same handling the other pages use.
 4. `/services/heritage-projects`, and the other 404 destinations above.
+
+### Project Management (`services/project-management/index.html`)
+
+Built to the 8 Sep brief, which frames the page the same way the 3D
+Visualisations brief did: an isolated visual prototype whose strategy, section
+chronology, heading hierarchy, copy, CTAs and internal links are already final,
+with the visual implementation layer the only work asked for. Every string is
+reproduced verbatim; nothing was reordered, shortened or added. Replaces the
+folder's holding page.
+
+One H1, eight H2s and ten H3s, matching the brief's nine sections one for one
+(the hero carries the H1, and no H2). **Heading levels are only where the brief
+assigns them**, the same rule the other prototype pages follow: the two scope
+columns, the three phase headings, the three project types and the two
+qualification headings are all named as H3 in the brief and are real `<h3>`
+elements; the eight appointment item names, the project name and the nine FAQ
+questions are not, so they are styled paragraphs and `<summary>` text.
+
+**Nine distinct section treatments**, per the brief's requirement that sections
+doing different jobs must not look the same:
+
+1. a split hero with a full-height image, the three body paragraphs at three
+   weights — scene (`.lede`), offer (body), and the institutional line demoted
+   under a rule (`.hero__inst`) — and a primary button beside a secondary text
+   link, never two buttons
+2. a quiet prose split on a tint ground, heading left and body right, with no
+   cards, icons or image (`.prose-split--only`)
+3. the scope contrast (`.scopesplit`): two opposed columns separated by ground
+   and border rather than colour-coded ticks and crosses, identical in padding,
+   heading size and list treatment so the limits are not visually diminished,
+   closed by a full-width bordered statement (`.scopenote`)
+4. the appointment as a sequence (`.phases`): three phase headings held left,
+   the eight items running down a spine on the right with the numerals
+   subordinate to the item names
+5. the single project as an image-led editorial callout on the page's one dark
+   ground (`.evidence`), the photograph given real width and the type held
+   beside it — deliberately not a card grid, which with one project would read
+   as a row missing two items
+6. two movements in one section: the three project types reuse the existing
+   `.audiences` component and each carries a visible route to another service
+   page (`.audience__link`), then a divider (`.qualify`) and the suits /
+   does-not-suit pair run flat and smaller (`.pair--flat`) so it reads as the
+   scanning device it is
+7. a five-stage wayfinding rail (`.stagerail`), horizontal on desktop and
+   stacked on mobile, with the fifth stage marked by rule and colour rather
+   than by any added label, and the Planning applications link quiet beneath it
+8. the existing FAQ accordion held to a reading measure (`.faq--measure`) and
+   left-aligned under its own heading, rather than a fourth heading-left /
+   body-right split
+9. a full-bleed dark closing band (`.closing--tall`) with one primary button
+   and the secondary route as a single line of text carrying an inline link
+   (`.closing__alt`)
+
+All new classes are additions to `service-page.css` — see the comment block at
+the end of that file. `main.css` is untouched.
+
+**The FAQ answers are collapsed but present.** The brief requires every answer
+to be in the served HTML and explicitly permits an accordion; the nine
+`<details>` are closed by default because the section's stated job is letting a
+visitor scan the questions in sequence. This differs from Listed Buildings,
+where the answers are open by default.
+
+**Image placeholders carry no visible label on this page.** The 3D
+Visualisations brief asked for labelled wells because its subject was imagery;
+this brief does not, so the five wells render as flat blocks in line with every
+other page, each with a plain `role="img"` label describing the slot
+("Residential construction in progress") and an HTML comment naming the
+photograph intended for it. Sections 2, 3, 4, 7 and 8 carry no image at all,
+which is what the brief's per-section direction specifies.
+
+**Technical SEO is deliberately absent**, as on 3D Visualisations: the brief
+scopes it out, so the page carries the suggested `<title>` and nothing else —
+no meta description, canonical, Open Graph tags or JSON-LD. Anything built on
+top of this prototype will need them added.
+
+**Link destinations used exactly as the brief specifies.** All nine links use
+the brief's given anchor text and URL, including two that do not resolve here
+and were left as given rather than substituted:
+
+- `/services/heritage-projects` — that page was removed from this repository
+  and every non-prototype page now points at `/services/listed-buildings/`
+  instead. This page follows the 3D Visualisations precedent and uses the
+  brief's URL.
+- `/services/consultation` — still 404, as on every other page.
+
+`/services/rural-conversions` resolves via the existing `vercel.json` redirect
+to `/services/barn-conversions`, so it is not a 404. Also still 404:
+`/contact` and `/projects/55-derby-road`.
+
+Two judgement calls, neither of which touched the copy or the order:
+
+1. **The closing CTA carries no photograph.** The brief calls it the most
+   visually dominant block on the page and asks for full bleed and strong
+   contrast, but not for an image. It is a dark band with the type at scale, so
+   the hero and the project evidence stay the page's two most striking
+   photographic moments, as Section 5's direction asks.
+2. **The hero stays left-aligned at every width.** The shared hero component
+   centres its type below 861px; the brief says the body copy is never centred,
+   so this page overrides that.
+
+Not resolved, blocking publication:
+1. All five photographs — the hero, the 55 Derby Road project, and one each for
+   the three project types.
+2. `/contact`, `/services/consultation`, `/projects/55-derby-road` and
+   `/services/heritage-projects` — none resolve in this repository.
+3. GA4 key events — not configured.

@@ -3,33 +3,381 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Project Management — Hawkstone Site Index</title>
-<meta name="robots" content="noindex, nofollow">
+<!-- Basic title only. This brief scopes technical SEO out of the prototype —
+     no meta description, canonical, og tags, schema or JSON-LD here, the same
+     handling the 3D Visualisations prototype uses. -->
+<title>Residential Project Management and Construction-Stage Support | Hawkstone Developments</title>
 <link rel="stylesheet" href="https://use.typekit.net/aih5mtg.css">
-<link rel="stylesheet" href="/assets/css/workspace.css">
+<link rel="stylesheet" href="/assets/css/service-page.css">
 <link rel="stylesheet" href="/assets/css/landing-shared.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.2.3/dist/lenis.css">
 </head>
 <body>
+<!-- Workspace chrome, not page content — every page in this repository carries
+     it so a reviewer can get back to the directory index. Not part of the page. -->
 <a class="backdir" href="https://hawkstone-developments-testing.vercel.app/">
   <svg class="backdir__arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
     <path d="M19 12H5m0 0 5.5-5.5M5 12l5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
   <span>Back to directory</span>
 </a>
+<a class="skip" href="#main">Skip to content</a>
 
-<main>
-  <div class="wrap">
-    <div class="holding">
-      <span class="holding__tag">Holding page</span>
-      <h1>Project Management</h1>
-      <p>This is a placeholder for the Project Management landing page. It will be replaced with the full page when that work starts.</p>
-      <a class="back" href="/services/">&larr; Back to Services</a>
+<main id="main">
+
+  <!-- ============ 1 · Hero ============
+       Split composition, text-led: the H1 holds a narrow column and the
+       photograph fills the rest. Three body paragraphs at three deliberately
+       different weights — scene, offer, then the institutional line demoted
+       under a rule. Primary button beside a secondary text link, never two
+       buttons. -->
+  <section class="hero hero--split hero--pm">
+    <div class="hero__text">
+      <p class="eyebrow">Construction-stage support</p>
+      <h1>Independent project management through construction</h1>
+      <p class="lede">Planning has been granted, the technical drawings are complete and the contractor is ready to start. This is the point at which most clients lose sight of their own project.</p>
+      <p>Our construction-stage service keeps an informed, independent eye on the work as it is built, so that what goes up reflects what was approved. You get a point of contact who already understands the design, periodic inspections of the work, and a written record of progress.</p>
+      <p class="hero__inst">Hawkstone is an architectural design and planning practice for homes, working across Derbyshire, Staffordshire and Cheshire.</p>
+      <div class="btn-row hero__cta">
+        <a class="btn btn--primary" href="/contact">Discuss construction-stage support</a>
+        <a class="arrowlink" href="#scope"><span>See what&rsquo;s included</span> <span class="arw">&rarr;</span></a>
+      </div>
     </div>
-  </div>
+    <!-- Image: residential construction in progress. -->
+    <div class="hero__media well" role="img" aria-label="Residential construction in progress"></div>
+  </section>
+
+  <!-- ============ 2 · The problem ============
+       Deliberately quiet and text-forward: heading in a narrow left column,
+       body copy in a wider measure to the right. No cards, no icons, no
+       image — its restraint is what makes the scope section land. -->
+  <section class="section section--tint">
+    <div class="wrap">
+      <div class="prose-split prose-split--only">
+        <div class="prose-split__title">
+          <p class="eyebrow">The gap this fills</p>
+          <h2>Where projects lose their thread</h2>
+        </div>
+        <div class="prose-split__body">
+          <p>Once construction begins, the pace of the project changes. Decisions get made on site, questions arrive by phone, and drawings that took months to develop are suddenly being interpreted by people who were not part of the conversation.</p>
+          <p>The concerns clients raise at this stage are consistent. Communication becomes patchy. Timescales drift. Choices are made without them. They are unsure whether what the contractor is asking for is reasonable, who should be coordinating information between the different consultants, and whether the finished building will actually match the approved design.</p>
+          <p>None of that means the contractor is doing anything wrong. It usually means nobody is holding the design side of the project while the building side takes over.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3 · What this service is, and is not ============
+       The contrast has to be legible in under two seconds, so the two columns
+       are separated by ground and border rather than by colour-coded ticks and
+       crosses. Both carry the same padding, heading size and list treatment:
+       the limits are not an apology and are not visually diminished. The
+       closing statement runs full width beneath, set more formally. -->
+  <section class="section section--paper">
+    <div class="wrap">
+      <span class="kicker" aria-hidden="true"></span>
+      <h2>What this service is, and what it is not</h2>
+      <p class="lede measure">This is a defined professional appointment rather than an open-ended promise to run your site. Being exact about it matters, because the two roles are routinely confused.</p>
+
+      <div class="scopesplit">
+        <div class="scopecol scopecol--do">
+          <h3>What we do</h3>
+          <ul class="scopelist">
+            <li>Review the approved design and technical information before work begins</li>
+            <li>Chair a pre-start meeting with you and your contractor</li>
+            <li>Attend agreed site inspections and record what we find</li>
+            <li>Answer the contractor&rsquo;s design questions as they arise</li>
+            <li>Coordinate with specialist consultants and Building Control where required</li>
+            <li>Inspect the substantially completed work and prepare a snagging schedule</li>
+          </ul>
+        </div>
+        <div class="scopecol scopecol--not">
+          <h3>What we do not do</h3>
+          <ul class="scopelist">
+            <li>We do not supervise the site continuously. Inspections are periodic and agreed in advance</li>
+            <li>We do not act as construction manager or take over any part of the contractor&rsquo;s role</li>
+            <li>We are not responsible for site safety</li>
+            <li>We are not responsible for the contractor&rsquo;s workmanship or construction methods</li>
+            <li>We do not direct the trades or manage the build programme</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="scopenote">
+        <p>Your contractor remains responsible for carrying out the work, supervising the trades, maintaining site safety and delivering the project in accordance with the contract and statutory requirements. Our role is to give you an informed point of contact and an independent record of what is happening on your project.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4 · How the appointment works ============
+       The anchor target of the hero's secondary CTA. Sequential rather than a
+       grid of equal cards: three phase headings, visibly stronger than the
+       eight item names, with the items running down a spine and the numerals
+       kept subordinate. Reference content — calm and scannable, not the
+       visual centrepiece of the page. -->
+  <section class="section section--tint" id="scope">
+    <div class="wrap">
+      <p class="eyebrow">Scope</p>
+      <h2>How the appointment works</h2>
+      <p class="lede measure">The number of visits and the exact level of support are agreed in your individual proposal. A typical appointment includes up to two site inspections each calendar month.</p>
+
+      <div class="phases">
+        <div class="phase">
+          <div class="phase__head">
+            <h3>Before work starts</h3>
+          </div>
+          <ul class="phaseitems">
+            <li class="phaseitem">
+              <p><strong>Pre-construction review</strong> We review the approved design, the technical information, consultant requirements and any planning or Building Control matters that affect the construction stage.</p>
+            </li>
+            <li class="phaseitem">
+              <p><strong>Pre-start meeting</strong> We meet you and the contractor to go through the proposed works, the programme, communication arrangements and the key milestones. A written agenda is prepared and issued.</p>
+            </li>
+          </ul>
+        </div>
+
+        <div class="phase">
+          <div class="phase__head">
+            <h3>During construction</h3>
+          </div>
+          <ul class="phaseitems">
+            <li class="phaseitem">
+              <p><strong>Periodic site inspections</strong> Agreed visits to review general progress, visible workmanship and apparent conformity with the approved design information.</p>
+            </li>
+            <li class="phaseitem">
+              <p><strong>Written site reports</strong> After each visit you receive a report recording progress, our observations, recommended actions and the work expected over the following weeks.</p>
+            </li>
+            <li class="phaseitem">
+              <p><strong>Construction-stage communication</strong> Telephone and email support throughout the build, and answers to design-related questions as they come up.</p>
+            </li>
+            <li class="phaseitem">
+              <p><strong>Design and consultant coordination</strong> Liaison with the contractor, specialist consultants and Building Control where reasonably required, to keep project information aligned and respond to issues raised on site.</p>
+            </li>
+          </ul>
+        </div>
+
+        <div class="phase">
+          <div class="phase__head">
+            <h3>Towards completion</h3>
+          </div>
+          <ul class="phaseitems">
+            <li class="phaseitem">
+              <p><strong>Pre-completion inspection</strong> A review of the substantially completed work, and a schedule of visible defects, incomplete items and outstanding work for the contractor to address.</p>
+            </li>
+            <li class="phaseitem">
+              <p><strong>Completion support</strong> We review the status of the recorded items and support communication between you and the contractor as the project moves towards handover, where this is included in your appointment.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5 · Project evidence ============
+       One project, so the layout has to look intentional rather than like a
+       row missing two cards: an image-led editorial callout on the page's one
+       dark ground, the photograph given real width and the type held beside
+       it. One of the page's two most striking moments, with the hero. -->
+  <section class="section section--dark">
+    <div class="wrap">
+      <p class="eyebrow">On site</p>
+      <h2>Work we have supported through construction</h2>
+      <div class="evidence">
+        <!-- Image: the 55 Derby Road project during construction. -->
+        <div class="evidence__media well well--dark" role="img" aria-label="Residential project under construction"></div>
+        <div class="evidence__text">
+          <p class="evidence__name">55 Derby Road, Melbourne</p>
+          <p class="evidence__copy">A Derbyshire home where our involvement continued past the drawings and into the build.</p>
+          <a class="arrowlink" href="/projects/55-derby-road"><span>View the 55 Derby Road project</span> <span class="arw">&rarr;</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6 · When this matters most ============
+       Two movements in one section, deliberately not identical. The three
+       project types are contextual and outward-linking, so each carries a
+       picture and a visible route to another service page. The suits /
+       does-not-suit pair below the divider is a scanning device: the same
+       panel vocabulary the rest of the site uses, run flat and smaller so it
+       never competes with the three types above it. -->
+  <section class="section section--paper">
+    <div class="wrap">
+      <span class="kicker" aria-hidden="true"></span>
+      <h2>When construction-stage support earns its place</h2>
+      <p class="lede measure">Not every project needs it. It matters most where the detail is the point of the project, or where you cannot be on site often enough to catch things as they happen.</p>
+
+      <div class="audiences">
+        <div class="audience">
+          <!-- Image: bespoke home under construction. -->
+          <div class="audience__media well" role="img" aria-label="Bespoke home under construction"></div>
+          <h3>Bespoke and architect-designed homes</h3>
+          <p>Where materials, junctions and finishes were chosen deliberately, substitutions made quickly on site can quietly undo the design.</p>
+          <a class="arrowlink audience__link" href="/services/luxury-architecture"><span>Luxury architecture</span> <span class="arw">&rarr;</span></a>
+        </div>
+        <div class="audience">
+          <!-- Image: barn conversion under construction. -->
+          <div class="audience__media well" role="img" aria-label="Barn conversion under construction"></div>
+          <h3>Rural and barn conversions</h3>
+          <p>Existing structures reveal themselves as work progresses, and decisions often have to be tested against what the approval actually permits.</p>
+          <a class="arrowlink audience__link" href="/services/rural-conversions"><span>Rural conversions</span> <span class="arw">&rarr;</span></a>
+        </div>
+        <div class="audience">
+          <!-- Image: listed building undergoing repair. -->
+          <div class="audience__media well" role="img" aria-label="Listed building undergoing repair"></div>
+          <h3>Heritage and listed properties</h3>
+          <p>Historic fabric, specified materials and the conditions attached to consent all have to be respected as the work is carried out.</p>
+          <a class="arrowlink audience__link" href="/services/heritage-projects"><span>Heritage projects</span> <span class="arw">&rarr;</span></a>
+        </div>
+      </div>
+
+      <div class="qualify">
+        <div class="pair pair--flat">
+          <div class="panel panel--yes">
+            <h3 class="panel__label">This is likely to suit you if</h3>
+            <ul class="ticks">
+              <li>You have planning permission and technical drawings, and construction is about to begin</li>
+              <li>You will not be on site regularly, or would rather not be the person interpreting the drawings</li>
+              <li>You want a written record of progress rather than verbal updates</li>
+              <li>Your project involves details, materials or planning conditions that need to be followed closely</li>
+            </ul>
+          </div>
+          <div class="panel panel--no">
+            <h3 class="panel__label">It is probably not what you need if</h3>
+            <ul class="ticks ticks--neg">
+              <li>You want someone to run the site day to day and manage the trades. That is your contractor&rsquo;s role</li>
+              <li>You are still at design or planning stage, in which case an early conversation is the better starting point</li>
+              <li>Your build is straightforward, your contractor is well known to you, and you can be there regularly</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 7 · Where this sits in the wider process ============
+       Wayfinding, not content: a five-stage rail with a small vertical
+       footprint, the fifth stage marked by rule and colour rather than by any
+       added label, and the Planning applications link kept quiet beneath it. -->
+  <section class="section section--tint section--compact">
+    <div class="wrap">
+      <span class="kicker" aria-hidden="true"></span>
+      <h2>Where this sits in a Hawkstone appointment</h2>
+      <p class="proseblock">Construction support is the final stage of a full architectural appointment. It follows feasibility, concept design, planning and technical design, and can either be included from the outset or added once the earlier stages are complete.</p>
+      <ol class="stagerail">
+        <li class="stage">Consultation and feasibility</li>
+        <li class="stage">Concept design</li>
+        <li class="stage">Planning</li>
+        <li class="stage">Technical design</li>
+        <li class="stage stage--current" aria-current="true">Construction support</li>
+      </ol>
+      <p class="stagerail__foot"><a class="arrowlink" href="/services/planning-applications"><span>Planning applications</span> <span class="arw">&rarr;</span></a></p>
+    </div>
+  </section>
+
+  <!-- ============ 8 · Questions ============
+       Typographically plain and held to a reading measure, left-aligned under
+       its own heading rather than in another heading-left/body-right split.
+       Every answer is present in the served HTML. -->
+  <section class="section section--paper">
+    <div class="wrap">
+      <span class="kicker" aria-hidden="true"></span>
+      <h2>Common questions</h2>
+      <div class="faq faq--measure">
+        <details>
+          <summary>What does a residential construction project manager do?</summary>
+          <div class="answer">
+            <p>In our case, it means holding the design side of a project while it is being built. We review the approved information before work starts, chair a pre-start meeting, inspect the work periodically, report on what we find, coordinate with consultants and Building Control, and inspect the finished work against the approved design.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What is the difference between a project manager and a site manager?</summary>
+          <div class="answer">
+            <p>A site manager works for the contractor and runs the site day to day: sequencing the trades, ordering materials, maintaining safety and keeping the build moving. We work for you, and independently of the contractor. We are not on site every day and we do not direct the work. We check that what is being built matches what was approved, and we tell you what we see.</p>
+          </div>
+        </details>
+        <details>
+          <summary>When should you become involved?</summary>
+          <div class="answer">
+            <p>Before the contractor starts, ideally. The pre-construction review and pre-start meeting are the two points where this appointment does the most good, because they set out how the project will run while everything is still open.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How often will you inspect the work?</summary>
+          <div class="answer">
+            <p>The frequency is agreed in your proposal and is set against the length and complexity of the build. A typical appointment includes up to two inspections a calendar month.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Will I receive a report after every site visit?</summary>
+          <div class="answer">
+            <p>Yes. Each visit is followed by a written report recording progress, our observations, any recommended actions, and the work expected over the following weeks.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Can you check whether the contractor is following the approved design?</summary>
+          <div class="answer">
+            <p>That is the core of the service. Our inspections review general progress, visible workmanship and apparent conformity with the approved design information, and anything that departs from it is recorded in the report and raised with you and the contractor.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Do you coordinate with consultants and Building Control?</summary>
+          <div class="answer">
+            <p>Yes, where it is reasonably required. That includes liaising with the contractor, structural engineers and other specialist consultants, and with Building Control, to keep project information aligned and to respond to issues raised on site.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Do you carry out pre-completion and snagging inspections?</summary>
+          <div class="answer">
+            <p>Yes. As the work approaches completion we inspect the substantially completed building and prepare a schedule of visible defects, incomplete items and outstanding work for the contractor to address. Where it is included in the appointment, we then review the status of those items as the project moves to handover.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How much does construction-stage project management cost?</summary>
+          <div class="answer">
+            <p>Fees depend on the length of the construction programme, the number of inspections and the level of coordination involved, so they are confirmed in your individual proposal rather than quoted as a fixed figure. Tell us what the project is and when it is due to start, and we will set it out.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 9 · Final call to action ============
+       The most dominant block on the page: full-bleed dark ground against the
+       light section before it, generous vertical space, one unmistakable
+       primary action. The secondary route is a single line of text carrying an
+       inline link, not a second button. -->
+  <section class="section section--dark closing closing--tall">
+    <div class="wrap g12">
+      <div class="closing__inner">
+        <h2>Talk to us before work starts on site</h2>
+        <p class="lede">The most useful time to bring us in is before your contractor begins, while the pre-construction review and the pre-start meeting can still shape how the project runs. Tell us what the project is, where it has reached and when it is due to start on site.</p>
+        <div class="btn-row">
+          <a class="btn btn--light" href="/contact">Enquire about construction-stage support</a>
+        </div>
+        <p class="closing__alt">Still at design or planning stage? <a href="/services/consultation">Book a fixed-fee consultation</a></p>
+      </div>
+    </div>
+  </section>
+
 </main>
 
-<script src="/assets/js/smooth-scroll.js"></script>
+<footer class="site-footer">
+  <div class="wrap">
+    <a class="brand" href="/">Hawkstone<small>Architectural Design</small></a>
+    <nav aria-label="Footer">
+      <a href="/services/project-management/">Project Management</a>
+      <a href="/services/3d-visualisations/">3D Visualisations</a>
+      <a href="/services/planning-applications/">Planning Applications</a>
+      <a href="/services/listed-buildings/">Listed Buildings</a>
+      <a href="/services/luxury-architecture/">Luxury Architecture</a>
+      <a href="/services/barn-conversions/">Barn Conversions</a>
+      <a href="/projects">Projects</a>
+      <a href="/contact">Contact</a>
+    </nav>
+  </div>
+</footer>
+
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.2.3/dist/lenis.min.js"></script>
 <script src="/assets/js/smooth-scroll.js"></script>
 </body>

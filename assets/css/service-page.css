@@ -1256,3 +1256,238 @@ p:last-child{margin-bottom:0}
 @media (max-width:900px){
   .closing__bg .well__label{display:none}
 }
+
+/* =========================================================
+   New variants — needed for Project Management, whose brief asks
+   for a visibly different treatment per section and, in
+   particular, for three things no earlier page needed: a scope
+   contrast read at a glance (what we do / what we do not do), a
+   sequential appointment grouped under three phase headings, and
+   a single piece of project evidence that has to look intentional
+   rather than like a project row missing two cards.
+   ========================================================= */
+
+/* 1 · Hero — split, with the third paragraph demoted. The brief
+   asks for three body paragraphs at three different weights: the
+   scene (.lede), the offer (body), and a quiet institutional line
+   that sits under a rule and never competes with either. */
+@media (min-width:861px){
+  .hero--pm{grid-template-columns:minmax(420px,47%) 1fr}
+  .hero--pm .hero__text{max-width:39rem;padding-block:clamp(60px,8vw,112px)}
+  .hero--pm .hero__media{min-height:clamp(420px,62vh,700px)}
+}
+.hero--pm h1{font-size:clamp(2.25rem,4vw,3.5rem);line-height:1.04;margin-bottom:clamp(22px,2.4vw,30px)}
+.hero--pm .lede{margin-bottom:1.05em}
+.hero--pm .hero__text > p{max-width:54ch;margin-inline:auto}
+@media (min-width:861px){.hero--pm .hero__text > p{margin-inline:0}}
+/* The institutional line: quiet, under a rule, never competing with
+   the two paragraphs above it. */
+.hero__inst{
+  margin-top:clamp(22px,2.4vw,30px);padding-top:clamp(18px,2vw,24px);
+  border-top:1px solid var(--rule-2);
+  font-size:.93rem;line-height:1.6;color:var(--muted);
+}
+/* Primary button and secondary text link on one row, at deliberately
+   different weights — the secondary is a link, never a second button. */
+.hero__cta .arrowlink{padding-block:4px}
+
+/* 2 · The problem — an existing prose split used as a whole section
+   rather than as a section intro, so its trailing margin comes off. */
+.prose-split--only{margin-bottom:0}
+.prose-split--only .prose-split__body{max-width:66ch}
+
+/* 3 · Scope contrast — two opposed columns of equal deliberateness,
+   separated by ground and border rather than by colour-coded ticks
+   and crosses, which would read as cheap at this price point. Both
+   columns carry the same padding, the same heading size and the
+   same list treatment; only the ground and the rule change. */
+.scopesplit{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:var(--colgap);margin-top:clamp(38px,4.4vw,58px);align-items:stretch;
+}
+@media (max-width:900px){.scopesplit{grid-template-columns:1fr;gap:24px}}
+.scopecol{border-radius:var(--radius);padding:clamp(28px,3.2vw,48px)}
+.scopecol--do{background:var(--card);border:1px solid var(--rule);border-top:2px solid var(--accent)}
+.scopecol--not{background:var(--paper-3);border:1px solid var(--rule-2);border-top:2px solid var(--ink)}
+.scopecol h3{
+  font-size:clamp(1.28rem,2vw,1.6rem);line-height:1.2;letter-spacing:-.018em;
+  margin:0 0 clamp(24px,2.6vw,32px);padding-bottom:clamp(18px,2vw,24px);
+  border-bottom:1px solid var(--rule);
+}
+.scopecol--not h3{border-bottom-color:var(--rule-2)}
+.scopelist{list-style:none;margin:0;padding:0;display:grid;gap:clamp(16px,1.8vw,22px)}
+.scopelist li{position:relative;padding-left:32px;color:var(--ink-2);line-height:1.58}
+.scopelist li::before{
+  content:"";position:absolute;left:0;top:.62em;width:14px;height:1px;background:var(--accent);
+}
+.scopecol--not .scopelist li::before{background:var(--ink);opacity:.5}
+/* The closing statement runs the full width beneath both columns, set
+   more formally than either of them. */
+.scopenote{
+  margin-top:var(--colgap);background:var(--card);
+  border:1px solid var(--rule-2);border-left:2px solid var(--accent);
+  border-radius:var(--radius);padding:clamp(28px,3.4vw,46px);
+}
+.scopenote p{
+  margin:0;max-width:80ch;color:var(--ink);
+  font-family:var(--serif);font-weight:300;letter-spacing:-.012em;
+  font-size:clamp(1.06rem,1.55vw,1.32rem);line-height:1.46;
+}
+
+/* 4 · The appointment — sequential, grouped under three phase
+   headings of unequal size. A spine with subordinate numerals
+   rather than a grid of equal cards, because the order is the
+   point and the phases are not the same length. Reference content:
+   calm and scannable, never the centrepiece of the page. */
+.phases{counter-reset:pitem}
+.phase{
+  display:grid;grid-template-columns:minmax(0,3.4fr) minmax(0,8.6fr);
+  gap:var(--colgap);
+  margin-top:clamp(34px,4vw,54px);padding-top:clamp(30px,3.4vw,46px);
+  border-top:1px solid var(--rule-2);
+}
+.phase__head h3{
+  font-size:clamp(1.34rem,2.3vw,1.9rem);line-height:1.16;letter-spacing:-.02em;
+  max-width:11ch;position:sticky;top:110px;
+}
+.phaseitems{list-style:none;margin:0;padding:0;position:relative}
+.phaseitems::before{
+  content:"";position:absolute;left:34px;top:.55em;bottom:.5em;
+  width:1px;background:var(--rule);
+}
+.phaseitem{counter-increment:pitem;position:relative;padding:0 0 clamp(26px,3vw,38px) 62px}
+.phaseitem:last-child{padding-bottom:0}
+.phaseitem::before{
+  content:counter(pitem,decimal-leading-zero);position:absolute;left:0;top:.34em;
+  font-family:var(--sans);font-size:.68rem;font-weight:600;letter-spacing:.12em;
+  color:var(--muted);
+}
+.phaseitem::after{
+  content:"";position:absolute;left:34px;top:.62em;width:16px;height:1px;background:var(--accent);
+}
+.phaseitem p{margin:0;color:var(--ink-2);line-height:1.6}
+.phaseitem p strong{
+  display:block;font-family:var(--sans);font-weight:600;font-size:1.03rem;
+  line-height:1.35;margin-bottom:8px;color:var(--ink);
+}
+@media (max-width:900px){
+  .phase{grid-template-columns:1fr;gap:22px}
+  .phase__head h3{position:static;max-width:none}
+}
+@media (max-width:560px){
+  .phaseitems::before{left:26px}
+  .phaseitem{padding-left:50px}
+  .phaseitem::after{left:26px;width:12px}
+}
+
+/* 5 · Project evidence — one photograph given real width, with the
+   project name and its single line of copy held beside it. Not a
+   card grid: with only one project, a grid track would read as a
+   row missing two items. */
+.evidence{
+  display:grid;grid-template-columns:minmax(0,7.4fr) minmax(0,4.6fr);
+  gap:clamp(32px,4.6vw,78px);align-items:center;
+  margin-top:clamp(38px,4.4vw,58px);
+}
+.evidence__media{aspect-ratio:16/10}
+.evidence__name{
+  font-family:var(--serif);font-weight:300;letter-spacing:-.02em;
+  font-size:clamp(1.65rem,3vw,2.5rem);line-height:1.1;
+  color:var(--on-dark);margin:0 0 clamp(18px,2vw,24px);
+}
+.evidence__copy{color:var(--on-dark-2);margin:0 0 clamp(26px,3vw,36px);max-width:34ch}
+@media (max-width:900px){
+  .evidence{grid-template-columns:1fr;gap:clamp(28px,4.4vw,40px)}
+  .evidence__media{aspect-ratio:16/9}
+}
+
+/* 6a · The three project types reuse .audiences / .audience, which
+   already carry a picture, a heading and a short paragraph. All
+   they need is the outward link that makes each one visibly a
+   route to another service page. */
+.audience__link{margin-top:clamp(16px,1.8vw,20px);display:inline-block}
+
+/* 6b · The qualification pair. Same .pair / .panel / .ticks
+   vocabulary as elsewhere on the site, run flat — no boxes, no
+   ground, smaller type — so it reads as the scanning device it is
+   and stays visually lighter than the three project types above it. */
+.qualify{
+  margin-top:clamp(48px,6vw,88px);padding-top:clamp(34px,4vw,52px);
+  border-top:1px solid var(--rule-2);
+}
+.pair--flat{margin-top:0}
+.pair--flat .panel{
+  background:transparent;border:0;border-radius:0;
+  border-top:1px solid var(--rule-2);padding:clamp(20px,2.2vw,26px) 0 0;
+}
+.pair--flat .panel--yes{border-top-color:var(--accent)}
+.pair--flat .panel__label{
+  margin-bottom:clamp(18px,2vw,24px);padding-bottom:0;border-bottom:0;
+}
+.pair--flat .panel__label strong{font-size:clamp(1.04rem,1.4vw,1.18rem)}
+.pair--flat .ticks{gap:15px}
+.pair--flat .ticks li{font-size:.95rem;line-height:1.55}
+
+/* 7 · Stage rail — wayfinding, not content. Five stages across the
+   row on desktop, stacked on mobile, with the stage this page
+   describes marked by rule and colour rather than by any added
+   label. Deliberately the shortest section on the page. */
+.stagerail{
+  list-style:none;margin:clamp(28px,3.2vw,40px) 0 0;padding:0;
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:var(--colgap);counter-reset:stg;
+}
+.stage{
+  counter-increment:stg;border-top:1px solid var(--rule-2);
+  padding-top:16px;color:var(--muted);
+  font-family:var(--serif);font-size:clamp(1rem,1.35vw,1.13rem);
+  line-height:1.28;letter-spacing:-.01em;
+}
+.stage::before{
+  content:counter(stg,decimal-leading-zero);
+  display:block;font-family:var(--sans);font-size:.66rem;font-weight:600;
+  letter-spacing:.16em;color:var(--rule-2);margin-bottom:12px;
+}
+.stage--current{border-top:2px solid var(--accent);color:var(--ink);padding-top:15px}
+.stage--current::before{color:var(--accent)}
+.stagerail__foot{margin-top:clamp(26px,3vw,38px)}
+@media (max-width:860px){
+  .stagerail{grid-template-columns:1fr;gap:0}
+  .stage{padding:14px 0;display:flex;align-items:baseline;gap:16px}
+  .stage::before{margin-bottom:0;flex:none;padding-top:.2em}
+  .stage--current{padding-top:13px}
+}
+
+/* 8 · Questions — the existing accordion held to a reading measure
+   and left-aligned under its own heading, rather than in a split.
+   Three sections on this page already run heading-left/body-right;
+   this one should not be a fourth. */
+.faq--measure{max-width:88ch;margin-top:clamp(32px,3.6vw,48px)}
+
+/* 9 · Closing — a subordinate secondary route: one line of text
+   carrying an inline link, never a second button of equal weight. */
+.closing--tall{padding-block:clamp(84px,11vw,172px)}
+.closing__alt{
+  margin-top:clamp(24px,2.8vw,34px);color:var(--on-dark-2);font-size:.99rem;
+}
+.closing__alt a{
+  color:var(--on-dark);text-decoration:underline;
+  text-decoration-color:rgba(237,237,235,.45);text-underline-offset:4px;
+  transition:text-decoration-color .16s;
+}
+.closing__alt a:hover{text-decoration-color:var(--on-dark)}
+
+/* The two qualification headings are real H3 elements on this page —
+   the brief assigns the level — where other pages carry a styled
+   <strong> inside a paragraph. Same appearance either way. */
+h3.panel__label{font-size:clamp(1.22rem,1.9vw,1.5rem);line-height:1.25;letter-spacing:-.014em}
+.pair--flat h3.panel__label{font-size:clamp(1.04rem,1.4vw,1.18rem)}
+
+/* The shared hero centres its type below 861px. This brief says the body copy
+   is never centred, so this hero stays left-aligned at every width. */
+.hero--pm{text-align:left}
+.hero--pm .eyebrow{justify-content:flex-start}
+.hero--pm h1,
+.hero--pm .lede,
+.hero--pm .hero__text > p{margin-inline:0;text-align:left}
+.hero--pm .hero__cta{justify-content:flex-start}
