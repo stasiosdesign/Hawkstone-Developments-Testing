@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Build / tooling output
+.vercel
+.cache/
+dist/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
