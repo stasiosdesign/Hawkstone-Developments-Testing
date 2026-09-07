@@ -887,3 +887,372 @@ p:last-child{margin-bottom:0}
 .classgrid--three{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media (max-width:760px){.classgrid--three{grid-template-columns:1fr}}
 .classcard__link{margin-top:14px;display:inline-block}
+
+/* =========================================================
+   New variants — needed for 3D Visualisations, whose brief asks
+   for a genuinely different visual treatment in each of its
+   thirteen sections, and which is the first page on the site
+   whose subject matter is imagery itself. Two consequences:
+   almost every section here carries a picture, and the brief
+   explicitly permits (and asks for) a short label inside each
+   image placeholder naming the photograph intended for it —
+   the single exception to the "wells never render visible
+   placeholder text" rule at the top of this file. Only a well
+   given a .well__label carries one, so every existing page's
+   wells are untouched.
+   ========================================================= */
+
+/* Section ground: the deepest of the three light tones, for the
+   one section that should read as a pause rather than a band. */
+.section--stone{background:var(--paper-3)}
+
+/* Labelled image wells ----------------------------------- */
+.well__label{
+  position:relative;z-index:1;max-width:30ch;padding:0 22px;text-align:center;
+  font-family:var(--sans);font-size:.64rem;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+  line-height:1.75;
+}
+.well--dark{background:var(--dark-2)}
+.well--dark::after{border-color:rgba(198,170,113,.16)}
+.well--dark .well__label{color:rgba(180,180,176,.62)}
+
+/* Secondary button. The hero and the closing CTA each pair two
+   real buttons of deliberately different weight, which no earlier
+   page needed — every other page's second action is an .arrowlink. */
+.btn--ghost{background:transparent;color:var(--ink);border-color:var(--rule-2)}
+.btn--ghost:hover{background:transparent;color:var(--accent);border-color:var(--accent)}
+.section--dark .btn--ghost{color:var(--on-dark);border-color:rgba(237,237,235,.34)}
+.section--dark .btn--ghost:hover{color:#fff;border-color:var(--on-dark)}
+
+/* 2 · What you receive — specification split. Heading and intro
+   hold a narrow left column while the deliverables run as a ruled,
+   enumerated list on the right. Deliberately not cards: this is a
+   scope of works and should read like one. */
+.specsplit{
+  display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);
+  gap:var(--colgap) clamp(40px,6vw,110px);align-items:start;
+}
+.specsplit__head h2{margin-bottom:clamp(18px,2.2vw,26px)}
+.specsplit__head .lede{color:var(--ink-2)}
+.speclist{list-style:none;margin:0;padding:0;counter-reset:spec}
+.speclist li{
+  counter-increment:spec;display:grid;grid-template-columns:54px minmax(0,1fr);
+  gap:0 var(--colgap);padding:clamp(19px,2.2vw,27px) 0;border-top:1px solid var(--rule);
+}
+.speclist li:first-child{border-top:1px solid var(--ink)}
+.speclist li:last-child{border-bottom:1px solid var(--rule)}
+.speclist li::before{
+  content:counter(spec,decimal-leading-zero);
+  font-family:var(--sans);font-size:.72rem;font-weight:600;letter-spacing:.12em;
+  color:var(--accent);padding-top:.5em;
+}
+.speclist p{margin:0;color:var(--ink-2);font-size:1.01rem;line-height:1.56}
+.specfoot{
+  margin:clamp(26px,3vw,38px) 0 0;padding-left:calc(54px + var(--colgap));
+  color:var(--ink-2);font-size:.98rem;line-height:1.6;max-width:62ch;
+}
+@media (max-width:900px){
+  .specsplit{grid-template-columns:1fr;gap:clamp(30px,4.4vw,42px)}
+}
+@media (max-width:560px){
+  .speclist li{grid-template-columns:38px minmax(0,1fr);gap:0 14px}
+  .specfoot{padding-left:52px}
+}
+
+/* 3 · Who this is for — three peer audiences carrying a picture
+   each, then the boundary statement as a dark inset panel so it
+   can never be mistaken for a fourth product column. */
+.audiences{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(34px,3.6vw,var(--colgap)) var(--colgap);
+  margin-top:clamp(38px,4.4vw,58px);
+}
+.audience{display:flex;flex-direction:column}
+.audience__media{aspect-ratio:4/3;margin-bottom:20px}
+.audience h3{margin:0 0 14px;padding-top:18px;border-top:2px solid var(--accent);max-width:20ch}
+.audience p{margin:0;color:var(--ink-2);font-size:.97rem;line-height:1.6}
+@media (max-width:900px){
+  .audiences{grid-template-columns:1fr}
+  .audience__media{aspect-ratio:16/9}
+}
+.notpanel{
+  margin-top:clamp(38px,4.4vw,62px);background:var(--dark);color:var(--on-dark);
+  border-radius:var(--radius);padding:clamp(30px,4vw,64px);
+  display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);
+  gap:clamp(22px,3vw,60px);align-items:start;
+}
+.notpanel h3{
+  color:var(--on-dark);max-width:13ch;
+  font-size:clamp(1.28rem,2.2vw,1.8rem);line-height:1.18;letter-spacing:-.018em;
+}
+.notpanel p{margin:0;color:var(--on-dark-2)}
+.notpanel .tlink{color:var(--accent-2);border-bottom-color:rgba(198,170,113,.45)}
+.notpanel .tlink:hover{color:#fff;border-bottom-color:#fff}
+@media (max-width:860px){.notpanel{grid-template-columns:1fr;gap:18px}}
+
+/* 4 · The argument — the quietest section on the page. Largest
+   heading after the H1, two paragraphs in facing columns, and a
+   single wide photograph beneath. No cards, icons or bullets. */
+.argument h2{
+  grid-column:1/10;max-width:15ch;margin-bottom:clamp(34px,4.6vw,62px);
+  font-size:clamp(2rem,4.6vw,3.5rem);line-height:1.04;letter-spacing:-.026em;
+}
+.argument__p1{
+  grid-column:1/7;margin:0;font-family:var(--serif);font-weight:300;
+  font-size:clamp(1.2rem,2vw,1.65rem);line-height:1.44;
+  letter-spacing:-.014em;color:var(--ink);
+}
+.argument__p2{
+  grid-column:8/13;margin:0;color:var(--ink-2);
+  font-size:1.02rem;line-height:1.66;padding-top:.42em;
+}
+.argument__media{grid-column:1/13;margin-top:clamp(46px,6vw,96px);aspect-ratio:21/9}
+@media (max-width:960px){
+  .argument h2{grid-column:1/13}
+  .argument__p1{grid-column:1/13}
+  .argument__p2{grid-column:1/13;margin-top:1.15em;padding-top:0}
+  .argument__media{aspect-ratio:16/9}
+}
+
+/* 5 · CGI and planning — the page's subject shift, so it takes the
+   page's one dark ground and an off-centre composition, picture
+   first, that nothing else on the page repeats. */
+.cgiplan{
+  display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);
+  gap:clamp(34px,5vw,84px);align-items:center;
+}
+.cgiplan__media{aspect-ratio:3/4}
+.cgiplan__text h2{margin-bottom:clamp(24px,2.8vw,34px);max-width:17ch}
+.cgiplan__text p{color:var(--on-dark-2);max-width:60ch}
+.cgiplan__text p:first-of-type{
+  font-family:var(--serif);font-weight:300;color:var(--on-dark);
+  font-size:clamp(1.12rem,1.7vw,1.4rem);line-height:1.48;letter-spacing:-.012em;
+}
+.cgiplan__text p:last-child{
+  margin-top:clamp(24px,2.6vw,32px);padding-top:clamp(20px,2.2vw,26px);
+  border-top:1px solid var(--rule-dark);color:var(--on-dark);
+}
+@media (max-width:960px){
+  .cgiplan{grid-template-columns:1fr;gap:clamp(30px,4.4vw,44px)}
+  .cgiplan__media{aspect-ratio:16/10;order:-1}
+}
+
+/* 6 · Capabilities — the one section on the page where a grid is
+   the right answer. Seven kinds of image, so every item carries a
+   thumbnail and the description sits subordinate to the title. */
+.capgrid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(34px,3.8vw,54px) var(--colgap);margin-top:clamp(38px,4.4vw,58px);
+}
+.capitem__media{aspect-ratio:16/10;margin-bottom:18px}
+.capitem__title{
+  font-family:var(--serif);font-weight:400;letter-spacing:-.014em;
+  font-size:clamp(1.08rem,1.5vw,1.28rem);line-height:1.24;margin:0 0 9px;
+}
+.capitem p{margin:0;color:var(--ink-2);font-size:.93rem;line-height:1.58}
+@media (max-width:900px){.capgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.capgrid{grid-template-columns:1fr;gap:32px}}
+
+/* 7 · Project types — four substantial blocks, not seven small
+   ones, so they run as alternating full-width editorial rows
+   rather than a grid. The fourth carries no link and no picture
+   and closes the section as a quieter note. */
+.ptypes{margin-top:clamp(44px,5vw,72px);display:grid;gap:clamp(48px,6.5vw,104px)}
+.ptype{
+  display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);
+  gap:clamp(30px,4.5vw,80px);align-items:center;
+}
+.ptype:nth-of-type(even) .ptype__media{order:-1}
+.ptype__media{aspect-ratio:4/3}
+.ptype h3{font-size:clamp(1.3rem,2.2vw,1.8rem);line-height:1.16;margin:0 0 18px;max-width:19ch}
+.ptype p{margin:0;color:var(--ink-2)}
+.ptype--note{
+  grid-template-columns:minmax(0,4fr) minmax(0,7fr);
+  gap:clamp(18px,3vw,60px);align-items:start;
+  border-top:1px solid var(--rule-2);padding-top:clamp(34px,4vw,52px);
+}
+.ptype--note h3{font-size:clamp(1.16rem,1.7vw,1.42rem);margin:0;max-width:14ch}
+.ptype--note p{font-size:.99rem;max-width:56ch}
+@media (max-width:900px){
+  .ptype,.ptype--note{grid-template-columns:1fr;gap:clamp(24px,4vw,34px)}
+  .ptype:nth-of-type(even) .ptype__media{order:0}
+  .ptype__media{aspect-ratio:16/10}
+}
+
+/* 8 · Process — seven stages on a continuous spine. The node on
+   each stage is hollow except on the two stages where the client
+   signs something off, which are filled; that is the whole of the
+   decision-point marking, and it adds no words to the page. */
+.timeline{list-style:none;margin:clamp(42px,5vw,70px) 0 0;padding:0;position:relative}
+.timeline::before{
+  content:"";position:absolute;top:0;bottom:0;left:5px;width:1px;background:var(--rule-2);
+}
+.tstep{
+  position:relative;display:grid;
+  grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:4px var(--colgap);
+  padding:clamp(24px,2.8vw,34px) 0 clamp(24px,2.8vw,34px) clamp(38px,4.6vw,76px);
+  border-top:1px solid var(--rule);
+}
+.tstep:first-of-type{border-top:1px solid var(--ink)}
+.tstep:last-of-type{border-bottom:1px solid var(--rule)}
+.tstep::before{
+  content:"";position:absolute;left:0;top:clamp(30px,3.2vw,42px);
+  width:11px;height:11px;border-radius:50%;
+  background:var(--paper);border:1px solid var(--rule-2);
+}
+.tstep--key::before{background:var(--accent);border-color:var(--accent)}
+.tstep__label{
+  margin:0;font-family:var(--serif);font-weight:400;letter-spacing:-.016em;
+  font-size:clamp(1.2rem,1.9vw,1.54rem);line-height:1.18;max-width:17ch;
+}
+.tstep__num{color:var(--accent)}
+.tstep__desc{margin:0;color:var(--ink-2);padding-top:.24em}
+.timefoot{
+  margin-top:clamp(28px,3.2vw,40px);padding-left:clamp(38px,4.6vw,76px);
+  color:var(--ink-2);font-size:.98rem;line-height:1.6;max-width:64ch;
+}
+@media (max-width:860px){
+  .tstep{grid-template-columns:1fr;gap:10px;padding-left:34px}
+  .tstep__label{max-width:none}
+  .tstep::before{top:clamp(27px,3vw,34px)}
+  .timefoot{padding-left:34px}
+}
+
+/* 9 · What we need from you — a short checklist and a document
+   ask, sized as a helpful aside. The CTA is a rule-and-margin
+   note, never a full-width coloured banner: the page has exactly
+   one dominant call to action and it is not this one. */
+.needs{
+  display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);
+  gap:clamp(28px,4vw,80px);align-items:start;
+}
+.needs__body .ticks{gap:16px}
+.needs__note{margin:clamp(26px,3vw,34px) 0 0;color:var(--ink-2);max-width:62ch}
+.aside-cta{
+  margin-top:clamp(30px,3.4vw,42px);border-left:2px solid var(--accent);
+  padding:2px 0 2px clamp(20px,2.2vw,26px);
+  display:flex;flex-wrap:wrap;align-items:center;gap:16px 32px;
+}
+.aside-cta p{margin:0;color:var(--ink-2);font-size:.97rem;max-width:40ch}
+@media (max-width:900px){.needs{grid-template-columns:1fr;gap:clamp(26px,4vw,34px)}}
+@media (max-width:520px){.aside-cta .btn{width:100%}}
+
+/* 10 · Recent work — the visual high point. One dominant lead
+   project over two supporting ones, large pictures and small
+   type, deliberately not the three equal .pcard columns the other
+   service pages use for their portfolios. */
+.work{margin-top:clamp(40px,4.6vw,64px);display:grid;gap:clamp(44px,5vw,76px)}
+.wlead{
+  display:grid;grid-template-columns:minmax(0,8fr) minmax(0,4fr);
+  gap:clamp(28px,3.6vw,60px);align-items:end;
+}
+.wlead__media{aspect-ratio:16/9}
+.wsub{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(30px,3.4vw,var(--colgap))}
+.wcard__media{aspect-ratio:4/3;margin-bottom:20px}
+.wtitle{
+  font-family:var(--serif);font-weight:400;letter-spacing:-.016em;
+  font-size:clamp(1.14rem,1.65vw,1.4rem);line-height:1.22;margin:0 0 12px;
+}
+.wlead .wtitle{font-size:clamp(1.4rem,2.5vw,2.05rem);line-height:1.12;margin-bottom:16px}
+.work p{margin:0 0 18px;color:var(--ink-2);font-size:.96rem;line-height:1.6}
+.workfoot{
+  margin-top:clamp(40px,4.6vw,64px);padding-top:clamp(26px,3vw,36px);
+  border-top:1px solid var(--rule-2);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 40px;
+}
+.workfoot p{margin:0;color:var(--ink-2);font-size:1.02rem}
+@media (max-width:900px){
+  .wlead{grid-template-columns:1fr;gap:24px;align-items:start}
+  .wsub{grid-template-columns:1fr;gap:38px}
+}
+@media (max-width:520px){
+  .workfoot{flex-direction:column;align-items:stretch}
+  .workfoot .btn{width:100%}
+}
+
+/* 11 · How to commission — three structural options, set as ruled
+   columns with no picture and no card body. Compact by design, and
+   visually unlike both the audience cards in section 3 and the
+   capability grid in section 6. */
+.commission{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;
+  margin-top:clamp(36px,4.2vw,56px);border-top:2px solid var(--ink);
+}
+.commit{
+  padding:clamp(24px,2.8vw,36px) clamp(20px,2.2vw,32px);
+  border-left:1px solid var(--rule-2);
+}
+.commit:first-child{border-left:0;padding-left:0}
+.commit:last-child{padding-right:0}
+.commit h3{margin:0 0 15px;max-width:17ch}
+.commit p{margin:0;color:var(--ink-2);font-size:.96rem;line-height:1.6}
+@media (max-width:860px){
+  .commission{grid-template-columns:1fr;border-top:0}
+  .commit{border-left:0;padding:clamp(22px,3vw,28px) 0;border-top:1px solid var(--rule-2)}
+  .commit:first-child{border-top:2px solid var(--ink)}
+}
+
+/* 12 · FAQ — the accordion held beside its heading rather than
+   stacked under it, so the section reads as a two-column reference
+   block. Every answer is in the served HTML. */
+.faqsplit{
+  display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);
+  gap:clamp(30px,4vw,90px);align-items:start;
+}
+.faqsplit__head{position:sticky;top:96px}
+.faqsplit__head h2{max-width:14ch}
+@media (max-width:960px){
+  .faqsplit{grid-template-columns:1fr;gap:clamp(28px,4vw,40px)}
+  .faqsplit__head{position:static}
+  .faqsplit__head h2{max-width:20ch}
+}
+
+/* 13 · Closing — the most dominant element on the page after the
+   hero: full-bleed, a picture filling the whole band, and the two
+   actions carried at scale over it. */
+.closing--media{position:relative;overflow:hidden;padding-block:clamp(96px,14vw,200px)}
+.closing__bg{
+  position:absolute;inset:0;background:var(--dark-2);
+  display:flex;align-items:flex-end;justify-content:center;padding-bottom:22px;
+}
+.closing__bg::after{
+  content:"";position:absolute;inset:18px;
+  border:1px solid rgba(198,170,113,.14);pointer-events:none;
+}
+.closing--media > .wrap{position:relative;z-index:1}
+.closing--media h2{font-size:clamp(2.1rem,5vw,3.9rem);line-height:1.03;letter-spacing:-.026em}
+.closing--media .lede{font-size:clamp(1.06rem,1.5vw,1.28rem)}
+@media (max-width:560px){
+  .closing--media .btn-row{gap:14px}
+  .closing--media .btn-row .btn{width:100%}
+}
+
+/* 1 · Hero, this page only. The H1 is nine words long and the hero carries a
+   second paragraph as well as a lede, so the shared .hero--split proportions
+   (42% text, H1 up to 4.15rem) push the band past 1200px tall and squeeze the
+   heading into five short lines. A wider text column and a smaller top of the
+   type scale bring it back to roughly one screen without changing the shared
+   hero any other page uses. */
+@media (min-width:861px){
+  .hero--viz{grid-template-columns:minmax(440px,50%) 1fr}
+  .hero--viz .hero__text{max-width:37.5rem;padding-block:clamp(56px,7vw,96px)}
+  .hero--viz .hero__media{min-height:clamp(400px,58vh,660px)}
+}
+.hero--viz h1{font-size:clamp(2.15rem,3.7vw,3.2rem);line-height:1.06;margin-bottom:clamp(20px,2.2vw,26px)}
+.hero--viz .lede{margin-bottom:1.05em}
+.hero--viz .hero__text > p:last-of-type{color:var(--muted);font-size:.99rem;max-width:52ch;margin-inline:auto}
+@media (min-width:861px){.hero--viz .hero__text > p:last-of-type{margin-inline:0}}
+
+/* .hero__media is display:block in the shared hero, which stops a labelled
+   well from centring its label. Only wells that carry a label need the flex
+   box back. */
+.well:has(> .well__label){display:flex;align-items:center;justify-content:center}
+
+/* Below 900px the closing band is tall enough for its copy and no more, so the
+   background well's label would sit directly under the secondary button and
+   read as microcopy attached to it. The dark ground still reads as a picture
+   slot, so the label is dropped at that width rather than crowded in. */
+@media (max-width:900px){
+  .closing__bg .well__label{display:none}
+}

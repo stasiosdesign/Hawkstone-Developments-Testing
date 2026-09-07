@@ -17,7 +17,7 @@ services/listed-buildings/index.html       Listed Buildings — live, built to t
 services/luxury-architecture/index.html    Luxury Architecture — live, held pending Part C
 services/planning-applications/index.html  Planning Applications — live, built to the 7 Sep brief
 services/project-management/index.html     Holding page
-services/3d-visualisations/index.html      Holding page
+services/3d-visualisations/index.html      3D Visualisations — live, built to the 8 Sep brief
 
 assets/css/main.css          Barn & Rural Conversions' own stylesheet — do not edit
 assets/css/service-page.css  Shared design system for Listed Buildings and Luxury
@@ -72,7 +72,7 @@ resolves directories with no configuration required.
 | `/services/luxury-architecture/` | Luxury Architecture — live, held pending Part C |
 | `/services/planning-applications/` | Planning Applications — live |
 | `/services/project-management/` | Holding page |
-| `/services/3d-visualisations/` | Holding page |
+| `/services/3d-visualisations/` | 3D Visualisations — live |
 
 To add another service, create `services/<slug>/index.html` and add one
 folder tile linking to it from `services/index.html`.
@@ -108,7 +108,7 @@ built.
 
 ---
 
-## The three live service pages
+## The live service pages
 
 Each page's copy is client-authoritative and supplied wholesale — do not
 rewrite, shorten, expand or paraphrase it, and do not change a finished
@@ -405,3 +405,76 @@ public site.
 What still blocks public launch is listed per page above: each brief's Part C
 items, the unconfirmed facts held out of the copy, and the destination URLs
 for links the briefs name but do not supply.
+
+### 3D Visualisations (`services/3d-visualisations/index.html`)
+
+Built to the 8 Sep brief, which frames the page as an isolated visual
+prototype: the copy, chronology, section selection, CTAs and internal links
+are final and were reproduced verbatim, and the only work asked for was
+visual design. One H1, thirteen H2s and eleven H3s, matching the brief's
+thirteen numbered sections (section 13 carries two H2s — "Where we work" and
+the closing CTA — and the hero carries the H1).
+
+**Heading levels are only where the brief assigns them.** Sections 3, 7 and
+11 name H3 explicitly and use it; sections 6, 8, 10 and 12 do not, so their
+item titles, step labels, project names and FAQ questions are styled
+paragraphs and `<summary>` text rather than promoted headings — the same
+rule Planning Applications already follows with `.route__title`.
+
+**Thirteen distinct section treatments**, per the brief's requirement that
+sections doing different jobs must not look the same: a split hero with a
+full-height image, a ruled enumerated specification split (`.specsplit` /
+`.speclist`), three image-led audience columns closed by a dark inset panel
+(`.audiences` / `.notpanel`), a quiet stone-ground editorial argument with a
+21:9 image (`.argument`), the page's one dark band with an off-centre
+picture-first composition (`.cgiplan`), a seven-item thumbnail grid
+(`.capgrid`), four alternating full-width editorial rows (`.ptypes`), a
+seven-stage timeline on a continuous spine (`.timeline`), a compact
+checklist with a rule-and-margin CTA aside (`.needs` / `.aside-cta`), an
+asymmetric portfolio with one dominant lead project (`.work`), three ruled
+comparison columns (`.commission`), a two-column FAQ accordion
+(`.faqsplit`), and a full-bleed closing band with the picture behind the
+copy (`.closing--media`). All are additions to `service-page.css` — see the
+comment block near the end of that file. `main.css` is untouched.
+
+**Image placeholders carry a label on this page, and only on this page.**
+Every other page renders an unfilled `.well` as a flat block with no visible
+text; this brief explicitly permits, and asks for, a short label naming the
+photograph intended for each block, on the grounds that the subject of the
+page is imagery. Nineteen labelled wells are rendered inside the page,
+plus the closing band's own full-bleed background slot — twenty image
+placeholders in all. The rule is scoped by `.well__label`, so no existing
+page changes. **Every one is a placeholder: no genuine Hawkstone
+visualisation is published here yet.**
+
+**Technical SEO is deliberately absent.** The brief scopes it out, so unlike
+the other four live pages this one carries a `<title>` and nothing else — no
+meta description, canonical, Open Graph tags or JSON-LD. Anything built on
+top of this prototype will need them added.
+
+**Link destinations used exactly as the brief specifies.** All eighteen
+links use the brief's given anchor text and URL. Two of them do not resolve
+in this repository and were left as given rather than substituted, because
+the brief states the link set is final:
+
+- `/services/heritage-projects` — that page was removed from this
+  repository and every other page now points at `/services/listed-buildings/`
+  instead. This page does not follow that substitution.
+- `/services/rural-conversions` — resolves via the existing `vercel.json`
+  redirect to `/services/barn-conversions`, so not a 404.
+
+Still 404 as elsewhere: `/contact`, `/projects` and its three project pages,
+the `/news/...` Green Belt guide, and the three `/locations/...` county
+pages.
+
+Not resolved, blocking publication:
+1. All twenty photographs. The three in "Recent work" must be genuine
+   Hawkstone visualisation work from those projects — the brief says to
+   verify this before launch.
+2. The Sandboro House Farm award name, which the brief asks to be confirmed
+   so it can be stated rather than implied. Nothing about an award appears
+   on the page, stated or implied.
+3. The turnaround figure in FAQ 3 and the pricing shape in FAQ 2, both
+   flagged `UNCONFIRMED` in the file and published as written pending client
+   sign-off — the same handling the other pages use.
+4. `/services/heritage-projects`, and the other 404 destinations above.
