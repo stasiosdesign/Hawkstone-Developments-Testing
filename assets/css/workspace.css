@@ -6,21 +6,21 @@
    and unaffected by anything in here.
    ========================================================= */
 :root{
-  --paper:#FAF7F1;
-  --paper-2:#F0EADF;
-  --card:#FFFDF9;
+  --paper:#FAFAF9;
+  --paper-2:#F2F1EF;
+  --card:#FFFFFF;
 
-  --ink:#1A1916;
-  --ink-2:#3A362E;
-  --muted:#6C6558;
-  --rule:#DFD6C5;
-  --rule-2:#CDC1A9;
+  --ink:#1C1C1B;
+  --ink-2:#3B3B39;
+  --muted:#6B6B67;
+  --rule:#E3E2DF;
+  --rule-2:#CBCAC6;
 
   --accent:#7A6034;
 
   --radius:6px;
-  --maxw:960px;
-  --gutter:clamp(16px,3vw,32px);
+  --maxw:1280px;
+  --gutter:clamp(16px,2.6vw,40px);
 
   --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
@@ -76,7 +76,7 @@ body{
 }
 .folder:hover{
   border-color:var(--accent);transform:translateY(-1px);
-  box-shadow:0 6px 18px rgba(26,25,22,.06);
+  box-shadow:0 6px 18px rgba(28,28,27,.06);
 }
 .folder__icon{color:var(--accent);flex:none}
 .folder__icon svg{display:block;width:30px;height:24px}

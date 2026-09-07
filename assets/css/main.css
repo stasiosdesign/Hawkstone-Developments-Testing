@@ -3,29 +3,29 @@
    Tokens
    ========================================================= */
 :root{
-  --paper:#FAF7F1;
-  --paper-2:#F0EADF;
-  --paper-3:#E5DDCD;
-  --card:#FFFDF9;
+  --paper:#FAFAF9;
+  --paper-2:#F2F1EF;
+  --paper-3:#E6E5E2;
+  --card:#FFFFFF;
 
-  --ink:#1A1916;
-  --ink-2:#3A362E;
-  --muted:#6C6558;
-  --rule:#DFD6C5;
-  --rule-2:#CDC1A9;
+  --ink:#1C1C1B;
+  --ink-2:#3B3B39;
+  --muted:#6B6B67;
+  --rule:#E3E2DF;
+  --rule-2:#CBCAC6;
 
-  --dark:#1E241C;
-  --dark-2:#283025;
-  --on-dark:#EDE8DB;
-  --on-dark-2:#B9B3A4;
-  --rule-dark:rgba(237,232,219,.16);
+  --dark:#1A1A19;
+  --dark-2:#262625;
+  --on-dark:#EDEDEB;
+  --on-dark-2:#B4B4B0;
+  --rule-dark:rgba(237,237,235,.16);
 
   --accent:#7A6034;
   --accent-2:#C6AA71;
 
   --radius:3px;
-  --maxw:1200px;
-  --gutter:clamp(16px,3vw,40px);
+  --maxw:1560px;
+  --gutter:clamp(16px,2.6vw,48px);
   --sec-y:clamp(64px,9vw,140px);
   --colgap:clamp(20px,2.6vw,40px);
 
@@ -130,7 +130,7 @@ p:last-child{margin-bottom:0}
   text-decoration:none;border:1px solid transparent;cursor:pointer;max-width:100%;
   transition:background .17s,color .17s,border-color .17s,transform .17s;
 }
-.btn--primary{background:var(--dark);color:#F7F3EA;border-color:var(--dark)}
+.btn--primary{background:var(--dark);color:#F5F5F4;border-color:var(--dark)}
 .btn--primary:hover{background:var(--accent);border-color:var(--accent)}
 .btn--light{background:var(--paper);color:var(--dark);border-color:var(--paper)}
 .btn--light:hover{background:#fff;border-color:#fff}
