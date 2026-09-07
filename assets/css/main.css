@@ -85,6 +85,14 @@ p:last-child{margin-bottom:0}
 .eyebrow::before{content:"";width:28px;height:1px;background:currentColor;opacity:.5;flex:none}
 .section--dark .eyebrow{color:var(--accent-2)}
 
+/* Section mark. Sections carry no label copy, so the anchor above each H2 is a
+   rule rather than a word — the visual role the eyebrow played, without text. */
+.kicker{
+  display:block;width:34px;height:1px;background:var(--accent);
+  opacity:.65;margin:0 0 26px;
+}
+.section--dark .kicker{background:var(--accent-2)}
+
 .smallcaps{
   font-size:.72rem;font-weight:600;letter-spacing:.15em;
   text-transform:uppercase;color:var(--muted);
@@ -131,12 +139,8 @@ p:last-child{margin-bottom:0}
 /* =========================================================
    Content slots (unfilled copy placeholders)
    ========================================================= */
-.slot{
-  display:block;font-family:var(--sans);font-size:.8rem;line-height:1.5;
-  color:#857A62;background:rgba(205,193,169,.13);
-  border:1px dashed var(--rule-2);border-radius:var(--radius);
-  padding:11px 13px;
-}
+/* Image wells. Tonal panels standing in for photography that has not been
+   supplied yet; they render as flat blocks, never as visible placeholder text. */
 .well{
   position:relative;background:var(--paper-3);overflow:hidden;
   display:flex;align-items:center;justify-content:center;
@@ -145,15 +149,16 @@ p:last-child{margin-bottom:0}
   content:"";position:absolute;inset:14px;border:1px solid rgba(122,96,52,.12);
   pointer-events:none;
 }
-.well__label{
-  position:relative;z-index:1;max-width:34ch;text-align:center;
-  font-size:.79rem;line-height:1.55;color:#8A7F68;padding:24px;
+
+/* Bold lead-in opening a paragraph — sits on its own line above the sentence it
+   introduces. Used for the feasibility criteria and the process steps, which are
+   body copy with emphasis, not headings, so they take no heading level. */
+.criteria p strong,
+.steps p strong,
+.panel__label strong{
+  display:block;font-family:var(--sans);font-weight:600;
+  font-size:1.05rem;line-height:1.35;margin-bottom:9px;
 }
-.note{
-  font-size:.82rem;line-height:1.55;color:var(--muted);
-  border-left:2px solid var(--rule-2);padding:1px 0 1px 16px;margin:0;
-}
-.notes{display:grid;gap:16px;margin-top:clamp(30px,3.4vw,44px);max-width:76ch}
 
 /* =========================================================
    Header
@@ -346,17 +351,14 @@ p:last-child{margin-bottom:0}
 .criteria{list-style:none;margin:0;padding:0}
 .criteria > li{padding:clamp(20px,2.2vw,28px) 0;border-top:1px solid var(--rule)}
 .criteria > li:first-child{border-top:0;padding-top:0}
-.criteria h3{
-  font-size:1.06rem;margin-bottom:9px;font-family:var(--sans);
-  font-weight:600;letter-spacing:.005em;
-}
 .criteria p{margin:0;color:var(--ink-2)}
+.criteria p strong{color:var(--ink)}
 .criteria .fallback{
   margin-top:clamp(22px,2.4vw,30px);background:var(--paper-2);
   border:1px solid var(--rule);border-left:2px solid var(--accent);
   border-radius:var(--radius);padding:clamp(22px,2.4vw,30px);
 }
-.criteria .fallback h3{color:var(--accent)}
+.criteria .fallback p strong{color:var(--accent)}
 
 .cta-band{
   margin-top:clamp(40px,5vw,68px);border:1px solid var(--rule-2);
@@ -407,14 +409,18 @@ p:last-child{margin-bottom:0}
   aspect-ratio:4/5;margin-bottom:22px;
 }
 @media (max-width:900px){.pcard__media{aspect-ratio:16/10}}
-.pcard h3{margin-bottom:6px;transition:color .16s}
-.pcard:hover h3{color:var(--accent)}
+/* Card titles are project names, not section headings — styled as headings,
+   deliberately outside the H2/H3 hierarchy the page's keyword targets use. */
+.pcard__title{
+  font-family:var(--serif);font-weight:400;letter-spacing:-.014em;
+  font-size:1.18rem;line-height:1.25;margin:0 0 6px;transition:color .16s;
+}
+.pcard:hover .pcard__title{color:var(--accent)}
 .pcard:hover .arw{transform:translateX(4px)}
 .pcard:hover .pcard__foot span:first-child{border-bottom-color:var(--accent)}
 .pcard .well::after{transition:border-color .18s}
 .pcard:hover .well::after{border-color:rgba(122,96,52,.3)}
-.pcard__place{margin:0 0 18px}
-.pcard__meta{display:grid;gap:8px;margin-bottom:22px}
+.pcard__place{margin:0 0 clamp(22px,2.4vw,30px)}
 .pcard__foot{margin-top:auto}
 
 /* =========================================================
@@ -431,9 +437,13 @@ p:last-child{margin-bottom:0}
 }
 .panel--yes{background:var(--card);border-top:2px solid var(--accent)}
 .panel--no{background:transparent;border-top:2px solid var(--rule-2)}
-.panel h3{
-  font-size:clamp(1.22rem,1.9vw,1.5rem);margin-bottom:clamp(22px,2.4vw,30px);
+.panel__label{
+  margin:0 0 clamp(22px,2.4vw,30px);
   padding-bottom:clamp(18px,2vw,24px);border-bottom:1px solid var(--rule);
+}
+.panel__label strong{
+  font-family:var(--serif);font-weight:400;letter-spacing:-.014em;
+  font-size:clamp(1.22rem,1.9vw,1.5rem);line-height:1.25;margin-bottom:0;
 }
 .ticks{list-style:none;margin:0;padding:0;display:grid;gap:20px}
 .ticks li{position:relative;padding-left:32px;color:var(--ink-2)}
@@ -468,8 +478,8 @@ p:last-child{margin-bottom:0}
   width:1px;background:var(--rule-dark);
 }
 .steps li:last-child::after{display:none}
-.steps h3{font-size:1.14rem;margin-bottom:9px;color:var(--on-dark)}
 .steps p{margin:0;color:var(--on-dark-2)}
+.steps p strong{color:var(--on-dark)}
 @media (max-width:600px){
   .steps li{padding-left:62px}
   .steps li::before{width:40px;height:40px;font-size:.86rem}
@@ -496,7 +506,6 @@ p:last-child{margin-bottom:0}
 }
 .faq summary::-webkit-details-marker{display:none}
 .faq summary:hover{color:var(--accent)}
-.faq details[open] summary{color:var(--accent)}
 .faq summary::after{
   content:"";position:absolute;right:10px;top:50%;width:10px;height:10px;
   border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
@@ -531,20 +540,22 @@ p:last-child{margin-bottom:0}
 .countylinks a:hover{color:var(--accent)}
 .countylinks a:hover .arw{transform:translateX(4px)}
 
-.related{
+/* Boundary statements: where this service stops and another one starts. Paired
+   columns, set quieter than the section above them. */
+.boundaries{
   margin-top:clamp(48px,6vw,86px);padding-top:clamp(34px,4vw,52px);
   border-top:1px solid var(--rule-2);
 }
-.related__title{grid-column:1/4}
-.related__title h3{font-size:1.16rem}
-.related__cols{
-  grid-column:5/13;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:var(--colgap);
+.boundaries p{
+  margin:0;color:var(--ink-2);font-size:.98rem;line-height:1.6;
 }
-.related__cols p{margin:0;color:var(--ink-2);font-size:.98rem}
+.boundaries p:first-child{grid-column:1/6}
+.boundaries p:last-child{grid-column:8/13}
+.boundaries strong{font-weight:500;color:var(--ink)}
 @media (max-width:900px){
-  .related__title{grid-column:1/13;margin-bottom:22px}
-  .related__cols{grid-column:1/13;grid-template-columns:1fr;gap:20px}
+  .boundaries p:first-child,
+  .boundaries p:last-child{grid-column:1/13}
+  .boundaries p:last-child{margin-top:20px}
 }
 
 /* =========================================================
