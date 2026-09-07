@@ -161,13 +161,6 @@ p:last-child{margin-bottom:0}
   max-width:62ch;
   margin-inline:auto;
 }
-/* Second hero paragraph: the practice statement, set below the lede and quieter
-   than it. Same measure so both paragraphs share one centred column. */
-.hero__body{
-  max-width:62ch;
-  margin-inline:auto;
-  color:var(--ink-2);
-}
 .hero__cta{
   margin-top:clamp(30px,3.6vw,44px);
   justify-content:center;
