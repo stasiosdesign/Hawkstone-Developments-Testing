@@ -34,9 +34,12 @@ no JS) and a JSON-LD `<script>` block.
 
 ## Why there are two nearly-identical stylesheets
 
-`main.css` is the Barn & Rural Conversions page's own file. That page is
-finished, client-approved work and **must never be edited** — not even as a
-side effect of styling something else. `service-page.css` is a fork of it
+`main.css` is the Barn & Rural Conversions page's own file. It was previously
+held as untouchable — the page is finished, client-approved work, and nothing
+done elsewhere was allowed to reach it. That rule was lifted for the site-wide
+design refinement below, which was explicitly asked to cover every page; the
+separation is otherwise unchanged, and work on any *other* page still has no
+business in this file. `service-page.css` is a fork of it
 (same tokens, layout primitives, typography and component vocabulary, plus a
 handful of new section variants — see the comment at its head) used by
 Listed Buildings and Luxury Architecture, and available for any future
@@ -586,3 +589,88 @@ Not resolved, blocking publication:
 2. `/contact`, `/services/consultation`, `/projects/55-derby-road` and
    `/services/heritage-projects` — none resolve in this repository.
 3. GA4 key events — not configured.
+
+---
+
+## Site-wide design refinement
+
+A pass over all eight pages to improve spacing, hierarchy, alignment and
+composition. **No copy was changed anywhere** — the visible text of every page
+is byte-identical before and after, as are all headings, every `href` and all
+Service/FAQPage JSON-LD. The work is CSS, plus the smallest structural changes
+needed to let the CSS do its job. No JavaScript was added.
+
+### Defects fixed
+
+- **An H2 with no space beneath it.** `h2` carries no bottom margin by design,
+  and the components that pair a heading with a rail, a panel or a grid supply
+  the space themselves. Sections that set an intro paragraph directly under the
+  H2 had nothing at all, so heading and copy ran together as one block —
+  Planning Applications sections 3 and 5, and Project Management sections 3, 4
+  and 6. Handled once, in `service-page.css`.
+- **Section-closing rules that stopped part-way across.** `.sectionfoot` (and
+  `.splitprose__close` / `.cost__close`) capped `max-width` for measure, which
+  also truncated the rule above the text — a hairline ending at 45% under a
+  four-column grid read as a rendering fault. The rule now runs the container's
+  full width; the measure is held with padding.
+- **A three-track project grid holding two cards.** Luxury Architecture's
+  `.pgrid--loose` capped cards at 320px, leaving half the row empty and reading
+  as a missing third card. It is now a full-width pair of landscape cards.
+  Listed Buildings, which has three confirmed cards, used the same modifier and
+  now uses plain `.pgrid`.
+- **A margin note anchored to nothing.** `.approach__note` was auto-placed into
+  whichever grid row came next, so its rule floated mid-band. Pinned to the
+  first row it reads as a note beside the argument it qualifies.
+- **A heading dropped below its own copy.** `.places` bottom-aligned the title
+  against a five- or six-line body. Both columns now start together.
+- **Two `<script>` tags for `smooth-scroll.js`** on both index pages, the first
+  a no-op before Lenis had loaded. The redundant one is gone.
+
+### Composition
+
+- **Luxury Architecture's three project types** (sections B2–B4) were three
+  consecutive runs of the same heading-left / prose-right split and read as
+  three unrelated essays rather than three parallel answers to "which of these
+  is your project?". A running index and a ruled top edge (`.prose-split--type`)
+  make the set legible. The numerals are generated content; the page's own copy
+  is untouched.
+- **Planning Applications' post-refusal routes** are a choice, not a sequence.
+  Run flat in one column they read as three more paragraphs of the argument
+  above them; they now run as three peers under one rule (`.criteria--three`).
+- **Planning Applications' hero.** Its eleven-word H1 set as seven lines of
+  display type in the shared split hero. `.hero--plan` gives it a wider column
+  and a lower top to the type scale — the same treatment `.hero--viz` and
+  `.hero--pm` already carry.
+- **Listed Buildings' process stepper** ran six stages across the full
+  container, leaving each a ~22-character measure and breaking half the titles
+  over two lines. It now runs three-up in two rows.
+- **The 3D Visualisations capability grid** held seven thumbnails in three
+  tracks (3/3/1). Four tracks above 1180px gives 4/3.
+- **Prose bands** now open on a serif lead statement rather than three equal
+  paragraphs, and Listed Buildings' guide link is set apart as the signpost it
+  is rather than a fourth paragraph of argument.
+- **The CTA band's prompt** is the reason the button is there; at caption size
+  and muted it left the button stranded at the far end of the band. It is now
+  set as a statement.
+- **Centred hero headlines** were capped at 20ch, which broke both the Luxury
+  Architecture and Barn Conversions H1s into four lines with a stranded short
+  line. 23ch lets `text-wrap:balance` settle them into three.
+- **Barn Conversions' `.splitprose` heading** now tracks its copy, the same
+  sticky rail the cost section on that page already used, instead of sitting at
+  the top of a column empty for the rest of the section. Its project cards carry
+  no link text — the card is the link — so the lone arrow is set against a rule
+  at the end of the card rather than left loose under the description.
+- **The workspace indexes** are sized so the six service folders land as one
+  even row rather than five and a stray sixth, and a rule closes the page head.
+
+### Left alone
+
+3D Visualisations and Project Management needed no markup changes at all — both
+were built to briefs that already demanded a distinct treatment per section, and
+they were the two strongest pages going in. Listed Buildings' text/image splits,
+deliverables panel and dark editorial band, Luxury Architecture's qualification
+pair and process steps, and every FAQ accordion were already doing their job and
+were not touched beyond the shared fixes above.
+
+Checked at 390, 768, 1024, 1440 and 1920px: no horizontal overflow on any page
+at any of those widths.

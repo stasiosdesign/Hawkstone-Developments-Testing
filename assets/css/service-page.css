@@ -195,7 +195,9 @@ p:last-child{margin-bottom:0}
 .hero .eyebrow{justify-content:center}
 .hero h1{
   margin-bottom:clamp(22px,2.4vw,30px);
-  max-width:20ch;
+  /* 20ch broke a two-clause headline into four lines with a stranded short
+     line; 23ch lets text-wrap:balance settle it into three. */
+  max-width:23ch;
   margin-inline:auto;
 }
 .hero .lede{
@@ -230,7 +232,7 @@ p:last-child{margin-bottom:0}
     align-items:stretch;text-align:left;padding-block:0;column-gap:clamp(40px,5vw,88px);
   }
   .hero--split .hero__text{
-    max-width:46ch;margin-inline:0;align-self:center;
+    max-width:52ch;margin-inline:0;align-self:center;
     padding-block:clamp(64px,9vw,120px);padding-left:var(--gutter);
   }
   .hero--split .eyebrow{justify-content:flex-start}
@@ -380,11 +382,18 @@ p:last-child{margin-bottom:0}
 .cta-band{
   margin-top:clamp(40px,5vw,68px);border:1px solid var(--rule-2);
   border-radius:var(--radius);background:var(--card);
-  padding:clamp(26px,3.2vw,42px);
+  padding:clamp(26px,3.2vw,42px) clamp(26px,3.4vw,48px);
   display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
-  gap:24px 40px;
+  gap:24px clamp(40px,5vw,72px);
 }
-.cta-band p{margin:0;max-width:46ch;color:var(--ink-2);font-size:.98rem}
+/* The prompt is the reason the button is there, so it is set as a statement
+   rather than as caption-sized body copy — at 0.98rem muted it left the button
+   stranded at the far end of a band with nothing holding the other. */
+.cta-band p{
+  margin:0;max-width:52ch;color:var(--ink);
+  font-family:var(--serif);font-weight:300;letter-spacing:-.011em;
+  font-size:clamp(1.04rem,1.45vw,1.26rem);line-height:1.45;
+}
 .cta-band .btn{flex:0 1 auto}
 @media (max-width:620px){
   .cta-band,.process__foot{flex-direction:column;align-items:stretch}
@@ -400,14 +409,18 @@ p:last-child{margin-bottom:0}
   font-size:clamp(1.16rem,1.85vw,1.5rem);line-height:1.45;
   color:var(--on-dark);letter-spacing:-.012em;
 }
+/* Auto-placement dropped this into whichever row was next, so its rule floated
+   against nothing. Pinned to the first row it becomes a margin note beside the
+   argument it qualifies, and the band stops reading half-empty on the right. */
 .approach__note{
-  grid-column:9/13;color:var(--on-dark-2);font-size:.95rem;line-height:1.62;
+  grid-column:9/13;grid-row:2;align-self:start;
+  color:var(--on-dark-2);font-size:.95rem;line-height:1.62;
   border-top:1px solid var(--rule-dark);padding-top:22px;
 }
 @media (max-width:960px){
   .approach h2{grid-column:1/13}
   .approach__lead{grid-column:1/13}
-  .approach__note{grid-column:1/13;margin-top:30px}
+  .approach__note{grid-column:1/13;grid-row:auto;margin-top:30px}
 }
 
 /* =========================================================
@@ -513,6 +526,9 @@ p:last-child{margin-bottom:0}
   display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px 40px;
 }
 .process__foot p{margin:0;max-width:38ch;color:var(--on-dark);font-size:1.06rem}
+/* On pages where the footer is a closing note rather than a note beside a
+   button, 38ch strands it as a narrow column under a full-width rule. */
+.process__foot p:only-child{max-width:70ch}
 @media (max-width:960px){.process__foot{grid-column:1/13}}
 
 /* =========================================================
@@ -539,9 +555,13 @@ p:last-child{margin-bottom:0}
 /* =========================================================
    10 · Where we work + related services
    ========================================================= */
-.places{align-items:end;margin-bottom:clamp(34px,4vw,50px)}
+/* Territory head. Bottom-aligning the title against a five- or six-line body
+   dropped the H2 most of a paragraph below the copy it belongs to, reading as
+   a mistake rather than a device; both columns now start together, with the
+   body nudged onto the heading's first line. */
+.places{align-items:start;margin-bottom:clamp(34px,4vw,50px)}
 .places__title{grid-column:1/7}
-.places__body{grid-column:7/13;color:var(--ink-2)}
+.places__body{grid-column:7/13;color:var(--ink-2);padding-top:.5em;max-width:60ch}
 @media (max-width:900px){
   .places__title{grid-column:1/13}
   .places__body{grid-column:1/13;padding-top:22px}
@@ -680,10 +700,12 @@ p:last-child{margin-bottom:0}
 .callout-panel p{margin:0;color:var(--ink-2)}
 .section--dark .callout-panel p{color:var(--on-dark-2)}
 
-/* Projects grid sized for fewer than three confirmed cards — cards
-   stay a fixed, balanced width instead of stretching to fill a
-   forced 3-column track. */
-.pgrid--loose{grid-template-columns:repeat(auto-fit,minmax(280px,320px))}
+/* Projects grid for two confirmed cards. Capping the cards at 320px on a
+   three-track row left half the container empty and read as a missing third
+   card; a full-width pair of landscape cards reads as the pair it is. */
+.pgrid--loose{grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(28px,3.4vw,56px)}
+.pgrid--loose .pcard__media{aspect-ratio:16/10}
+@media (max-width:900px){.pgrid--loose{grid-template-columns:1fr}}
 
 /* =========================================================
    New variants — needed for Listed Buildings, whose brief asks
@@ -721,7 +743,12 @@ p:last-child{margin-bottom:0}
 .sectionfoot{
   margin-top:clamp(30px,3.4vw,44px);padding-top:clamp(24px,2.6vw,32px);
   border-top:1px solid var(--rule-2);color:var(--ink-2);
-  font-size:.98rem;line-height:1.6;max-width:64ch;
+  font-size:.98rem;line-height:1.6;
+  /* The rule closes the whole section, so it runs the container's full width;
+     capping max-width instead stopped it part-way across a four-column grid
+     or a pair of panels, which read as a rendering fault. The measure is held
+     by padding, so only the text is constrained. */
+  max-width:none;padding-right:max(0px, 100% - 64ch);
 }
 
 /* 3/4 · Text/image split — a narrow prose column beside a single
@@ -797,14 +824,15 @@ p:last-child{margin-bottom:0}
   .approach--media .approach__media{grid-column:1/13;margin-top:clamp(34px,4.4vw,52px);aspect-ratio:16/10}
 }
 
-/* 8 · Light horizontal stepper — six stages as bordered columns with
-   a circled numeral, running the row on desktop and stacking on
-   mobile. Kept on a light background and deliberately unlike the
-   dark connected-circle .steps used elsewhere, so the process reads
-   as its own distinct layout on the page. */
+/* 8 · Light stepper — six stages as bordered columns with a circled
+   numeral, reading left to right and down. Six across the full container
+   left each stage a ~22-character measure and broke half the titles over
+   two lines, so the sequence runs three-up in two rows instead. Kept on a
+   light background and deliberately unlike the dark connected-circle
+   .steps used elsewhere, so the process reads as its own layout. */
 .stepper{
-  display:grid;grid-template-columns:repeat(6,minmax(0,1fr));
-  gap:clamp(28px,3vw,var(--colgap)) var(--colgap);
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(36px,4vw,56px) var(--colgap);
   margin-top:clamp(40px,4.6vw,64px);counter-reset:sp;
   list-style:none;padding:0;margin-left:0;
 }
@@ -818,11 +846,14 @@ p:last-child{margin-bottom:0}
 }
 .stepitem h3{font-size:1.04rem;margin-bottom:10px;max-width:16ch}
 .stepitem p{margin:0;color:var(--ink-2);font-size:.92rem;line-height:1.55}
-@media (max-width:1100px){.stepper{grid-template-columns:repeat(3,minmax(0,1fr));gap:36px 28px}}
+@media (max-width:860px){.stepper{grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 28px}}
 @media (max-width:640px){
   .stepper{grid-template-columns:1fr;gap:0}
   .stepitem{padding:22px 0;border-top:1px solid var(--rule-2)}
   .stepitem:first-child{border-top:2px solid var(--rule-2)}
+  /* One stage per row: the 16ch cap the columns need only breaks the longer
+     titles over three lines here. */
+  .stepitem h3{max-width:none}
 }
 
 /* FAQ questions as real <h3> elements inside <summary> — this
@@ -850,6 +881,9 @@ p:last-child{margin-bottom:0}
 .criteria--grid{
   display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
   gap:0 var(--colgap);
+  /* The first row carries no top rule, so without this the opening item ran
+     straight on from the section intro as if it were the next paragraph. */
+  margin-top:clamp(32px,3.8vw,52px);
 }
 .criteria--grid > li{border-top:1px solid var(--rule);padding:clamp(20px,2.2vw,28px) 0}
 .criteria--grid > li:nth-child(-n+2){border-top:0;padding-top:0}
@@ -866,6 +900,7 @@ p:last-child{margin-bottom:0}
   display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);
   gap:var(--colgap);align-items:start;
 }
+.appraisal__text h2{margin-bottom:clamp(20px,2.4vw,30px)}
 .appraisal__text p{color:var(--ink-2)}
 .appraisal__links{display:grid;gap:0;align-content:start}
 .appraisal__links .eyebrow{margin-bottom:18px}
@@ -970,7 +1005,13 @@ p:last-child{margin-bottom:0}
 }
 .audience{display:flex;flex-direction:column}
 .audience__media{aspect-ratio:4/3;margin-bottom:20px}
-.audience h3{margin:0 0 14px;padding-top:18px;border-top:2px solid var(--accent);max-width:20ch}
+/* The accent rule belongs to the column, not to the length of the title, so
+   the heading runs the full track and holds its measure with padding — capped
+   by max-width the rule stopped short and read as a truncation. */
+.audience h3{
+  margin:0 0 14px;padding-top:18px;border-top:2px solid var(--accent);
+  max-width:none;padding-right:max(0px, 100% - 22ch);
+}
 .audience p{margin:0;color:var(--ink-2);font-size:.97rem;line-height:1.6}
 @media (max-width:900px){
   .audiences{grid-template-columns:1fr}
@@ -1051,6 +1092,7 @@ p:last-child{margin-bottom:0}
   font-size:clamp(1.08rem,1.5vw,1.28rem);line-height:1.24;margin:0 0 9px;
 }
 .capitem p{margin:0;color:var(--ink-2);font-size:.93rem;line-height:1.58}
+@media (min-width:1180px){.capgrid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media (max-width:900px){.capgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.capgrid{grid-template-columns:1fr;gap:32px}}
 
@@ -1491,3 +1533,117 @@ h3.panel__label{font-size:clamp(1.22rem,1.9vw,1.5rem);line-height:1.25;letter-sp
 .hero--pm .lede,
 .hero--pm .hero__text > p{margin-inline:0;text-align:left}
 .hero--pm .hero__cta{justify-content:flex-start}
+
+/* =========================================================
+   Site-wide design refinement. Three classes of change, all
+   of them structural or typographic — no copy is affected:
+
+   1. a missing space between a section's H2 and its own intro
+      copy, which several sections had set to nothing at all;
+   2. a hero variant for the one page whose H1 is long enough
+      to break over seven lines in the shared split hero;
+   3. a variant for Luxury Architecture's three project types,
+      which were three consecutive runs of the same
+      heading-left / prose-right split.
+   ========================================================= */
+
+/* 1 · Section intro. h2 carries no bottom margin by design, and the
+   components that pair a heading with a rail, a panel or a grid supply the
+   space themselves. Sections that simply set their intro paragraph directly
+   under the H2 had nothing at all, so the two ran together as one block.
+   .section--compact already gives its H2 a bottom margin, so it is left out
+   rather than given the space twice. */
+.section:not(.section--compact) > .wrap > h2 + p,
+.section:not(.section--compact) > .wrap > h2 + .proseblock{
+  margin-top:clamp(20px,2.4vw,30px);
+}
+
+/* 2 · Planning Applications' hero. Its H1 is eleven words; in the shared
+   split hero's column it set as seven lines of display type and pushed the
+   photograph past two screens. Same treatment the 3D Visualisations and
+   Project Management heroes already use: a wider text column and a lower
+   top to the type scale, leaving the shared hero untouched. */
+@media (min-width:861px){
+  .hero--plan{grid-template-columns:minmax(430px,49%) 1fr}
+  .hero--plan .hero__text{max-width:40rem;padding-block:clamp(60px,8vw,108px)}
+  .hero--plan .hero__media{min-height:clamp(420px,62vh,720px)}
+}
+.hero--plan h1{font-size:clamp(2.2rem,3.7vw,3.15rem);line-height:1.06;margin-bottom:clamp(22px,2.4vw,30px)}
+.hero--plan .lede{max-width:54ch}
+
+/* 3 · Project types as a set. Sections B2, B3 and B4 of Luxury Architecture
+   are three parallel answers to "which of these is your project?", but built
+   from three identical splits they read as three unrelated essays and the
+   reader has to work out that they are peers. A running index and a ruled
+   top edge — the numeral on the title column, a lighter rule on the prose —
+   make the set legible and give the short title column something to sit
+   against. Nothing is added to the page's copy: the numerals are generated
+   content and the sections' own kicker rules are retired in their favour. */
+main{counter-reset:ptype}
+.prose-split--type{
+  grid-template-columns:minmax(0,4.4fr) minmax(0,7fr);
+  gap:var(--colgap) clamp(40px,5.5vw,92px);
+  margin-bottom:0;
+}
+.prose-split--type .prose-split__title{
+  border-top:1px solid var(--ink);padding-top:20px;
+}
+.prose-split--type .prose-split__body{
+  border-top:1px solid var(--rule-2);padding-top:20px;
+}
+.prose-split--type .prose-split__title::before{
+  counter-increment:ptype;
+  content:counter(ptype,decimal-leading-zero);
+  display:block;margin-bottom:clamp(18px,2.2vw,26px);
+  font-family:var(--sans);font-size:.72rem;font-weight:600;
+  letter-spacing:.14em;color:var(--accent);
+}
+.prose-split--type .prose-split__title h2{max-width:17ch}
+@media (max-width:900px){
+  /* Collapses to the single column the base split already uses; the body loses
+     its rule so the numeral and the title carry the top edge alone. */
+  .prose-split--type{grid-template-columns:1fr;gap:22px}
+  .prose-split--type .prose-split__body{border-top:0;padding-top:0}
+  .prose-split--type .prose-split__title h2{max-width:none}
+}
+
+/* 4 · Three alternatives side by side. Planning Applications' post-refusal
+   routes are a choice, not a sequence, and run flat in a single column they
+   read as three more paragraphs of the argument above them. Three peers under
+   one rule, using .criteria's existing bold-lead-in treatment so nothing new
+   is introduced beyond the track count. */
+.criteria--three{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:0 var(--colgap);margin-top:clamp(32px,3.8vw,50px);
+}
+.criteria--three > li,
+.criteria--three > li:first-child{
+  border-top:1px solid var(--ink);padding:20px 0 0;
+}
+@media (max-width:860px){
+  .criteria--three{grid-template-columns:1fr}
+  .criteria--three > li,
+  .criteria--three > li:first-child{
+    border-top:1px solid var(--rule-2);padding:clamp(20px,2.2vw,26px) 0;
+  }
+  .criteria--three > li:first-child{border-top:1px solid var(--ink);padding-top:20px}
+}
+
+/* 5 · Compact prose bands. A single column of argument under a heading set at
+   full container width read as a section that had run out of content on the
+   right. Bringing the heading down to a measure that relates to the prose
+   makes the two read as one deliberate block — which is what these quieter
+   passages between the page's larger sections are for. */
+.section--compact > .wrap > h2:has(+ .proseblock){max-width:26ch}
+
+/* 6 · Prose bands, read as writing rather than as three equal paragraphs.
+   The opening statement is what the section is; what follows supports it.
+   Setting the first paragraph in the serif lead the rest of the site uses for
+   its statements gives a plain passage the hierarchy it was missing, and
+   carries the section intro above a reference grid at the same time. */
+.proseblock > p:first-child{
+  font-family:var(--serif);font-weight:300;letter-spacing:-.012em;
+  font-size:clamp(1.12rem,1.65vw,1.38rem);line-height:1.47;color:var(--ink);
+  margin-bottom:clamp(20px,2.4vw,28px);
+}
+.proseblock > p:first-child:last-child{margin-bottom:0}

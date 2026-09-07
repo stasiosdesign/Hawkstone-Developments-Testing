@@ -53,7 +53,13 @@ body{
 .crumbs .sep{color:var(--rule-2)}
 
 /* ---------- page head ---------- */
-.pagehead{padding-block:clamp(40px,7vw,72px) clamp(28px,4vw,40px)}
+/* A rule closes the page head and gives the grid below it a top edge, so the
+   two read as head and contents rather than as two things floating in the
+   same empty column. */
+.pagehead{
+  padding-block:clamp(40px,7vw,72px) clamp(24px,3.2vw,34px);
+  margin-bottom:clamp(24px,3.2vw,34px);border-bottom:1px solid var(--rule);
+}
 .pagehead h1{
   font-family:var(--sans);font-weight:600;letter-spacing:-.015em;
   font-size:clamp(1.6rem,3.6vw,2.3rem);line-height:1.15;margin:0 0 10px;
@@ -63,8 +69,10 @@ body{
 }
 
 /* ---------- folder grid ---------- */
+/* Sized so the six service folders land as one even row rather than five and
+   a stray sixth; a shorter list simply fills fewer tracks. */
 .folders{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));
   gap:14px;padding-bottom:clamp(48px,8vw,88px);
 }
 .folder{

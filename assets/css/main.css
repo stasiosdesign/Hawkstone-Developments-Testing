@@ -154,7 +154,9 @@ p:last-child{margin-bottom:0}
 }
 .hero h1{
   margin-bottom:clamp(22px,2.4vw,30px);
-  max-width:20ch;
+  /* 20ch broke the headline into four lines with a stranded short line;
+     23ch lets text-wrap:balance settle it into three. */
+  max-width:23ch;
   margin-inline:auto;
 }
 .hero .lede{
@@ -198,12 +200,18 @@ p:last-child{margin-bottom:0}
    plain argument rather than a list or comparison.
    ========================================================= */
 .splitprose{align-items:start}
-.splitprose__title{grid-column:1/6}
+/* The title tracks the copy it belongs to rather than sitting at the top of a
+   column that is empty for the rest of the section — the same sticky rail the
+   cost section on this page already uses. */
+.splitprose__title{grid-column:1/6;align-self:start;position:sticky;top:118px}
 .splitprose__body{grid-column:7/13}
 .splitprose__body > p{color:var(--ink-2);max-width:60ch}
 .splitprose__close{
   margin-top:clamp(22px,2.4vw,30px);padding-top:clamp(20px,2.2vw,26px);
   border-top:1px solid var(--rule);color:var(--ink) !important;
+  /* The rule closes the column, so it runs its full width; the measure is
+     held by padding rather than by capping the element. */
+  max-width:none;padding-right:max(0px, 100% - 60ch);
 }
 /* The boundary statements close a section without competing with it. */
 .subnote{
@@ -213,6 +221,7 @@ p:last-child{margin-bottom:0}
 }
 @media (max-width:900px){
   .splitprose__title,.splitprose__body{grid-column:1/13}
+  .splitprose__title{position:static}
   .splitprose__body{padding-top:26px}
 }
 
@@ -282,7 +291,14 @@ p:last-child{margin-bottom:0}
   display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
   gap:24px 40px;
 }
-.cta-band p{margin:0;max-width:52ch;color:var(--ink-2);font-size:.98rem}
+/* The prompt is the reason the button is there: at caption size and muted it
+   left the button stranded at the far end of the band with nothing holding
+   the other. */
+.cta-band p{
+  margin:0;max-width:52ch;color:var(--ink);
+  font-family:var(--serif);font-weight:300;letter-spacing:-.011em;
+  font-size:clamp(1.04rem,1.45vw,1.26rem);line-height:1.45;
+}
 .cta-band .btn{flex:0 1 auto}
 @media (max-width:760px){
   .cta-band{flex-direction:column;align-items:stretch}
@@ -311,6 +327,7 @@ p:last-child{margin-bottom:0}
 .cost__close{
   margin-top:clamp(24px,2.6vw,32px);padding-top:clamp(20px,2.2vw,26px);
   border-top:1px solid var(--rule);color:var(--ink) !important;
+  max-width:none;padding-right:max(0px, 100% - 62ch);
 }
 @media (max-width:960px){
   .cost__head{grid-column:1/13;position:static;margin-bottom:clamp(28px,3.4vw,40px)}
@@ -375,6 +392,14 @@ p:last-child{margin-bottom:0}
   color:var(--ink-2);font-size:.94rem;line-height:1.58;
 }
 .pcard__foot{margin-top:auto;color:var(--accent)}
+/* These cards carry no link text — the card itself is the link — so the arrow
+   is the only thing in the footer. Set against a rule at the end of the card
+   it reads as the card's own affordance rather than as a stray glyph left
+   under the description. */
+.pcard__foot:has(> .arw:only-child){
+  border-top:1px solid var(--rule);padding-top:16px;text-align:right;
+}
+.pcard:hover .pcard__foot:has(> .arw:only-child){border-top-color:var(--accent)}
 .pcard:hover .pcard__title{color:var(--accent)}
 .pcard:hover .arw{transform:translateX(4px)}
 .pcard .well::after{transition:border-color .18s}
@@ -422,9 +447,11 @@ p:last-child{margin-bottom:0}
 /* =========================================================
    9 · Where we work
    ========================================================= */
-.places{align-items:end}
+/* Bottom-aligning the title against a multi-line body dropped the H2 most of a
+   paragraph below the copy it belongs to; both columns now start together. */
+.places{align-items:start}
 .places__title{grid-column:1/7}
-.places__body{grid-column:7/13;color:var(--ink-2);margin:0}
+.places__body{grid-column:7/13;color:var(--ink-2);margin:0;padding-top:.5em;max-width:60ch}
 @media (max-width:900px){
   .places__title{grid-column:1/13}
   .places__body{grid-column:1/13;padding-top:22px}
