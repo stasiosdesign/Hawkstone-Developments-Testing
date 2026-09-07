@@ -1,0 +1,88 @@
+/* =========================================================
+   Hawkstone — shared service landing page layer
+   Loaded by every service landing page, after that page's own
+   stylesheet (main.css, service-page.css or workspace.css).
+
+   Holds only what is common to all of them and must not diverge:
+     1 · typography  — the Adobe Fonts family, applied site-wide
+                       on landing pages
+     2 · back button — the single fixed control returning to the
+                       landing-page directory
+
+   Page layout stays in each page's own stylesheet; this file
+   deliberately owns nothing structural.
+   ========================================================= */
+
+/* =========================================================
+   1 · Typography
+   The Adobe Fonts kit (use.typekit.net/aih5mtg.css) exposes the
+   family as "poppins" — lowercase, the kit's own web-font name,
+   not the Google Fonts "Poppins". Both tokens are re-pointed at
+   it — along with --mono, which the holding pages use for small
+   labels — so every landing page runs on one family, per the brief.
+   The directory pages do not load this file and keep their own
+   typography.
+   ========================================================= */
+:root{
+  --poppins:"poppins","Poppins",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --serif:var(--poppins);
+  --mono:var(--poppins);
+  --sans:var(--poppins);
+}
+body{font-family:var(--poppins);font-weight:400}
+
+/* The kit ships poppins at 300 and 400 only. Anything asking for
+   500/600 would be synthesised into a faux-bold, so every weight
+   is normalised to the specified 400 — including the display
+   headings, which previously ran at 200/300. */
+body,
+h1,h2,h3,h4,h5,h6,
+p,li,a,span,strong,em,small,
+button,input,select,textarea,
+.eyebrow,.btn,.lede{
+  font-weight:400;
+}
+
+/* =========================================================
+   2 · Back button — fixed, bottom-left, deliberately quiet
+   ========================================================= */
+.backdir{
+  position:fixed;
+  left:clamp(14px,1.8vw,24px);
+  bottom:clamp(14px,1.8vw,24px);
+  z-index:60;
+
+  display:inline-flex;align-items:center;gap:8px;
+  padding:9px 14px 9px 12px;
+  border:1px solid rgba(26,25,22,.16);
+  border-radius:999px;
+  background:rgba(250,247,241,.86);
+  -webkit-backdrop-filter:saturate(160%) blur(8px);
+  backdrop-filter:saturate(160%) blur(8px);
+
+  font-family:var(--poppins);
+  font-size:.78rem;
+  line-height:1;
+  letter-spacing:.01em;
+  color:#3A362E;
+  text-decoration:none;
+  transition:color .15s ease,border-color .15s ease,background-color .15s ease;
+}
+.backdir:hover{
+  color:#1A1916;
+  border-color:rgba(26,25,22,.34);
+  background:rgba(250,247,241,.97);
+}
+.backdir__arrow{
+  width:13px;height:13px;flex:0 0 auto;display:block;
+}
+
+@media (max-width:560px){
+  .backdir{
+    left:12px;bottom:12px;
+    padding:8px 12px 8px 10px;
+    font-size:.72rem;
+    gap:6px;
+  }
+  .backdir__arrow{width:12px;height:12px}
+}
