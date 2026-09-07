@@ -73,30 +73,14 @@ p:last-child{margin-bottom:0}
 
 .lede{font-size:clamp(1.06rem,1.45vw,1.24rem);line-height:1.56;color:var(--ink-2)}
 .section--dark .lede{color:var(--on-dark-2)}
-.body-sm{font-size:.95rem;line-height:1.62;color:var(--muted)}
-.measure{max-width:62ch}
-.measure-tight{max-width:48ch}
-
-.eyebrow{
-  font-family:var(--sans);font-size:.7rem;font-weight:600;
-  letter-spacing:.19em;text-transform:uppercase;color:var(--accent);
-  margin:0 0 20px;display:flex;align-items:center;gap:14px;
-}
-.eyebrow::before{content:"";width:28px;height:1px;background:currentColor;opacity:.5;flex:none}
-.section--dark .eyebrow{color:var(--accent-2)}
 
 /* Section mark. Sections carry no label copy, so the anchor above each H2 is a
-   rule rather than a word — the visual role the eyebrow played, without text. */
+   rule rather than a word: the visual role a label would play, without text. */
 .kicker{
   display:block;width:34px;height:1px;background:var(--accent);
   opacity:.65;margin:0 0 26px;
 }
 .section--dark .kicker{background:var(--accent-2)}
-
-.smallcaps{
-  font-size:.72rem;font-weight:600;letter-spacing:.15em;
-  text-transform:uppercase;color:var(--muted);
-}
 
 /* =========================================================
    Links & buttons
@@ -116,7 +100,7 @@ p:last-child{margin-bottom:0}
 }
 .arrowlink span{border-bottom:1px solid rgba(122,96,52,.35);padding-bottom:2px;transition:border-color .16s}
 .arrowlink:hover span{border-bottom-color:var(--accent)}
-.arrowlink .arw,.countylinks .arw{
+.arrowlink .arw{
   display:inline-block;border-bottom:0 !important;transition:transform .18s;
 }
 .arrowlink:hover .arw{transform:translateX(4px)}
@@ -150,16 +134,6 @@ p:last-child{margin-bottom:0}
   pointer-events:none;
 }
 
-/* Bold lead-in opening a paragraph — sits on its own line above the sentence it
-   introduces. Used for the feasibility criteria and the process steps, which are
-   body copy with emphasis, not headings, so they take no heading level. */
-.criteria p strong,
-.steps p strong,
-.panel__label strong{
-  display:block;font-family:var(--sans);font-weight:600;
-  font-size:1.05rem;line-height:1.35;margin-bottom:9px;
-}
-
 /* =========================================================
    1 · Hero — stacked and centred; text first, media beneath
    ========================================================= */
@@ -178,7 +152,6 @@ p:last-child{margin-bottom:0}
   max-width:min(var(--maxw), 62rem);
   margin-inline:auto;
 }
-.hero .eyebrow{justify-content:center}
 .hero h1{
   margin-bottom:clamp(22px,2.4vw,30px);
   max-width:20ch;
@@ -217,28 +190,7 @@ p:last-child{margin-bottom:0}
   .hero__media{aspect-ratio:4/3}
 }
 
-/* 1b · Practice statement band */
-.statement{background:var(--paper-2);border-block:1px solid var(--rule)}
-.statement .wrap{padding-block:clamp(44px,5.4vw,76px)}
-.statement__text{
-  grid-column:2/11;
-  font-family:var(--serif);font-weight:300;
-  font-size:clamp(1.1rem,2vw,1.62rem);line-height:1.45;
-  color:var(--ink);letter-spacing:-.012em;position:relative;
-}
-.statement__text::before{
-  content:"";position:absolute;left:-40px;top:.62em;
-  width:24px;height:1px;background:var(--accent);
-}
-@media (max-width:860px){
-  .statement .wrap{display:block}
-  .statement__text{padding-top:22px;border-top:1px solid var(--rule-2)}
-  .statement__text::before{display:none}
-}
-
-/* =========================================================
-   2 · What we convert — editorial definition list
-   ========================================================= */
+/* Section head: title held left, its supporting line set against it. */
 .shead--split{margin-bottom:clamp(38px,4.6vw,64px)}
 .shead--split .shead__title{grid-column:1/7}
 .shead--split .shead__sub{grid-column:7/13;align-self:end;padding-bottom:.35em}
@@ -247,98 +199,88 @@ p:last-child{margin-bottom:0}
   .shead--split .shead__sub{grid-column:1/13;padding-top:22px;padding-bottom:0}
 }
 
-.deflist{list-style:none;margin:0;padding:0}
-.deflist > li{
-  display:grid;grid-template-columns:56px minmax(0,4.4fr) minmax(0,6.6fr);
-  gap:0 var(--colgap);
-  padding:clamp(22px,2.4vw,30px) 0;border-top:1px solid var(--rule);
+/* =========================================================
+   2 · Split prose — a section heading held left, its copy
+   set against it on the right. Used where the content is
+   plain argument rather than a list or comparison.
+   ========================================================= */
+.splitprose{align-items:start}
+.splitprose__title{grid-column:1/6}
+.splitprose__body{grid-column:7/13}
+.splitprose__body > p{color:var(--ink-2);max-width:60ch}
+.splitprose__close{
+  margin-top:clamp(22px,2.4vw,30px);padding-top:clamp(20px,2.2vw,26px);
+  border-top:1px solid var(--rule);color:var(--ink) !important;
 }
-.deflist > li:last-of-type{border-bottom:1px solid var(--rule)}
-.deflist .idx{
-  font-family:var(--sans);font-size:.72rem;font-weight:600;letter-spacing:.12em;
-  color:var(--accent);padding-top:.55em;
+/* The boundary statements close a section without competing with it. */
+.subnote{
+  margin-top:clamp(26px,3vw,38px);padding-top:clamp(22px,2.4vw,28px);
+  border-top:1px solid var(--rule-2);
+  font-size:.92rem;line-height:1.6;color:var(--muted) !important;
 }
-.deflist .term{
-  font-family:var(--serif);font-size:clamp(1.16rem,1.75vw,1.45rem);
-  line-height:1.24;letter-spacing:-.014em;
-}
-.deflist .desc{color:var(--ink-2);margin:0;padding-top:.14em}
-@media (max-width:860px){
-  .deflist > li{grid-template-columns:44px minmax(0,1fr);gap:0 18px}
-  .deflist .desc{grid-column:2;padding-top:8px}
-}
-.deflist__after{
-  display:grid;grid-template-columns:56px minmax(0,4.4fr) minmax(0,6.6fr);
-  gap:0 var(--colgap);margin-top:clamp(26px,3vw,38px);
-}
-.deflist__after p{
-  grid-column:3;margin:0;color:var(--ink-2);
-  border-left:2px solid var(--accent);padding-left:20px;max-width:52ch;
-}
-@media (max-width:860px){
-  .deflist__after{display:block;padding-left:44px}
-  .deflist__after p{padding-left:18px}
+@media (max-width:900px){
+  .splitprose__title,.splitprose__body{grid-column:1/13}
+  .splitprose__body{padding-top:26px}
 }
 
 /* =========================================================
-   3 · Planning routes — two peers + a modifying condition
+   3 · Planning routes — two peers, then the reassurance
+   that qualifies both
    ========================================================= */
 .routes{
+  counter-reset:route;
   display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
   gap:var(--colgap);margin-top:clamp(38px,4.4vw,58px);
 }
 .route{
+  counter-increment:route;
   background:var(--card);border:1px solid var(--rule);border-radius:var(--radius);
   padding:clamp(26px,3vw,42px);display:flex;flex-direction:column;
   border-top:2px solid var(--accent);
 }
-.route__idx{
-  font-family:var(--serif);font-size:1.05rem;color:var(--accent);
-  letter-spacing:.06em;margin:0 0 14px;
+/* Route numerals are a design device, not copy -- drawn by the counter so
+   they stay out of the document text. */
+.route::before{
+  content:counter(route,decimal-leading-zero);
+  display:block;font-family:var(--serif);font-size:1.05rem;
+  color:var(--accent);letter-spacing:.06em;margin-bottom:14px;
 }
 .route h3{margin-bottom:16px;max-width:22ch}
-.route p{color:var(--ink-2)}
-.route__foot{margin-top:auto;padding-top:clamp(22px,2.4vw,30px)}
-.route__foot::before{
-  content:"";display:block;height:1px;background:var(--rule);
-  margin-bottom:20px;
-}
+.route p{color:var(--ink-2);margin-bottom:0}
 @media (max-width:860px){.routes{grid-template-columns:1fr}}
 
-.condition{
-  margin-top:var(--colgap);background:var(--paper-3);
-  border-radius:var(--radius);padding:clamp(26px,3.4vw,46px);
-  display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:var(--colgap);
-}
-.condition h3{max-width:14ch;letter-spacing:-.016em}
-.condition p{color:var(--ink-2)}
-.condition__link{margin-top:20px}
-@media (max-width:860px){
-  .condition{grid-template-columns:1fr;gap:18px}
+/* Spans beneath both routes: it applies to whichever one you land on. */
+.routes__foot{
+  margin:clamp(30px,3.4vw,44px) 0 0;padding-top:clamp(26px,2.8vw,34px);
+  border-top:1px solid var(--rule-2);
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(1.06rem,1.7vw,1.38rem);line-height:1.45;
+  letter-spacing:-.012em;max-width:56ch;
 }
 
 /* =========================================================
-   4 · Feasibility — sticky rail + criteria list
+   4 · Feasibility — three stages read as a sequence of
+   diligence, numbered across the row
    ========================================================= */
-.rail{grid-column:1/5;align-self:start;position:sticky;top:118px}
-.rail h2{margin-bottom:22px}
-.railbody{grid-column:6/13}
-@media (max-width:960px){
-  .rail{grid-column:1/13;position:static;margin-bottom:clamp(32px,4vw,48px)}
-  .railbody{grid-column:1/13}
+.stages{
+  list-style:none;counter-reset:stage;margin:0;padding:0;
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--colgap);
 }
-
-.criteria{list-style:none;margin:0;padding:0}
-.criteria > li{padding:clamp(20px,2.2vw,28px) 0;border-top:1px solid var(--rule)}
-.criteria > li:first-child{border-top:0;padding-top:0}
-.criteria p{margin:0;color:var(--ink-2)}
-.criteria p strong{color:var(--ink)}
-.criteria .fallback{
-  margin-top:clamp(22px,2.4vw,30px);background:var(--paper-2);
-  border:1px solid var(--rule);border-left:2px solid var(--accent);
-  border-radius:var(--radius);padding:clamp(22px,2.4vw,30px);
+.stage{
+  counter-increment:stage;border-top:1px solid var(--ink);
+  padding-top:20px;
 }
-.criteria .fallback p strong{color:var(--accent)}
+.stage::before{
+  content:counter(stage,decimal-leading-zero);
+  display:block;font-family:var(--sans);font-size:.72rem;font-weight:600;
+  letter-spacing:.12em;color:var(--accent);margin-bottom:clamp(18px,2vw,26px);
+}
+.stage h3{margin-bottom:12px}
+.stage p{color:var(--ink-2);margin:0;font-size:.98rem}
+@media (max-width:860px){
+  .stages{grid-template-columns:1fr;gap:0}
+  .stage{padding:20px 0 clamp(24px,3vw,32px)}
+}
 
 .cta-band{
   margin-top:clamp(40px,5vw,68px);border:1px solid var(--rule-2);
@@ -347,34 +289,76 @@ p:last-child{margin-bottom:0}
   display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
   gap:24px 40px;
 }
-.cta-band p{margin:0;max-width:46ch;color:var(--ink-2);font-size:.98rem}
+.cta-band p{margin:0;max-width:52ch;color:var(--ink-2);font-size:.98rem}
 .cta-band .btn{flex:0 1 auto}
-@media (max-width:620px){
-  .cta-band,.process__foot{flex-direction:column;align-items:stretch}
-  .cta-band .btn,.process__foot .btn{width:100%}
+@media (max-width:760px){
+  .cta-band{flex-direction:column;align-items:stretch}
+  .cta-band .btn{width:100%}
 }
 
 /* =========================================================
-   5 · Design approach — dark editorial statement
+   5 · Cost — editorial, with the range carrying the weight
    ========================================================= */
-.approach h2{grid-column:1/11;margin-bottom:clamp(34px,4vw,52px);max-width:19ch}
-.approach__lead{
-  grid-column:1/8;font-family:var(--serif);font-weight:300;
-  font-size:clamp(1.16rem,1.85vw,1.5rem);line-height:1.45;
-  color:var(--on-dark);letter-spacing:-.012em;
+.cost{align-items:start}
+.cost__head{grid-column:1/5;align-self:start;position:sticky;top:118px}
+.cost__body{grid-column:6/13}
+.cost__body p{color:var(--ink-2);max-width:62ch}
+.cost__lead{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(1.14rem,1.85vw,1.5rem);line-height:1.45;
+  letter-spacing:-.012em;color:var(--ink) !important;
+  margin-bottom:clamp(24px,2.6vw,34px);
 }
-.approach__note{
-  grid-column:9/13;color:var(--on-dark-2);font-size:.95rem;line-height:1.62;
-  border-top:1px solid var(--rule-dark);padding-top:22px;
+/* The per-square-metre range is the number people came for: given its own
+   weight inside the sentence rather than pulled out as a separate label. */
+.cost__lead .figure{
+  color:var(--accent);white-space:nowrap;
+  border-bottom:1px solid rgba(122,96,52,.28);
+}
+.cost__close{
+  margin-top:clamp(24px,2.6vw,32px);padding-top:clamp(20px,2.2vw,26px);
+  border-top:1px solid var(--rule);color:var(--ink) !important;
 }
 @media (max-width:960px){
-  .approach h2{grid-column:1/13}
-  .approach__lead{grid-column:1/13}
-  .approach__note{grid-column:1/13;margin-top:30px}
+  .cost__head{grid-column:1/13;position:static;margin-bottom:clamp(28px,3.4vw,40px)}
+  .cost__body{grid-column:1/13}
+}
+@media (max-width:560px){
+  .cost__lead .figure{white-space:normal}
 }
 
 /* =========================================================
-   6 · Projects
+   6 · Design approach — the page's most visual section:
+   copy against two pieces of photography
+   ========================================================= */
+.design__text{grid-column:1/6}
+.design__lead{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(1.14rem,1.75vw,1.44rem);line-height:1.46;
+  color:var(--on-dark);letter-spacing:-.012em;
+  margin:clamp(26px,3vw,38px) 0 0;
+}
+.design__note{
+  margin:clamp(24px,2.6vw,32px) 0 0;padding-top:clamp(22px,2.4vw,28px);
+  border-top:1px solid var(--rule-dark);
+  color:var(--on-dark-2);font-size:.95rem;line-height:1.62;
+}
+.design__media{background:var(--dark-2)}
+.design__media::after{border-color:rgba(198,170,113,.16)}
+.design__media--tall{grid-column:7/10;aspect-ratio:3/4}
+.design__media--short{grid-column:10/13;aspect-ratio:1/1;align-self:end}
+@media (max-width:960px){
+  .design__text{grid-column:1/13}
+  .design__media--tall{grid-column:1/7;margin-top:clamp(34px,4.4vw,52px)}
+  .design__media--short{grid-column:7/13;margin-top:clamp(34px,4.4vw,52px)}
+}
+@media (max-width:600px){
+  .design__media--tall{grid-column:1/13}
+  .design__media--short{grid-column:1/13;margin-top:var(--colgap)}
+}
+
+/* =========================================================
+   7 · Projects
    ========================================================= */
 .pgrid{
   display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
@@ -385,121 +369,49 @@ p:last-child{margin-bottom:0}
   display:flex;flex-direction:column;text-decoration:none;color:inherit;
   border-top:1px solid var(--ink);padding-top:18px;
 }
-.pcard__media{
-  aspect-ratio:4/5;margin-bottom:22px;
-}
+.pcard__media{aspect-ratio:4/5;margin-bottom:22px}
 @media (max-width:900px){.pcard__media{aspect-ratio:16/10}}
 /* Card titles are project names, not section headings — styled as headings,
    deliberately outside the H2/H3 hierarchy the page's keyword targets use. */
 .pcard__title{
   font-family:var(--serif);font-weight:400;letter-spacing:-.014em;
-  font-size:1.18rem;line-height:1.25;margin:0 0 6px;transition:color .16s;
+  font-size:1.18rem;line-height:1.25;margin:0 0 10px;transition:color .16s;
 }
-.pcard:hover .pcard__title{color:var(--accent)}
-.pcard:hover .arw{transform:translateX(4px)}
-.pcard:hover .pcard__foot span:first-child{border-bottom-color:var(--accent)}
-.pcard .well::after{transition:border-color .18s}
-.pcard:hover .well::after{border-color:rgba(122,96,52,.3)}
-.pcard__place{margin:0 0 10px}
-/* Card description: one sentence of building type, planning route and outcome. */
 .pcard__desc{
   margin:0 0 clamp(22px,2.4vw,30px);
   color:var(--ink-2);font-size:.94rem;line-height:1.58;
 }
-.pcard__foot{margin-top:auto}
+.pcard__foot{margin-top:auto;color:var(--accent)}
+.pcard:hover .pcard__title{color:var(--accent)}
+.pcard:hover .arw{transform:translateX(4px)}
+.pcard .well::after{transition:border-color .18s}
+.pcard:hover .well::after{border-color:rgba(122,96,52,.3)}
 
 /* =========================================================
-   7 · Who this is for — paired panels
+   8 · FAQ — sticky rail alongside the questions
    ========================================================= */
-.pair{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:var(--colgap);margin-top:clamp(34px,4vw,52px);
+.rail{grid-column:1/5;align-self:start;position:sticky;top:118px}
+.rail h2{margin-bottom:22px}
+.railbody{grid-column:6/13}
+@media (max-width:960px){
+  .rail{grid-column:1/13;position:static;margin-bottom:clamp(32px,4vw,48px)}
+  .railbody{grid-column:1/13}
 }
-@media (max-width:860px){.pair{grid-template-columns:1fr;gap:24px}}
-.panel{
-  border-radius:var(--radius);padding:clamp(26px,3.2vw,44px);
-  border:1px solid var(--rule);
-}
-.panel--yes{background:var(--card);border-top:2px solid var(--accent)}
-.panel--no{background:transparent;border-top:2px solid var(--rule-2)}
-.panel__label{
-  margin:0 0 clamp(22px,2.4vw,30px);
-  padding-bottom:clamp(18px,2vw,24px);border-bottom:1px solid var(--rule);
-}
-.panel__label strong{
-  font-family:var(--serif);font-weight:400;letter-spacing:-.014em;
-  font-size:clamp(1.22rem,1.9vw,1.5rem);line-height:1.25;margin-bottom:0;
-}
-.ticks{list-style:none;margin:0;padding:0;display:grid;gap:20px}
-.ticks li{position:relative;padding-left:32px;color:var(--ink-2)}
-.ticks li::before{
-  content:"";position:absolute;left:0;top:.62em;
-  width:14px;height:1px;background:var(--accent);
-}
-.ticks--neg li{color:var(--muted)}
-.ticks--neg li::before{background:var(--rule-2)}
 
-/* =========================================================
-   8 · Process — sticky rail + connected steps
-   ========================================================= */
-.section--dark .rail h2{color:var(--on-dark)}
-.steps{list-style:none;counter-reset:step;margin:0;padding:0}
-.steps li{
-  counter-increment:step;position:relative;
-  padding:0 0 clamp(34px,4vw,48px) 84px;
-}
-.steps li:last-child{padding-bottom:0}
-.steps li::before{
-  content:counter(step,decimal-leading-zero);
-  position:absolute;left:0;top:-4px;
-  width:52px;height:52px;border-radius:50%;
-  border:1px solid var(--rule-dark);
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--serif);font-size:1rem;color:var(--accent-2);
-  background:var(--dark);
-}
-.steps li::after{
-  content:"";position:absolute;left:26px;top:52px;bottom:12px;
-  width:1px;background:var(--rule-dark);
-}
-.steps li:last-child::after{display:none}
-/* Steps carry an H3 each, so the step title is a heading rather than a bold
-   run-in; the paragraph beneath it stays the quieter on-dark tone. */
-.steps h3{
-  color:var(--on-dark);margin:0 0 10px;
-  font-size:clamp(1.08rem,1.5vw,1.26rem);
-}
-.steps p{margin:0;color:var(--on-dark-2)}
-.steps p strong{color:var(--on-dark)}
-@media (max-width:600px){
-  .steps li{padding-left:62px}
-  .steps li::before{width:40px;height:40px;font-size:.86rem}
-  .steps li::after{left:20px;top:40px}
-}
-.process__foot{
-  grid-column:6/13;margin-top:clamp(40px,4.6vw,60px);
-  padding-top:clamp(28px,3vw,38px);border-top:1px solid var(--rule-dark);
-  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px 40px;
-}
-.process__foot p{margin:0;max-width:38ch;color:var(--on-dark);font-size:1.06rem}
-@media (max-width:960px){.process__foot{grid-column:1/13}}
-
-/* =========================================================
-   9 · FAQ
-   ========================================================= */
 .faq{border-top:1px solid var(--rule)}
 .faq details{border-bottom:1px solid var(--rule)}
 .faq summary{
   list-style:none;cursor:pointer;position:relative;
   padding:clamp(20px,2.2vw,26px) 48px clamp(20px,2.2vw,26px) 0;
-  font-family:var(--serif);font-size:clamp(1.06rem,1.55vw,1.24rem);
-  line-height:1.34;letter-spacing:-.012em;transition:color .16s;
+  transition:color .16s;
 }
-/* The FAQ questions are H3s for hierarchy, but must look exactly like the
-   summary they sit in -- the disclosure control owns the type. */
+/* The questions are H3s for hierarchy, but the disclosure control owns
+   the type — the heading must look exactly like the summary it sits in. */
 .faq summary h3{
-  font:inherit;letter-spacing:inherit;color:inherit;
-  margin:0;display:inline;
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(1.06rem,1.55vw,1.24rem);
+  line-height:1.34;letter-spacing:-.012em;
+  color:inherit;margin:0;
 }
 .faq summary::-webkit-details-marker{display:none}
 .faq summary:hover{color:var(--accent)}
@@ -509,65 +421,30 @@ p:last-child{margin-bottom:0}
   transform:translateY(-70%) rotate(45deg);transition:transform .2s;opacity:.75;
 }
 .faq details[open] summary::after{transform:translateY(-25%) rotate(225deg)}
-.faq .answer{padding:0 clamp(0px,5vw,64px) clamp(24px,2.6vw,32px) 0;color:var(--ink-2);max-width:70ch}
+.faq .answer{
+  padding:0 clamp(0px,5vw,64px) clamp(24px,2.6vw,32px) 0;
+  color:var(--ink-2);max-width:70ch;
+}
 
 /* =========================================================
-   10 · Where we work + related services
+   9 · Where we work
    ========================================================= */
-.places{align-items:end;margin-bottom:clamp(34px,4vw,50px)}
+.places{align-items:end}
 .places__title{grid-column:1/7}
-.places__body{grid-column:7/13;color:var(--ink-2)}
+.places__body{grid-column:7/13;color:var(--ink-2);margin:0}
 @media (max-width:900px){
   .places__title{grid-column:1/13}
   .places__body{grid-column:1/13;padding-top:22px}
 }
-.countylinks{
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--colgap);
-}
-@media (max-width:760px){.countylinks{grid-template-columns:1fr;gap:0}}
-.countylinks a{
-  display:flex;align-items:center;justify-content:space-between;gap:16px;
-  text-decoration:none;color:var(--ink);
-  border-top:1px solid var(--ink);padding:20px 0;
-  font-family:var(--serif);font-size:clamp(1.02rem,1.4vw,1.16rem);line-height:1.3;
-  transition:color .16s;
-}
-@media (max-width:760px){.countylinks a{border-top:1px solid var(--rule-2)}}
-.countylinks a .arw{color:var(--accent);transition:transform .18s}
-.countylinks a:hover{color:var(--accent)}
-.countylinks a:hover .arw{transform:translateX(4px)}
-
-/* Boundary statements: where this service stops and another one starts. Paired
-   columns, set quieter than the section above them. */
-.boundaries{
-  margin-top:clamp(48px,6vw,86px);padding-top:clamp(34px,4vw,52px);
-  border-top:1px solid var(--rule-2);
-}
-.boundaries p{
-  margin:0;color:var(--ink-2);font-size:.98rem;line-height:1.6;
-}
-.boundaries p:first-child{grid-column:1/6}
-.boundaries p:last-child{grid-column:8/13}
-.boundaries strong{font-weight:500;color:var(--ink)}
-@media (max-width:900px){
-  .boundaries p:first-child,
-  .boundaries p:last-child{grid-column:1/13}
-  .boundaries p:last-child{margin-top:20px}
-}
 
 /* =========================================================
-   11 · Closing
+   10 · Closing — the page's strongest call to action
    ========================================================= */
 .closing{text-align:center}
 .closing__inner{grid-column:3/11}
 .closing h2{font-size:clamp(2rem,4.2vw,3.3rem);text-wrap:balance}
-.closing .lede{margin:clamp(22px,2.6vw,32px) auto 0;max-width:54ch}
+.closing .lede{margin:clamp(22px,2.6vw,32px) auto 0;max-width:58ch}
 .closing .btn-row{justify-content:center;margin-top:clamp(30px,3.6vw,44px)}
-.closing__fine{
-  margin:clamp(38px,4.4vw,58px) auto 0;max-width:46ch;
-  font-size:.9rem;color:var(--on-dark-2);
-  padding-top:clamp(24px,2.6vw,32px);border-top:1px solid var(--rule-dark);
-}
 @media (max-width:860px){.closing__inner{grid-column:1/13}}
 
 /* =========================================================
