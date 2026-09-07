@@ -5,6 +5,16 @@
       "source": "/blog-posts/class-q-barn-conversion-planning-guide",
       "destination": "/news/class-q-barn-conversion-planning-guide",
       "permanent": true
+    },
+    {
+      "source": "/services/barn-conversion-design-derbyshire",
+      "destination": "/services/barn-conversions",
+      "permanent": true
+    },
+    {
+      "source": "/services/rural-conversions",
+      "destination": "/services/barn-conversions",
+      "permanent": true
     }
   ]
 }
