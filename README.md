@@ -766,7 +766,7 @@ currently 1.1–2.8MB across the whole scroll.
 Every service page runs the same hero, in this order:
 
 ```
-H1 (centred)  ·  Liquid Glass image strip  ·  supporting copy  ·  CTAs
+H1 (centred)  ·  Spatial cards image slider  ·  supporting copy  ·  CTAs
 ```
 
 It is defined **once**, in `assets/css/landing-shared.css`, which every landing
@@ -784,42 +784,49 @@ hierarchy at a smaller size: H1 `clamp(1.85rem, 3.15vw, 2.72rem)` (43.5px at
 19.8px). The hero comes out at 999–1242px tall depending on how many paragraphs
 the page carries.
 
-### The carousel
+### The slider
 
-`assets/js/glass-carousel.js` is the supplied Liquid Glass Carousel. The shader,
-the scroll/drag/snap model, the texture handling and both fallbacks are the
-reference implementation. Three things changed to make it a hero strip:
+`assets/js/spatial-slider.js` is the supplied Spatial Cards Slider (GSAP). The
+geometry — the curve solve, the radius correction loop, the clone count, the
+Draggable/Inertia model, the resize handling — is the reference implementation,
+unchanged. Three things differ:
 
-1. **The demo content is gone** — captions, counter, per-item labels — and with
-   it the only thing GSAP was doing (a caption fade and a `matchMedia` wrapper).
-   Reduced motion is gated with `window.matchMedia`, the same check
-   `smooth-scroll.js` already uses, so the pages carry no animation library.
-2. **Panels are cover-cropped to 3:4.** The strip is specified as a row of
-   vertical images and the practice's photography is landscape, so the crop
-   happens once per texture, on the canvas the reference already used to
-   downsize.
-3. **The lens's vertical half-extent is set in fractions of the strip height**
-   rather than scaled by the section's aspect ratio. The reference multiplies
-   both axes by `W/H`, which leaves the vertical extent — and so whether the
-   glass edge is visible at all — dependent on the viewport's shape. In a
-   full-height demo section that never shows; across a hero strip at desktop,
-   tablet and phone widths it is the difference between a glass bar with edges
-   and a flat magnification. The horizontal axis keeps the reference's aspect
-   scaling, which is what makes it stable.
+1. **The demo card chrome is gone.** Each slide is the photograph and nothing
+   else: no panel, no caption bar, no title. The reference's Prev/Next buttons
+   go with it, since the hero's own CTAs sit a few centimetres below them and a
+   second pair of buttons in between reads as a competing call to action. The
+   generated dots stay — they are the component's only non-textual control, and
+   without them the slider would be drag-only and unreachable by keyboard.
+2. **The arc curves away from the viewer, not toward it** (`--slider-direction:
+   -1`, which the component documents). Curving toward, the outer cards scale up
+   past the centre one; that is fine on the reference's full-height stage but in
+   a hero strip it makes the edges the largest thing on the page, and there is
+   nowhere to put the extra height — measured, the outer cards came out at 585px
+   against the centre card's 372px and were clipped top and bottom. Away, the
+   centre card is the biggest and the row recedes, which is also the right
+   emphasis here.
+3. **Initialisation is gated on `prefers-reduced-motion`**, the same check
+   `smooth-scroll.js` already makes, and the 3D layout is scoped in CSS to the
+   `data-spatial-slider-drag-status` the script itself sets. The reference
+   authors that attribute into the markup, which would leave the no-JS and
+   reduced-motion states with every card stacked on the first one.
 
-Tuning: the ring takes `--accent-2` rather than the reference's cyan, and glow,
-dispersion, zoom and rim wave are eased back. At the reference values the rim
-wave smeared the images into the canvas edges once the lens actually terminated
-inside the strip.
+Tuning: `--slider-curve` is 20deg rather than the reference's 30. At 30 the arc
+converged well inside the viewport and left about 190px of paper each side; at
+20 the row runs 65→1360 of a 1425px viewport, near edge to edge, and the curve
+is still plainly a curve. The whole component is sized from one `font-size` on
+`.spatial-slider`, so card width, gap and dot size scale together.
 
-**Fallbacks.** Without WebGL, or under `prefers-reduced-motion`, the authored
-list stays in the page as a plain horizontal snapping strip of the same portrait
-images — a perfectly serviceable static hero. Once the canvas is running the
-list stays for screen readers only.
+**Fallbacks.** Without GSAP, or under `prefers-reduced-motion`, the list is a
+plain horizontal snapping strip of the same portrait images and the dots are
+hidden — a perfectly serviceable static hero. Teardown restores that state, so
+the reduced-motion switch can be thrown either way at runtime.
 
-**Images.** Each strip carries five to seven photographs from that service's own
-folder. They are `loading="eager"` because the carousel builds a texture from
-each one; a lazy image inside the clipped screen-reader list would never load.
+**Images.** Each slider carries five to seven photographs from that service's
+own folder, at `loading="lazy"` with the reference's IntersectionObserver
+upgrading them the moment the hero is in view. Where the arc needs more cards
+than a page supplies, the script clones whole sets — 14 items from 7 originals
+at desktop — reusing the same image URLs, so cloning costs no extra requests.
 
 ### CTA labels
 
@@ -862,8 +869,9 @@ change with it and the button is a one-word edit.
 
 ### Weight
 
-Each hero now loads five to seven images eagerly, 1.9–2.8MB per page, plus
-three.js from jsDelivr. The images are the same 600px files noted above, whose
-200–740KB apiece is near-lossless for that size; recompressed they would drop to
-roughly 60–80KB each and take a hero strip to about half a megabyte. That is
-now on the LCP path, so it matters more than it did.
+Each hero loads five to seven photographs, 1.9–2.8MB per page, plus GSAP core,
+Draggable, InertiaPlugin and CustomEase from jsDelivr — 120KB together. The
+images are the same 600px files noted above, whose 200–740KB apiece is
+near-lossless for that size; recompressed they would drop to roughly 60–80KB
+each and take a hero to about half a megabyte. That is on the LCP path, so it
+matters more than it did.

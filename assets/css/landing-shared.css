@@ -170,76 +170,135 @@ button,input,select,textarea,
 }
 
 /* =========================================================
-   4 · Liquid Glass carousel
+   4 · Spatial cards slider
 
-   The supplied component, reduced to the image treatment: the
-   demo's caption, counter and per-item label styling is gone, and
-   the section is a bounded strip rather than a full-height stage.
+   The supplied component, reduced to the image treatment: each slide
+   is the photograph and nothing else — no card panel, no caption bar,
+   no title — and the Prev/Next buttons are gone, since the hero's own
+   CTAs sit just below them. The generated dots stay as the only
+   control, so the slider is reachable without a pointer.
 
-   Two states. Before the canvas takes over — and permanently
-   without WebGL, or under prefers-reduced-motion — the authored
-   list is the component: a horizontal, snapping, scrollable row of
-   the same portrait images. Once the canvas is running the list
-   stays for screen readers only.
+   The whole component is sized from one font-size, the way the
+   reference authors it, so card width, gap and dot size scale together
+   across breakpoints from a single value.
+
+   Two states. Until the script sets data-spatial-slider-drag-status —
+   and permanently without GSAP, or under prefers-reduced-motion — the
+   list is a plain horizontal snapping strip of the same images. The
+   3D layout is scoped to that attribute so the fallback is never a
+   stack of cards piled on the first one.
    ========================================================= */
-.glass-carousel{
+.spatial-slider{
   position:relative;
   width:100%;
-  height:clamp(280px,31vw,462px);
   margin-top:clamp(26px,3vw,42px);
-  background-color:var(--paper);
+  font-size:clamp(10.5px,1.12vw,15.5px);
+  display:flex;
+  flex-flow:column;
+  align-items:center;
+  gap:2em;
+  /* The clip stops the receding arc scrolling the page sideways; the padding
+     keeps it clear of the cards' own shadow line. */
+  padding-block:1.4em;
   overflow:clip;
 }
-.glass-carousel__canvas{
+[data-spatial-slider-init]{
+  --slider-gap:2.25em;
+  --slider-curve:20deg;
+  --slider-perspective:120em;
+  /* Curving away, not toward. Toward the viewer the outer cards scale up
+     past the centre one — fine in the reference's full-height stage, but in
+     a hero strip it makes the edges the largest thing on the page and there
+     is nowhere to put the extra height. Away, the centre card is the biggest
+     and the row recedes, which is also the right emphasis here. */
+  --slider-direction:-1;
+}
+.spatial-slider__collection{max-width:100%;position:relative}
+.spatial-slider__list{
+  -webkit-user-select:none;
+  user-select:none;
+  will-change:transform;
+  touch-action:pan-y;
+  backface-visibility:hidden;
+  column-gap:var(--slider-gap);
+  row-gap:var(--slider-gap);
+  max-width:100%;
+  transform-style:preserve-3d;
+  justify-content:center;
+  align-items:center;
+  display:flex;
+  position:relative;
+  perspective:var(--slider-perspective);
+}
+[data-spatial-slider-drag-status] .spatial-slider__item{
+  flex:none;
+  position:absolute;
+}
+[data-spatial-slider-drag-status] [data-spatial-slider-list] > :first-child{position:relative}
+[data-spatial-slider-drag-status="grab"] [data-spatial-slider-collection]{cursor:grab}
+[data-spatial-slider-drag-status="grabbing"] [data-spatial-slider-collection]{cursor:grabbing}
+
+/* The slide: the photograph, on the site's own radius, and a hairline
+   so a pale sky still reads as a card edge against the paper ground. */
+.spatial-slider__item{flex:none}
+.spatial-slider__media{
+  position:relative;
+  width:18em;
+  aspect-ratio:3/4;
+  border-radius:var(--radius);
+  overflow:hidden;
+  background:var(--paper-3);
+  box-shadow:0 0 0 1px rgba(28,28,27,.07);
+}
+.spatial-slider__img{
+  position:absolute;
+  inset:0;
   width:100%;
   height:100%;
-  display:block;
-  position:absolute;
-  inset:0;
-  touch-action:pan-y;
-  user-select:none;
-  -webkit-user-select:none;
-  -webkit-touch-callout:none;
-  -webkit-tap-highlight-color:transparent;
-}
-[data-glass-carousel-wheel="all"] canvas{touch-action:none}
-[data-glass-carousel-pointer="grab"] canvas{cursor:grab}
-[data-glass-carousel-pointer="grabbing"] canvas{cursor:grabbing}
-
-.glass-carousel__list{
-  scroll-snap-type:x mandatory;
-  justify-content:flex-start;
-  align-items:center;
-  gap:clamp(18px,2vw,34px);
-  padding-inline:var(--gutter);
-  display:flex;
-  position:absolute;
-  inset:0;
-  overflow-x:auto;
-  scrollbar-width:none;
-}
-.glass-carousel__list::-webkit-scrollbar{display:none}
-
-/* Once the canvas takes over, the list stays for screen readers only */
-[data-glass-carousel="canvas"] [data-glass-carousel-list]{
-  width:1px;
-  height:1px;
-  padding:0;
-  gap:0;
-  overflow:hidden;
-  clip-path:inset(50%);
-  white-space:nowrap;
-}
-
-.glass-carousel__item{
-  scroll-snap-align:center;
-  flex:none;
-  height:66%;
-}
-.glass-carousel__item-img{
   object-fit:cover;
-  aspect-ratio:3/4;
-  height:100%;
-  width:auto;
-  display:block;
+  border-radius:inherit;
+}
+
+/* Dots. The site has no pill controls anywhere else, so these are
+   rules rather than circles — the same hairline vocabulary the
+   stage rail and the county links already use. */
+.spatial-slider__dots{
+  display:flex;
+  align-items:center;
+  gap:.75em;
+}
+.spatial-slider__dot{
+  appearance:none;
+  border:0;
+  padding:0;
+  margin:0;
+  width:2.25em;
+  height:2px;
+  border-radius:1px;
+  background:var(--rule-2);
+  cursor:pointer;
+  transition:background-color .18s ease;
+}
+.spatial-slider__dot:hover{background:var(--muted)}
+.spatial-slider__dot[data-spatial-slider-control-status="active"]{background:var(--accent)}
+
+/* The pre-init and reduced-motion state: a plain scrolling strip. */
+.spatial-slider:not([data-spatial-slider-drag-status]) .spatial-slider__list{
+  justify-content:flex-start;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  padding-inline:var(--gutter);
+  scrollbar-width:none;
+  perspective:none;
+}
+.spatial-slider:not([data-spatial-slider-drag-status]) .spatial-slider__list::-webkit-scrollbar{display:none}
+.spatial-slider:not([data-spatial-slider-drag-status]) .spatial-slider__item{scroll-snap-align:center}
+.spatial-slider:not([data-spatial-slider-drag-status]) .spatial-slider__dots{display:none}
+
+@media (max-width:767px){
+  [data-spatial-slider-init]{
+    --slider-gap:1.25em;
+    --slider-curve:40deg;
+  }
+  .spatial-slider__media{width:15em}
 }

@@ -36,35 +36,52 @@
       <h1>Architectural Design for Listed Buildings</h1>
     </div>
 
-    <!-- Liquid Glass image strip. Markup is the supplied component with its
-         caption, counter and per-item label content removed; the images are
-         this service's own photography. -->
-    <div data-glass-carousel class="glass-carousel">
-      <canvas aria-hidden="true" data-glass-carousel-canvas class="glass-carousel__canvas"></canvas>
-      <div class="glass-carousel__collection">
-        <div data-glass-carousel-list class="glass-carousel__list">
-          <div data-glass-carousel-item class="glass-carousel__item">
-            <img src="/assets/img/listed-buildings/01.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+    <!-- Spatial cards slider. The supplied component with its card panel,
+         caption bar, titles and Prev/Next buttons removed; the slides are
+         this service's own photography. One dot template only — the script
+         generates the rest. -->
+    <div data-spatial-slider-init class="spatial-slider">
+      <div data-spatial-slider-collection class="spatial-slider__collection">
+        <div data-spatial-slider-list class="spatial-slider__list">
+          <div data-spatial-slider-item class="spatial-slider__item">
+            <div class="spatial-slider__media">
+              <img src="/assets/img/listed-buildings/01.jpg" alt="" loading="lazy" decoding="async" class="spatial-slider__img">
+            </div>
           </div>
-          <div data-glass-carousel-item class="glass-carousel__item">
-            <img src="/assets/img/listed-buildings/02.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          <div data-spatial-slider-item class="spatial-slider__item">
+            <div class="spatial-slider__media">
+              <img src="/assets/img/listed-buildings/02.jpg" alt="" loading="lazy" decoding="async" class="spatial-slider__img">
+            </div>
           </div>
-          <div data-glass-carousel-item class="glass-carousel__item">
-            <img src="/assets/img/listed-buildings/04.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          <div data-spatial-slider-item class="spatial-slider__item">
+            <div class="spatial-slider__media">
+              <img src="/assets/img/listed-buildings/04.jpg" alt="" loading="lazy" decoding="async" class="spatial-slider__img">
+            </div>
           </div>
-          <div data-glass-carousel-item class="glass-carousel__item">
-            <img src="/assets/img/listed-buildings/05.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          <div data-spatial-slider-item class="spatial-slider__item">
+            <div class="spatial-slider__media">
+              <img src="/assets/img/listed-buildings/05.jpg" alt="" loading="lazy" decoding="async" class="spatial-slider__img">
+            </div>
           </div>
-          <div data-glass-carousel-item class="glass-carousel__item">
-            <img src="/assets/img/listed-buildings/06.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          <div data-spatial-slider-item class="spatial-slider__item">
+            <div class="spatial-slider__media">
+              <img src="/assets/img/listed-buildings/06.jpg" alt="" loading="lazy" decoding="async" class="spatial-slider__img">
+            </div>
           </div>
-          <div data-glass-carousel-item class="glass-carousel__item">
-            <img src="/assets/img/listed-buildings/03.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          <div data-spatial-slider-item class="spatial-slider__item">
+            <div class="spatial-slider__media">
+              <img src="/assets/img/listed-buildings/03.jpg" alt="" loading="lazy" decoding="async" class="spatial-slider__img">
+            </div>
           </div>
-          <div data-glass-carousel-item class="glass-carousel__item">
-            <img src="/assets/img/listed-buildings/07.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          <div data-spatial-slider-item class="spatial-slider__item">
+            <div class="spatial-slider__media">
+              <img src="/assets/img/listed-buildings/07.jpg" alt="" loading="lazy" decoding="async" class="spatial-slider__img">
+            </div>
           </div>
         </div>
+      </div>
+      <div data-spatial-slider-generate-dots class="spatial-slider__dots">
+        <button type="button" data-spatial-slider-control="1" data-spatial-slider-control-status="active" class="spatial-slider__dot"></button>
       </div>
     </div>
 
@@ -564,6 +581,10 @@
 
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.2.3/dist/lenis.min.js"></script>
 <script src="/assets/js/smooth-scroll.js"></script>
-<script src="/assets/js/glass-carousel.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/Draggable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/InertiaPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/CustomEase.min.js"></script>
+<script src="/assets/js/spatial-slider.js" defer></script>
 </body>
 </html>
