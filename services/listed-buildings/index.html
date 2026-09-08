@@ -30,21 +30,50 @@
 <main id="main">
 
   <!-- ============ 1 · Hero ============ -->
-  <section class="hero hero--split">
-    <div class="hero__text">
+  <section class="hero">
+    <div class="hero__head">
       <p class="eyebrow">Heritage Projects</p>
       <h1>Architectural Design for Listed Buildings</h1>
+    </div>
+
+    <!-- Liquid Glass image strip. Markup is the supplied component with its
+         caption, counter and per-item label content removed; the images are
+         this service's own photography. -->
+    <div data-glass-carousel class="glass-carousel">
+      <canvas aria-hidden="true" data-glass-carousel-canvas class="glass-carousel__canvas"></canvas>
+      <div class="glass-carousel__collection">
+        <div data-glass-carousel-list class="glass-carousel__list">
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/listed-buildings/01.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/listed-buildings/02.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/listed-buildings/04.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/listed-buildings/05.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/listed-buildings/06.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/listed-buildings/03.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/listed-buildings/07.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__text">
       <p class="lede">Listed buildings, locally listed properties and homes in conservation areas need design work that satisfies two audiences at once: the people who will live there, and the authority that decides whether the work goes ahead. We produce heritage-led designs and the Listed Building Consent and planning applications that support them, for private clients across Derbyshire, Staffordshire and Cheshire.</p>
       <div class="btn-row hero__cta">
         <a class="btn btn--primary" href="/contact">Book a consultation</a>
-        <a class="arrowlink" href="#projects"><span>See heritage projects</span> <span class="arw">&rarr;</span></a>
+        <a class="arrowlink" href="#projects"><span>Heritage projects</span> <span class="arw">&rarr;</span></a>
       </div>
-    </div>
-    <!-- IMAGE NEEDED: hero photograph of a historic building, ideally one of the
-         three case-study properties (Barrow House or Castle Street). No asset
-         supplied, so no placeholder text is rendered. -->
-    <div class="hero__media well" role="presentation">
-      <img src="/assets/img/listed-buildings/01.jpg" alt="" decoding="async">
     </div>
   </section>
 
@@ -285,7 +314,7 @@
 
       <div class="cta-band">
         <p>More of our work across the three counties.</p>
-        <a class="btn btn--primary" href="/projects">View all projects</a>
+        <a class="btn btn--primary" href="/projects">All projects</a>
       </div>
     </div>
   </section>
@@ -535,5 +564,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.2.3/dist/lenis.min.js"></script>
 <script src="/assets/js/smooth-scroll.js"></script>
+<script src="/assets/js/glass-carousel.js" defer></script>
 </body>
 </html>

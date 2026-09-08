@@ -24,17 +24,48 @@
 
   <!-- ================= 1 ================= -->
   <section class="hero">
-    <div class="hero__text">
+    <div class="hero__head">
       <h1>Barn Conversion Architecture for Derbyshire, Staffordshire and Cheshire</h1>
-      <p class="lede">You own, or are about to buy, a barn, stable block, outbuilding or agricultural shed, and you want to know two things: can it become a home, and what will it take to get there?</p>
-      <div class="btn-row hero__cta">
-        <a class="btn btn--primary" href="/services/consultation">Book a 60-minute feasibility consultation</a>
-        <a class="arrowlink" href="#projects"><span>See barn conversion projects</span> <span class="arw">&rarr;</span></a>
+    </div>
+
+    <!-- Liquid Glass image strip. Markup is the supplied component with its
+         caption, counter and per-item label content removed; the images are
+         this service's own photography. -->
+    <div data-glass-carousel class="glass-carousel">
+      <canvas aria-hidden="true" data-glass-carousel-canvas class="glass-carousel__canvas"></canvas>
+      <div class="glass-carousel__collection">
+        <div data-glass-carousel-list class="glass-carousel__list">
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/barn-conversions/07.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/barn-conversions/02.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/barn-conversions/05.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/barn-conversions/06.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/barn-conversions/03.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/barn-conversions/08.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/barn-conversions/01.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+        </div>
       </div>
     </div>
-    <!-- IMAGE: Barn Conversion, Tean — completed exterior, landscape crop -->
-    <div class="hero__media well" role="presentation">
-      <img src="/assets/img/barn-conversions/07.jpg" alt="" decoding="async">
+
+    <div class="hero__text">
+      <p class="lede">You own, or are about to buy, a barn, stable block, outbuilding or agricultural shed, and you want to know two things: can it become a home, and what will it take to get there?</p>
+      <div class="btn-row hero__cta">
+        <a class="btn btn--primary" href="/services/consultation">Feasibility consultation</a>
+        <a class="arrowlink" href="#projects"><span>Conversion projects</span> <span class="arw">&rarr;</span></a>
+      </div>
     </div>
   </section>
 
@@ -106,7 +137,7 @@
 
       <div class="cta-band">
         <p>This is precisely what our fixed-fee consultation covers: an hour on your building, its likely planning route, its risks and its realistic potential &mdash; before you spend anything on design.</p>
-        <a class="btn btn--primary" href="/services/consultation">Book a 60-minute feasibility consultation</a>
+        <a class="btn btn--primary" href="/services/consultation">Feasibility consultation</a>
       </div>
     </div>
   </section>
@@ -280,7 +311,7 @@
         <h2>How to start</h2>
         <p class="lede">Every project starts the same way: a fixed-fee, 60-minute feasibility consultation on your building, its planning route and its realistic potential. From there, our barn conversion services run as far as you need &mdash; planning only, or design and technical drawings through to support on site.</p>
         <div class="btn-row">
-          <a class="btn btn--light" href="/services/consultation">Book a 60-minute feasibility consultation</a>
+          <a class="btn btn--light" href="/services/consultation">Feasibility consultation</a>
           <a class="arrowlink" href="/contact"><span>Get in touch</span> <span class="arw">&rarr;</span></a>
         </div>
       </div>
@@ -402,5 +433,6 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.2.3/dist/lenis.min.js"></script>
 <script src="/assets/js/smooth-scroll.js"></script>
+<script src="/assets/js/glass-carousel.js" defer></script>
 </body>
 </html>

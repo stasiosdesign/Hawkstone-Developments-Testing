@@ -8,9 +8,14 @@
                        on landing pages
      2 · back button — the single fixed control returning to the
                        landing-page directory
+     3 · hero        — one composition for every page: H1, the Liquid
+                       Glass image strip, the supporting copy, the CTAs
+     4 · carousel    — the strip component the hero is built around
 
-   Page layout stays in each page's own stylesheet; this file
-   deliberately owns nothing structural.
+   Everything below the hero stays in each page's own stylesheet.
+   The hero itself used to be defined twice, in main.css and in
+   service-page.css, with four per-page variants on top; now that
+   every page runs the same composition it is defined here once.
    ========================================================= */
 
 /* =========================================================
@@ -85,4 +90,156 @@ button,input,select,textarea,
     gap:6px;
   }
   .backdir__arrow{width:12px;height:12px}
+}
+
+/* =========================================================
+   3 · Hero
+
+   One composition on every page, stacked and centred:
+
+     H1  ·  Liquid Glass image strip  ·  supporting copy  ·  CTAs
+
+   The strip runs full-bleed so the glass reads as a bar crossing
+   the page rather than an object sitting inside a column; the type
+   above and below it keeps the container's own gutter and measure.
+
+   The type is set down from what the split heroes carried. Those
+   ran display sizes against a photograph in the next column, where
+   they had a whole viewport height to fill. Here the H1 has an
+   image directly beneath it and copy directly beneath that, so it
+   holds hierarchy at a smaller size and the hero stays about one
+   screen instead of overflowing it.
+   ========================================================= */
+.hero{
+  background:var(--paper);
+  display:block;
+  padding-block:clamp(40px,5vw,80px) clamp(46px,5.6vw,92px);
+  text-align:center;
+}
+.hero__head,
+.hero__text{
+  max-width:var(--maxw);
+  margin-inline:auto;
+  padding-inline:var(--gutter);
+}
+.hero .eyebrow{justify-content:center;margin-bottom:16px}
+.hero h1{
+  font-size:clamp(1.85rem,3.15vw,2.72rem);
+  line-height:1.1;
+  letter-spacing:-.022em;
+  max-width:23ch;
+  margin:0 auto;
+  text-wrap:balance;
+}
+.hero__text{margin-top:clamp(28px,3.2vw,44px)}
+.hero .lede{
+  font-size:clamp(.98rem,1.1vw,1.08rem);
+  line-height:1.62;
+  max-width:64ch;
+  margin-inline:auto;
+}
+/* The second and third paragraphs two pages carry: quieter than the
+   lede, never competing with it. */
+.hero__text > p + p{
+  margin-top:1em;
+  font-size:.95rem;
+  line-height:1.62;
+  color:var(--muted);
+  max-width:62ch;
+  margin-inline:auto;
+}
+.hero__text > p.hero__inst{
+  margin-top:clamp(18px,2vw,24px);
+  padding-top:clamp(14px,1.6vw,20px);
+  border-top:1px solid var(--rule-2);
+  font-size:.88rem;
+  color:var(--muted);
+  max-width:54ch;
+}
+.hero__cta{
+  margin-top:clamp(24px,2.6vw,34px);
+  justify-content:center;
+}
+.hero__cta .arrowlink{padding-block:4px}
+@media (max-width:640px){
+  .hero{padding-block:clamp(32px,7vw,56px) clamp(36px,7vw,60px)}
+  .hero h1{max-width:none}
+  .hero__cta{flex-direction:column;align-items:stretch;gap:12px}
+  .hero__cta .btn{width:100%}
+  .hero__cta .arrowlink{text-align:center}
+}
+
+/* =========================================================
+   4 · Liquid Glass carousel
+
+   The supplied component, reduced to the image treatment: the
+   demo's caption, counter and per-item label styling is gone, and
+   the section is a bounded strip rather than a full-height stage.
+
+   Two states. Before the canvas takes over — and permanently
+   without WebGL, or under prefers-reduced-motion — the authored
+   list is the component: a horizontal, snapping, scrollable row of
+   the same portrait images. Once the canvas is running the list
+   stays for screen readers only.
+   ========================================================= */
+.glass-carousel{
+  position:relative;
+  width:100%;
+  height:clamp(280px,31vw,462px);
+  margin-top:clamp(26px,3vw,42px);
+  background-color:var(--paper);
+  overflow:clip;
+}
+.glass-carousel__canvas{
+  width:100%;
+  height:100%;
+  display:block;
+  position:absolute;
+  inset:0;
+  touch-action:pan-y;
+  user-select:none;
+  -webkit-user-select:none;
+  -webkit-touch-callout:none;
+  -webkit-tap-highlight-color:transparent;
+}
+[data-glass-carousel-wheel="all"] canvas{touch-action:none}
+[data-glass-carousel-pointer="grab"] canvas{cursor:grab}
+[data-glass-carousel-pointer="grabbing"] canvas{cursor:grabbing}
+
+.glass-carousel__list{
+  scroll-snap-type:x mandatory;
+  justify-content:flex-start;
+  align-items:center;
+  gap:clamp(18px,2vw,34px);
+  padding-inline:var(--gutter);
+  display:flex;
+  position:absolute;
+  inset:0;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.glass-carousel__list::-webkit-scrollbar{display:none}
+
+/* Once the canvas takes over, the list stays for screen readers only */
+[data-glass-carousel="canvas"] [data-glass-carousel-list]{
+  width:1px;
+  height:1px;
+  padding:0;
+  gap:0;
+  overflow:hidden;
+  clip-path:inset(50%);
+  white-space:nowrap;
+}
+
+.glass-carousel__item{
+  scroll-snap-align:center;
+  flex:none;
+  height:66%;
+}
+.glass-carousel__item-img{
+  object-fit:cover;
+  aspect-ratio:3/4;
+  height:100%;
+  width:auto;
+  display:block;
 }

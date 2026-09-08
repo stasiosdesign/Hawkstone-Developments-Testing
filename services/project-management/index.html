@@ -31,21 +31,46 @@
        different weights — scene, offer, then the institutional line demoted
        under a rule. Primary button beside a secondary text link, never two
        buttons. -->
-  <section class="hero hero--split hero--pm">
-    <div class="hero__text">
+  <section class="hero">
+    <div class="hero__head">
       <p class="eyebrow">Construction-stage support</p>
       <h1>Independent project management through construction</h1>
+    </div>
+
+    <!-- Liquid Glass image strip. Markup is the supplied component with its
+         caption, counter and per-item label content removed; the images are
+         this service's own photography. -->
+    <div data-glass-carousel class="glass-carousel">
+      <canvas aria-hidden="true" data-glass-carousel-canvas class="glass-carousel__canvas"></canvas>
+      <div class="glass-carousel__collection">
+        <div data-glass-carousel-list class="glass-carousel__list">
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/project-management/01.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/project-management/02.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/project-management/03-bespoke-home.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/project-management/04-barn-conversion.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/project-management/05-listed-property.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__text">
       <p class="lede">Planning has been granted, the technical drawings are complete and the contractor is ready to start. This is the point at which most clients lose sight of their own project.</p>
       <p>Our construction-stage service keeps an informed, independent eye on the work as it is built, so that what goes up reflects what was approved. You get a point of contact who already understands the design, periodic inspections of the work, and a written record of progress.</p>
       <p class="hero__inst">Hawkstone is an architectural design and planning practice for homes, working across Derbyshire, Staffordshire and Cheshire.</p>
       <div class="btn-row hero__cta">
-        <a class="btn btn--primary" href="/contact">Discuss construction-stage support</a>
-        <a class="arrowlink" href="#scope"><span>See what&rsquo;s included</span> <span class="arw">&rarr;</span></a>
+        <a class="btn btn--primary" href="/contact">Discuss your project</a>
+        <a class="arrowlink" href="#scope"><span>What&rsquo;s included</span> <span class="arw">&rarr;</span></a>
       </div>
-    </div>
-    <!-- Image: residential construction in progress. -->
-    <div class="hero__media well">
-      <img src="/assets/img/project-management/01.jpg" alt="Residential construction in progress" decoding="async">
     </div>
   </section>
 
@@ -192,7 +217,7 @@
         <div class="evidence__text">
           <p class="evidence__name">55 Derby Road, Melbourne</p>
           <p class="evidence__copy">A Derbyshire home where our involvement continued past the drawings and into the build.</p>
-          <a class="arrowlink" href="/projects/55-derby-road"><span>View the 55 Derby Road project</span> <span class="arw">&rarr;</span></a>
+          <a class="arrowlink" href="/projects/55-derby-road"><span>View 55 Derby Road</span> <span class="arw">&rarr;</span></a>
         </div>
       </div>
     </div>
@@ -363,7 +388,7 @@
         <h2>Talk to us before work starts on site</h2>
         <p class="lede">The most useful time to bring us in is before your contractor begins, while the pre-construction review and the pre-start meeting can still shape how the project runs. Tell us what the project is, where it has reached and when it is due to start on site.</p>
         <div class="btn-row">
-          <a class="btn btn--light" href="/contact">Enquire about construction-stage support</a>
+          <a class="btn btn--light" href="/contact">Get in touch</a>
         </div>
         <p class="closing__alt">Still at design or planning stage? <a href="/services/consultation">Book a fixed-fee consultation</a></p>
       </div>
@@ -390,5 +415,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.2.3/dist/lenis.min.js"></script>
 <script src="/assets/js/smooth-scroll.js"></script>
+<script src="/assets/js/glass-carousel.js" defer></script>
 </body>
 </html>

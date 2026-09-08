@@ -30,19 +30,51 @@
        filling the right. The page's subject is imagery, so the hero has to
        demonstrate it rather than describe it. Two buttons, deliberately
        different weight. -->
-  <section class="hero hero--split hero--viz">
-    <div class="hero__text">
+  <section class="hero">
+    <div class="hero__head">
       <p class="eyebrow">3D Visualisations</p>
       <h1>Architectural Visualisation and 3D CGI for Residential Projects</h1>
+    </div>
+
+    <!-- Liquid Glass image strip. Markup is the supplied component with its
+         caption, counter and per-item label content removed; the images are
+         this service's own photography. -->
+    <div data-glass-carousel class="glass-carousel">
+      <canvas aria-hidden="true" data-glass-carousel-canvas class="glass-carousel__canvas"></canvas>
+      <div class="glass-carousel__collection">
+        <div data-glass-carousel-list class="glass-carousel__list">
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/3d-visualisations/06.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/3d-visualisations/01.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/3d-visualisations/07.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/3d-visualisations/03.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/3d-visualisations/02.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/3d-visualisations/04.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/3d-visualisations/05.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__text">
       <p class="lede">See your home as it will actually be built, before you commit to building it. We produce high-resolution architectural CGI for new homes, extensions, barn conversions and heritage projects across Derbyshire, Staffordshire and Cheshire, and for clients further afield.</p>
       <p>Hawkstone is an architectural design and planning practice for homes. Visualisation runs alongside our design work, and we also take it on as a standalone commission for homeowners, landowners, developers and other design practices.</p>
       <div class="btn-row hero__cta">
-        <a class="btn btn--primary" href="/contact">Request a visualisation quote</a>
-        <a class="btn btn--ghost" href="/projects">View recent projects</a>
+        <a class="btn btn--primary" href="/contact">Request a quote</a>
+        <a class="btn btn--ghost" href="/projects">Recent projects</a>
       </div>
-    </div>
-    <div class="hero__media well">
-      <img src="/assets/img/3d-visualisations/06.jpg" alt="" decoding="async">
     </div>
   </section>
 
@@ -383,7 +415,7 @@
 
       <div class="workfoot">
         <p>More of our residential and rural work.</p>
-        <a class="btn btn--primary" href="/projects">View all projects</a>
+        <a class="btn btn--primary" href="/projects">All projects</a>
       </div>
     </div>
   </section>
@@ -495,8 +527,8 @@
         <h2>Tell us what you need to see</h2>
         <p class="lede">If you already have a design, send us the drawings and we will come back with a package, a price and a delivery date. If you do not have a design yet, start with a fixed-fee consultation and we will tell you honestly what your project needs before anyone produces an image of it.</p>
         <div class="btn-row">
-          <a class="btn btn--light" href="/contact">Request a visualisation quote</a>
-          <a class="btn btn--ghost" href="/contact">Book a fixed-fee consultation</a>
+          <a class="btn btn--light" href="/contact">Request a quote</a>
+          <a class="btn btn--ghost" href="/contact">Fixed-fee consultation</a>
         </div>
       </div>
     </div>
@@ -521,5 +553,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.2.3/dist/lenis.min.js"></script>
 <script src="/assets/js/smooth-scroll.js"></script>
+<script src="/assets/js/glass-carousel.js" defer></script>
 </body>
 </html>

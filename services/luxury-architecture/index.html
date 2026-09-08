@@ -29,20 +29,50 @@
 
   <!-- ============ B1 · Hero ============ -->
   <section class="hero">
-      <div class="hero__text">
-        <p class="eyebrow">Luxury Architecture</p>
-        <h1>Luxury home architecture for bespoke new homes and complete transformations</h1>
-        <p class="lede">You have a plot, a house you want to replace, or a home you want to change fundamentally, and you want it designed properly. That is the situation most clients on this page arrive in, and it is the work this practice was set up to do.</p>
-        <div class="btn-row hero__cta">
-          <a class="btn btn--primary" href="/services/consultation">Book a 60-minute feasibility consultation</a>
-          <a class="arrowlink" href="#projects"><span>See our bespoke home projects</span> <span class="arw">&rarr;</span></a>
+    <div class="hero__head">
+      <p class="eyebrow">Luxury Architecture</p>
+      <h1>Luxury home architecture for bespoke new homes and complete transformations</h1>
+    </div>
+
+    <!-- Liquid Glass image strip. Markup is the supplied component with its
+         caption, counter and per-item label content removed; the images are
+         this service's own photography. -->
+    <div data-glass-carousel class="glass-carousel">
+      <canvas aria-hidden="true" data-glass-carousel-canvas class="glass-carousel__canvas"></canvas>
+      <div class="glass-carousel__collection">
+        <div data-glass-carousel-list class="glass-carousel__list">
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/luxury-architecture/02.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/luxury-architecture/05.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/luxury-architecture/03.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/luxury-architecture/06.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/luxury-architecture/01.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/luxury-architecture/09.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
+          <div data-glass-carousel-item class="glass-carousel__item">
+            <img src="/assets/img/luxury-architecture/07.jpg" alt="" loading="eager" decoding="async" data-glass-carousel-image class="glass-carousel__item-img">
+          </div>
         </div>
       </div>
-      <!-- HERO IMAGE PENDING: brief specifies Sandboro House Farm, exterior.
-           No asset supplied, so no placeholder text is rendered. -->
-      <div class="hero__media well" role="presentation">
-        <img src="/assets/img/luxury-architecture/02.jpg" alt="" decoding="async">
+    </div>
+
+    <div class="hero__text">
+      <p class="lede">You have a plot, a house you want to replace, or a home you want to change fundamentally, and you want it designed properly. That is the situation most clients on this page arrive in, and it is the work this practice was set up to do.</p>
+      <div class="btn-row hero__cta">
+        <a class="btn btn--primary" href="/services/consultation">Feasibility consultation</a>
+        <a class="arrowlink" href="#projects"><span>Bespoke projects</span> <span class="arw">&rarr;</span></a>
       </div>
+    </div>
   </section>
 
   <!-- B1b · Practice statement — the hero's second paragraph, set in the
@@ -141,7 +171,7 @@
 
         <div class="cta-band">
           <p>A desktop review of your site beforehand, an hour with a lead designer, and a written report with the likely planning route, the risks we can see, and next steps.</p>
-          <a class="btn btn--primary" href="/services/consultation">Book a 60-minute feasibility consultation</a>
+          <a class="btn btn--primary" href="/services/consultation">Feasibility consultation</a>
         </div>
       </div>
     </div>
@@ -261,7 +291,7 @@
       </div>
 
       <div class="process__foot">
-        <a class="btn btn--light" href="/services/consultation">Book a 60-minute feasibility consultation</a>
+        <a class="btn btn--light" href="/services/consultation">Feasibility consultation</a>
       </div>
     </div>
   </section>
@@ -353,7 +383,7 @@
         <h2>Start with a straight answer about your site</h2>
         <p class="lede">A 60-minute feasibility consultation tells you what your plot or house can realistically become, the likely planning route and its risks, and what it makes sense to do next, before you commission drawings or commit further.</p>
         <div class="btn-row">
-          <a class="btn btn--light" href="/services/consultation">Book a 60-minute feasibility consultation</a>
+          <a class="btn btn--light" href="/services/consultation">Feasibility consultation</a>
         </div>
         <p class="closing__fine">We design homes and gain planning for them. We don't build or sell property.</p>
       </div>
@@ -468,5 +498,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.2.3/dist/lenis.min.js"></script>
 <script src="/assets/js/smooth-scroll.js"></script>
+<script src="/assets/js/glass-carousel.js" defer></script>
 </body>
 </html>

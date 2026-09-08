@@ -175,79 +175,11 @@ p:last-child{margin-bottom:0}
 }
 
 /* =========================================================
-   1 · Hero — stacked and centred; text first, media beneath
+   1 · Hero
+   The hero is identical on every landing page, so it is defined
+   once in assets/css/landing-shared.css rather than here and
+   again in main.css. Nothing hero-specific belongs in this file.
    ========================================================= */
-/* No header sits above this section, so the hero owns the top of the
-   page: its own top padding replaces the old header band rather than
-   stacking under it. Text runs on one centred measure with room to
-   breathe; the media follows underneath at full container width. */
-.hero{
-  background:var(--paper);
-  display:block;
-  padding-inline:var(--gutter);
-  padding-block:clamp(56px,8vw,120px) clamp(48px,6vw,96px);
-  text-align:center;
-}
-.hero__text{
-  max-width:min(var(--maxw), 62rem);
-  margin-inline:auto;
-}
-.hero .eyebrow{justify-content:center}
-.hero h1{
-  margin-bottom:clamp(22px,2.4vw,30px);
-  /* 20ch broke a two-clause headline into four lines with a stranded short
-     line; 23ch lets text-wrap:balance settle it into three. */
-  max-width:23ch;
-  margin-inline:auto;
-}
-.hero .lede{
-  max-width:62ch;
-  margin-inline:auto;
-}
-.hero__cta{
-  margin-top:clamp(30px,3.6vw,44px);
-  justify-content:center;
-}
-.hero__media{
-  display:block;
-  width:100%;
-  max-width:var(--maxw);
-  margin:clamp(44px,5.5vw,80px) auto 0;
-  min-height:0;
-  aspect-ratio:16/9;
-}
-@media (max-width:860px){
-  .hero{padding-block:clamp(44px,9vw,72px) clamp(36px,6vw,56px)}
-  .hero h1{max-width:none}
-  .hero .lede{max-width:56ch}
-  .hero__media{aspect-ratio:16/10;margin-top:clamp(32px,6vw,48px)}
-}
-
-/* Hero split variant — type and image share the viewport side by side above
-   861px; below that it collapses back to the stacked, centred layout above
-   (text first, media beneath) rather than carrying its own mobile structure. */
-@media (min-width:861px){
-  .hero--split{
-    display:grid;grid-template-columns:minmax(380px,42%) 1fr;
-    align-items:stretch;text-align:left;padding-block:0;column-gap:clamp(40px,5vw,88px);
-  }
-  .hero--split .hero__text{
-    max-width:52ch;margin-inline:0;align-self:center;
-    padding-block:clamp(64px,9vw,120px);padding-left:var(--gutter);
-  }
-  .hero--split .eyebrow{justify-content:flex-start}
-  .hero--split h1,
-  .hero--split .lede{margin-inline:0;text-align:left}
-  .hero--split h1{max-width:none}
-  .hero--split .hero__cta{justify-content:flex-start}
-  .hero--split .hero__media{
-    margin:0;max-width:none;width:100%;height:100%;min-height:clamp(420px,64vh,760px);
-    aspect-ratio:auto;
-  }
-}
-@media (max-width:560px){
-  .hero__media{aspect-ratio:4/3}
-}
 
 /* 1b · Practice statement band */
 .statement{background:var(--paper-2);border-block:1px solid var(--rule)}
@@ -1270,25 +1202,7 @@ p:last-child{margin-bottom:0}
   .closing--media .btn-row .btn{width:100%}
 }
 
-/* 1 · Hero, this page only. The H1 is nine words long and the hero carries a
-   second paragraph as well as a lede, so the shared .hero--split proportions
-   (42% text, H1 up to 4.15rem) push the band past 1200px tall and squeeze the
-   heading into five short lines. A wider text column and a smaller top of the
-   type scale bring it back to roughly one screen without changing the shared
-   hero any other page uses. */
-@media (min-width:861px){
-  .hero--viz{grid-template-columns:minmax(440px,50%) 1fr}
-  .hero--viz .hero__text{max-width:37.5rem;padding-block:clamp(56px,7vw,96px)}
-  .hero--viz .hero__media{min-height:clamp(400px,58vh,660px)}
-}
-.hero--viz h1{font-size:clamp(2.15rem,3.7vw,3.2rem);line-height:1.06;margin-bottom:clamp(20px,2.2vw,26px)}
-.hero--viz .lede{margin-bottom:1.05em}
-.hero--viz .hero__text > p:last-of-type{color:var(--muted);font-size:.99rem;max-width:52ch;margin-inline:auto}
-@media (min-width:861px){.hero--viz .hero__text > p:last-of-type{margin-inline:0}}
-
-/* .hero__media is display:block in the shared hero, which stops a labelled
-   well from centring its label. Only wells that carry a label need the flex
-   box back. */
+/* A labelled well needs its flex box back to centre the label. */
 .well:has(> .well__label){display:flex;align-items:center;justify-content:center}
 
 /* Below 900px the closing band is tall enough for its copy and no more, so the
@@ -1308,31 +1222,6 @@ p:last-child{margin-bottom:0}
    a single piece of project evidence that has to look intentional
    rather than like a project row missing two cards.
    ========================================================= */
-
-/* 1 · Hero — split, with the third paragraph demoted. The brief
-   asks for three body paragraphs at three different weights: the
-   scene (.lede), the offer (body), and a quiet institutional line
-   that sits under a rule and never competes with either. */
-@media (min-width:861px){
-  .hero--pm{grid-template-columns:minmax(420px,47%) 1fr}
-  .hero--pm .hero__text{max-width:39rem;padding-block:clamp(60px,8vw,112px)}
-  .hero--pm .hero__media{min-height:clamp(420px,62vh,700px)}
-}
-.hero--pm h1{font-size:clamp(2.25rem,4vw,3.5rem);line-height:1.04;margin-bottom:clamp(22px,2.4vw,30px)}
-.hero--pm .lede{margin-bottom:1.05em}
-.hero--pm .hero__text > p{max-width:54ch;margin-inline:auto}
-@media (min-width:861px){.hero--pm .hero__text > p{margin-inline:0}}
-/* The institutional line: quiet, under a rule, never competing with
-   the two paragraphs above it. */
-.hero__inst{
-  margin-top:clamp(22px,2.4vw,30px);padding-top:clamp(18px,2vw,24px);
-  border-top:1px solid var(--rule-2);
-  font-size:.93rem;line-height:1.6;color:var(--muted);
-}
-/* Primary button and secondary text link on one row, at deliberately
-   different weights — the secondary is a link, never a second button. */
-.hero__cta .arrowlink{padding-block:4px}
-
 /* 2 · The problem — an existing prose split used as a whole section
    rather than as a section intro, so its trailing margin comes off. */
 .prose-split--only{margin-bottom:0}
@@ -1525,14 +1414,6 @@ p:last-child{margin-bottom:0}
 h3.panel__label{font-size:clamp(1.22rem,1.9vw,1.5rem);line-height:1.25;letter-spacing:-.014em}
 .pair--flat h3.panel__label{font-size:clamp(1.04rem,1.4vw,1.18rem)}
 
-/* The shared hero centres its type below 861px. This brief says the body copy
-   is never centred, so this hero stays left-aligned at every width. */
-.hero--pm{text-align:left}
-.hero--pm .eyebrow{justify-content:flex-start}
-.hero--pm h1,
-.hero--pm .lede,
-.hero--pm .hero__text > p{margin-inline:0;text-align:left}
-.hero--pm .hero__cta{justify-content:flex-start}
 
 /* =========================================================
    Site-wide design refinement. Three classes of change, all
@@ -1540,8 +1421,8 @@ h3.panel__label{font-size:clamp(1.22rem,1.9vw,1.5rem);line-height:1.25;letter-sp
 
    1. a missing space between a section's H2 and its own intro
       copy, which several sections had set to nothing at all;
-   2. a hero variant for the one page whose H1 is long enough
-      to break over seven lines in the shared split hero;
+   2. reserved — the per-page hero variants this block once held
+      were retired when every hero moved to the shared composition;
    3. a variant for Luxury Architecture's three project types,
       which were three consecutive runs of the same
       heading-left / prose-right split.
@@ -1558,18 +1439,6 @@ h3.panel__label{font-size:clamp(1.22rem,1.9vw,1.5rem);line-height:1.25;letter-sp
   margin-top:clamp(20px,2.4vw,30px);
 }
 
-/* 2 · Planning Applications' hero. Its H1 is eleven words; in the shared
-   split hero's column it set as seven lines of display type and pushed the
-   photograph past two screens. Same treatment the 3D Visualisations and
-   Project Management heroes already use: a wider text column and a lower
-   top to the type scale, leaving the shared hero untouched. */
-@media (min-width:861px){
-  .hero--plan{grid-template-columns:minmax(430px,49%) 1fr}
-  .hero--plan .hero__text{max-width:40rem;padding-block:clamp(60px,8vw,108px)}
-  .hero--plan .hero__media{min-height:clamp(420px,62vh,720px)}
-}
-.hero--plan h1{font-size:clamp(2.2rem,3.7vw,3.15rem);line-height:1.06;margin-bottom:clamp(22px,2.4vw,30px)}
-.hero--plan .lede{max-width:54ch}
 
 /* 3 · Project types as a set. Sections B2, B3 and B4 of Luxury Architecture
    are three parallel answers to "which of these is your project?", but built

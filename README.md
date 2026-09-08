@@ -758,3 +758,112 @@ file sizes (200–740KB for 600px) say these are near-lossless exports of
 larger originals; higher-resolution masters, or the same files recompressed,
 would improve both sharpness and page weight considerably. Per-page payload is
 currently 1.1–2.8MB across the whole scroll.
+
+---
+
+## The hero
+
+Every service page runs the same hero, in this order:
+
+```
+H1 (centred)  ·  Liquid Glass image strip  ·  supporting copy  ·  CTAs
+```
+
+It is defined **once**, in `assets/css/landing-shared.css`, which every landing
+page already loaded. Before this it was defined twice — in `main.css` and in
+`service-page.css` — with four per-page variants (`.hero--split`, `.hero--viz`,
+`.hero--pm`, `.hero--plan`) stacked on top to fix the split layout's proportions
+for individual headlines. All of that is gone; so is `.hero__media`, since the
+single hero photograph is now the strip.
+
+**Typography is set down from the split heroes.** Those ran display sizes
+against a photograph in the next column with a viewport height to fill. Here the
+H1 has an image directly beneath it and copy directly beneath that, so it holds
+hierarchy at a smaller size: H1 `clamp(1.85rem, 3.15vw, 2.72rem)` (43.5px at
+1440, down from 66px), lede `clamp(.98rem, 1.1vw, 1.08rem)` (15.8px, down from
+19.8px). The hero comes out at 999–1242px tall depending on how many paragraphs
+the page carries.
+
+### The carousel
+
+`assets/js/glass-carousel.js` is the supplied Liquid Glass Carousel. The shader,
+the scroll/drag/snap model, the texture handling and both fallbacks are the
+reference implementation. Three things changed to make it a hero strip:
+
+1. **The demo content is gone** — captions, counter, per-item labels — and with
+   it the only thing GSAP was doing (a caption fade and a `matchMedia` wrapper).
+   Reduced motion is gated with `window.matchMedia`, the same check
+   `smooth-scroll.js` already uses, so the pages carry no animation library.
+2. **Panels are cover-cropped to 3:4.** The strip is specified as a row of
+   vertical images and the practice's photography is landscape, so the crop
+   happens once per texture, on the canvas the reference already used to
+   downsize.
+3. **The lens's vertical half-extent is set in fractions of the strip height**
+   rather than scaled by the section's aspect ratio. The reference multiplies
+   both axes by `W/H`, which leaves the vertical extent — and so whether the
+   glass edge is visible at all — dependent on the viewport's shape. In a
+   full-height demo section that never shows; across a hero strip at desktop,
+   tablet and phone widths it is the difference between a glass bar with edges
+   and a flat magnification. The horizontal axis keeps the reference's aspect
+   scaling, which is what makes it stable.
+
+Tuning: the ring takes `--accent-2` rather than the reference's cyan, and glow,
+dispersion, zoom and rim wave are eased back. At the reference values the rim
+wave smeared the images into the canvas edges once the lens actually terminated
+inside the strip.
+
+**Fallbacks.** Without WebGL, or under `prefers-reduced-motion`, the authored
+list stays in the page as a plain horizontal snapping strip of the same portrait
+images — a perfectly serviceable static hero. Once the canvas is running the
+list stays for screen readers only.
+
+**Images.** Each strip carries five to seven photographs from that service's own
+folder. They are `loading="eager"` because the carousel builds a texture from
+each one; a lazy image inside the clipped screen-reader list would never load.
+
+### CTA labels
+
+Shortened site-wide. Every destination URL is unchanged, and this is the only
+copy on any page that changed.
+
+| Was | Now |
+|---|---|
+| Book a 60-minute feasibility consultation | Feasibility consultation |
+| Book a feasibility consultation | Feasibility consultation |
+| See our bespoke home projects | Bespoke projects |
+| See heritage projects | Heritage projects |
+| See recent planning approvals | Recent approvals |
+| See barn conversion projects | Conversion projects |
+| See what's included | What's included |
+| Request a visualisation quote | Request a quote |
+| View recent projects | Recent projects |
+| Book a fixed-fee consultation | Fixed-fee consultation |
+| View all projects / Browse all Hawkstone projects | All projects |
+| Discuss construction-stage support | Discuss your project |
+| Enquire about construction-stage support | Get in touch |
+| Or get in touch to discuss your project | Get in touch |
+| View the Barrow House project | View Barrow House |
+| View the Sandboro House Farm project | View Sandboro House Farm |
+| View the barn conversion project | View this project |
+| View the 55 Derby Road project | View 55 Derby Road |
+
+Already concise and left alone: "Book a consultation", "Ask about your
+building", "Send us your drawings", "Get in touch", and the project-card links
+that already named their destination in three words or fewer.
+
+**The consultation button does not say "Free".** The brief's example shortened
+"Book a 60-minute feasibility consultation" to "Free feasibility consultation",
+but every page that carries this button also carries copy calling the same
+session fixed-fee — "a fixed-fee, 60-minute session with a lead designer",
+"our fixed-fee consultation covers" — and that copy cannot change. A button
+reading "Free" would contradict the page it sits on. It reads "Feasibility
+consultation" instead; if the consultation is in fact free, the copy needs to
+change with it and the button is a one-word edit.
+
+### Weight
+
+Each hero now loads five to seven images eagerly, 1.9–2.8MB per page, plus
+three.js from jsDelivr. The images are the same 600px files noted above, whose
+200–740KB apiece is near-lossless for that size; recompressed they would drop to
+roughly 60–80KB each and take a hero strip to about half a megabyte. That is
+now on the LCP path, so it matters more than it did.
