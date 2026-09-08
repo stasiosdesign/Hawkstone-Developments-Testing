@@ -674,3 +674,87 @@ were not touched beyond the shared fixes above.
 
 Checked at 390, 768, 1024, 1440 and 1920px: no horizontal overflow on any page
 at any of those widths.
+
+---
+
+## Photography
+
+The client's supplied photography now fills every image slot on all six service
+pages. **No placeholder well remains anywhere**: 45 slots, all filled.
+
+```
+assets/img/3d-visualisations/     01–09
+assets/img/barn-conversions/      01–09   (from "Rural Conversions")
+assets/img/listed-buildings/      01–08   (from "Heritage Design")
+assets/img/luxury-architecture/   01–09
+assets/img/planning-applications/ 01–09   (from "Planning Application")
+assets/img/project-management/    01–02, plus three cross-referenced below
+```
+
+Filenames are the supplied files in sorted order, renumbered — the originals
+carry spaces, commas and duplicate-suffix names (`… 08_13_00 PM 3.jpg`) that do
+not belong in a URL. The full supplied set is kept per service, including frames
+not currently placed, so swapping one is a one-line change.
+
+Two supplied duplicates were dropped: Heritage Design's two `Sanbo Details A-14`
+files are byte-identical, and the Luxury Architecture and Planning Application
+folders are the same nine images. Luxury and Planning therefore draw different
+frames from that shared set, except Sandboro House Farm, which is deliberately
+the same photograph on both pages because it is the same project.
+
+### How the slots are filled
+
+- **Luxury Architecture** (3) — hero, then Sandboro House Farm and Furs House.
+- **Planning Applications** (4) — an aerial of a courtyard scheme in the hero,
+  then Barrow upon Trent, Sandboro House Farm and Tean.
+- **Listed Buildings** (7) — a listed building with a contemporary glazed link in
+  the hero; a Georgian house with a modern extension against "Extending a listed
+  building"; a renovated interior against "renovation and repair"; a brick-and-
+  timber detail in the dark "Significance first" band; three project cards.
+- **Barn Conversions** (6) — a stone barn conversion in the hero; an unconverted
+  agricultural building and a converted one paired in the dark design band, which
+  is the section's own before/after argument; three project cards, with the
+  consented-scheme massing model on the planning-led glamping project.
+- **Project Management** (5) — the two supplied site photographs in the hero and
+  the 55 Derby Road callout. The three project-type cards each link to another
+  service page, so each one carries an image from *that* service's folder rather
+  than repeating a site photograph three times across one row. Those three files
+  are copied into this page's own folder, so no page reaches across into
+  another's directory.
+- **3D Visualisations** (20 slots, 9 images) — every slot is filled, so seven or
+  eight images appear more than once. Repeats are placed at least a section
+  apart, in different crops and at different sizes, and no image repeats within
+  a section. The seven-item capability grid carries seven distinct images, one
+  per capability.
+
+### What changed to accommodate them
+
+- `.well > img` fills the slot with `object-fit:cover`, so every existing aspect
+  ratio, responsive rule and breakpoint still applies unchanged. A well holding a
+  picture drops the tonal ground and the inset placeholder rule.
+- The closing band on 3D Visualisations carries its picture behind the copy, so
+  it gained a gradient scrim — white display type over an unmodified photograph
+  is not legible.
+- `.cgiplan__media` moves from 3:4 to 4:3. Every visualisation supplied for that
+  page is landscape, and a portrait slot cropped them to a narrow vertical band
+  that lost the context the section is about.
+- The twenty `.well__label` spans on 3D Visualisations are gone. They named the
+  photograph intended for each slot; the slots now hold photographs. This is the
+  only text removed from any page, and no page copy changed.
+- Project Management's five wells carried `role="img"` with an `aria-label`. The
+  two accurate descriptions became the image's `alt`; the three on the project-
+  type cards described construction shots that are not what those cards now show,
+  so they take `alt=""` and the card headings name the subject. Every other
+  image is decorative supporting photography beside copy that already describes
+  it, and takes `alt=""`.
+- Heroes load eagerly; all forty other images are `loading="lazy"`.
+
+### Worth knowing before launch
+
+**Every supplied image is 600px wide.** That is below what the heroes and the
+full-bleed closing band want — they render up to roughly 900 CSS px on a
+1440px screen and more on a wide monitor, so those slots are upscaling. The
+file sizes (200–740KB for 600px) say these are near-lossless exports of
+larger originals; higher-resolution masters, or the same files recompressed,
+would improve both sharpness and page weight considerably. Per-page payload is
+currently 1.1–2.8MB across the whole scroll.

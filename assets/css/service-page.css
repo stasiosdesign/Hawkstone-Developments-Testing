@@ -1647,3 +1647,36 @@ main{counter-reset:ptype}
   margin-bottom:clamp(20px,2.4vw,28px);
 }
 .proseblock > p:first-child:last-child{margin-bottom:0}
+
+/* =========================================================
+   Filled image wells
+
+   A well is the slot, not the picture: it already owns the
+   aspect ratio, the ground and the inset placeholder border.
+   Dropping a photograph in keeps every one of those decisions
+   — the image fills the slot it was given and crops from the
+   centre — and retires the two that only made sense while the
+   slot was empty, the tonal ground and the inset rule.
+   ========================================================= */
+.well > img,
+.closing__bg > img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center;
+}
+.well:has(> img){background:none}
+.well:has(> img)::after{content:none}
+
+/* The closing band carries its picture behind the copy rather than beside it,
+   so it needs a scrim: white type at display size over an unmodified
+   photograph is not legible, and the band is the page's last call to action. */
+.closing__bg:has(> img)::after{
+  content:"";position:absolute;inset:0;border:0;
+  background:linear-gradient(180deg,rgba(20,20,19,.62) 0%,rgba(20,20,19,.78) 100%);
+}
+
+/* Section 5's picture column was set portrait for a placeholder. Every
+   visualisation supplied for this page is landscape, and a 3:4 slot cropped
+   them to a narrow vertical band that lost the context the section is about.
+   4:3 keeps real presence beside the text without throwing the subject away. */
+.cgiplan__media{aspect-ratio:4/3}
+@media (max-width:960px){.cgiplan__media{aspect-ratio:16/10}}
