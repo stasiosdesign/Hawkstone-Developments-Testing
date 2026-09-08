@@ -416,9 +416,11 @@ for links the briefs name but do not supply.
 Built to the 8 Sep brief, which frames the page as an isolated visual
 prototype: the copy, chronology, section selection, CTAs and internal links
 are final and were reproduced verbatim, and the only work asked for was
-visual design. One H1, thirteen H2s and eleven H3s, matching the brief's
-thirteen numbered sections (section 13 carries two H2s — "Where we work" and
-the closing CTA — and the hero carries the H1).
+visual design. One paragraph has since been removed from the hero at the
+client's instruction — the one exception to that, recorded under The hero
+below. One H1, thirteen H2s and eleven H3s, matching the brief's thirteen
+numbered sections (section 13 carries two H2s — "Where we work" and the
+closing CTA — and the hero carries the H1).
 
 **Heading levels are only where the brief assigns them.** Sections 3, 7 and
 11 name H3 explicitly and use it; sections 6, 8, 10 and 12 do not, so their
@@ -490,7 +492,9 @@ Built to the 8 Sep brief, which frames the page the same way the 3D
 Visualisations brief did: an isolated visual prototype whose strategy, section
 chronology, heading hierarchy, copy, CTAs and internal links are already final,
 with the visual implementation layer the only work asked for. Every string is
-reproduced verbatim; nothing was reordered, shortened or added. Replaces the
+reproduced verbatim; nothing was reordered, shortened or added, and nothing has
+been since — two of the hero's paragraphs now sit in the statement band below
+it rather than inside it, which is recorded under The hero. Replaces the
 folder's holding page.
 
 One H1, eight H2s and ten H3s, matching the brief's nine sections one for one
@@ -504,10 +508,12 @@ questions are not, so they are styled paragraphs and `<summary>` text.
 **Nine distinct section treatments**, per the brief's requirement that sections
 doing different jobs must not look the same:
 
-1. a split hero with a full-height image, the three body paragraphs at three
-   weights — scene (`.lede`), offer (body), and the institutional line demoted
-   under a rule (`.hero__inst`) — and a primary button beside a secondary text
-   link, never two buttons
+1. the hero, which was a split composition with a full-height image when this
+   page was built and is now the shared full-height carousel hero every service
+   page runs (see The hero): the scene-setting paragraph (`.lede`), a primary
+   button beside a secondary text link, never two buttons — and the offer and
+   the institutional line, once demoted inside the hero under a rule
+   (`.hero__inst`, since retired), now in the statement band beneath it
 2. a quiet prose split on a tint ground, heading left and body right, with no
    cards, icons or image (`.prose-split--only`)
 3. the scope contrast (`.scopesplit`): two opposed columns separated by ground
@@ -766,25 +772,71 @@ currently 1.1–2.8MB across the whole scroll.
 Every service page runs the same hero, in this order:
 
 ```
-H1 (centred)  ·  Spatial cards image slider  ·  supporting copy  ·  CTAs
+eyebrow  ·  H1  ·  spatial cards carousel  ·  one paragraph  ·  two CTAs
 ```
 
-It is defined **once**, in `assets/css/landing-shared.css`, which every landing
-page already loaded. Before this it was defined twice — in `main.css` and in
-`service-page.css` — with four per-page variants (`.hero--split`, `.hero--viz`,
-`.hero--pm`, `.hero--plan`) stacked on top to fix the split layout's proportions
-for individual headlines. All of that is gone; so is `.hero__media`, since the
-single hero photograph is now the strip.
+and nothing else. It is defined **once**, in `assets/css/landing-shared.css`,
+which every landing page already loaded. Before this it was defined twice — in
+`main.css` and in `service-page.css` — with four per-page variants
+(`.hero--split`, `.hero--viz`, `.hero--pm`, `.hero--plan`) stacked on top to fix
+the split layout's proportions for individual headlines. All of that is gone; so
+is `.hero__media`, since the single hero photograph is now the strip.
 
-**Typography is set down from the split heroes.** Those ran display sizes
-against a photograph in the next column with a viewport height to fill. Here the
-H1 has an image directly beneath it and copy directly beneath that, so it holds
-hierarchy at a smaller size, and both it and the lede are capped against
-viewport height as well as width so the whole hero lands inside one screen:
-H1 `clamp(1.5rem, min(3.15vw, 4.3svh), 2.72rem)` — 38.7px on a 1440×900
-viewport, against 66px on the old split heroes — and lede
-`clamp(.92rem, min(1.1vw, 2.15svh), 1.08rem)`. The H1 stays better than twice
-the lede at every size.
+**It holds the whole of the first view.** `min-height: 100svh`, with the
+composition centred inside it, so no part of the section beneath — not even a
+band of its ground colour — shows before the reader scrolls. `min-height`
+rather than `height`: a hero that needs more room than the screen has, on a
+phone or a very short window, grows rather than clipping. The top padding is
+`clamp(88px, 12svh, 148px)` against `clamp(40px, 6svh, 84px)` beneath it — the
+room the production navigation bar will need plus air under it. Because the
+column is centred, that padding sets the *minimum* clearance and whatever
+height is left over is shared above and below, so the composition sits clear of
+the bar at every size rather than flush against the top of the screen.
+
+**The measure carries the headlines, not the size.** The H1 is unchanged —
+`clamp(1.5rem, min(3.15vw, 4.3vh), 2.72rem)`, 38.7px on a 1440×900 viewport —
+but its container was `23ch`, narrow enough that the longest headline broke over
+four lines and four more ran to three. It is `38ch` now. Measured at 1440×900
+and 1920×1080, every page sets two lines, except Listed Buildings, whose
+headline is short enough for one:
+
+| Page | H1 lines before | after |
+|---|---|---|
+| Planning Applications | 4 | 2 |
+| Luxury Architecture | 3 | 2 |
+| 3D Visualisations | 3 | 2 |
+| Project Management | 3 | 2 |
+| Barn & Rural Conversions | 3 | 2 |
+| Listed Buildings | 2 | 1 |
+
+**Three things come down a step**, which is where the vertical air in the
+composition came from: the carousel's centre (below), the paragraph
+(`clamp(.88rem, min(1.02vw, 2svh), 1.02rem)`, from
+`clamp(.92rem, min(1.1vw, 2.15svh), 1.08rem)`) and both CTAs — `.88rem` on
+`14px 26px`, against the `.94rem` on `17px 30px` that `.btn` still uses
+everywhere else on the page. The gaps between the parts went up to match:
+`clamp(20px, 3.2svh, 48px)` above the carousel and above the copy,
+`clamp(18px, 2.6svh, 40px)` above the buttons.
+
+**One paragraph, and nothing after it.** Two heroes carried more copy than
+that, and this is where it went:
+
+- **Project Management** had three paragraphs and a rule. The second and third
+  now sit in the `.statement` band directly beneath the hero — the standing
+  component Luxury Architecture and Planning Applications already use for
+  exactly this — the offer in the band's own display setting and the practice
+  line demoted under it in `.statement__note`, a new one-rule variant in
+  `service-page.css`. `.hero__inst`, the rule the hero used to demote that line
+  with, goes with it.
+- **3D Visualisations** had two, and the second was removed outright at the
+  client's instruction rather than relocated: "Hawkstone is an architectural
+  design and planning practice for homes. Visualisation runs alongside our
+  design work…". That page's own section above says its copy is reproduced
+  verbatim from the brief; this paragraph is the single exception.
+
+No other page's hero copy moved, and nothing was reworded. Barn & Rural
+Conversions is the one hero without an eyebrow label — it has never carried one
+and inventing the words is a copy decision, not a layout one.
 
 ### The slider
 
@@ -813,27 +865,53 @@ unchanged. Three things differ:
    authors that attribute into the markup, which would leave the no-JS and
    reduced-motion states with every card stacked on the first one.
 
-**Fitting one screen.** The whole hero — H1, images, copy and both CTAs — has
-to land inside 100vh, so the component is sized from viewport *height* as well
-as width: one `font-size` on `.spatial-slider` drives card width, gap and dot
-size together, and it is `min(1.1vw, 1.5svh)`. The vertical rhythm around it
-(hero padding, the gaps between H1, slider, copy and CTAs) is on `svh` clamps
-for the same reason, and the H1 and lede take a height-aware cap so they scale
-with everything else rather than pushing the CTAs off the bottom.
+**Card width, gap and perspective are one setting, not three.** The script
+solves its arc radius from the card width and the gap between cards, then
+projects the result through the CSS `perspective`, so those three values decide
+between them both how large the middle card is and how far the row reaches
+sideways. Bringing the centre down without dragging the ends in with it means
+moving all three together:
 
-Two heroes carry more than one paragraph of supplied copy — 3D Visualisations
-two, Project Management three and a rule — and that copy cannot change, so the
-card steps down again on those pages. The step is selected on the copy itself
-(`.hero:has(.hero__text > p + p)`), not a page class, so a hero that gains or
-loses a paragraph adjusts on its own. Measured, every page now fits at
-1366×700, 1440×820, 1440×900, 1536×745, 1920×960 and 2560×1300; below about
-1280×660 the two copy-heavy heroes run a little past the fold, which scrolls
-rather than clips.
+| | was | now | what it does |
+|---|---|---|---|
+| `.spatial-slider__media` width | `18em` | `16.6em` | centre card −8% |
+| `--slider-gap` | `2.25em` | `3.65em` | gives the radius back what the card took from it |
+| `--slider-perspective` | `120em` | `114em` | holds the scale of the outermost cards |
+
+Measured at 1440×900: the middle card goes 243×324 → 224×299, the tallest raked
+card at the edge 532 → 504, and the row still runs from −154px to 1579px across
+a 1425px viewport. The number of cards on screen does not change, which matters
+— every extra position is one more repeat on a page that supplies seven
+photographs.
+
+**Reaching both edges.** One `font-size` on `.spatial-slider` drives card
+width, gap and dot size together, and it is
+`clamp(9px, min(1.1vw, 1.5svh), max(15.5px, .8vw))`. The height term is what
+keeps the whole hero — H1, images, copy and both CTAs — inside one screen: on a
+short window the card is the first thing that gives. The ceiling is the viewport
+width wherever that asks for more, which is new: a flat `15.5px` stopped the row
+growing at about 1990px, and past that the arc ended several hundred pixels
+short of both edges. At 2560×1440 it now runs −82px to 2627px across a 2545px
+viewport.
+
+Two pages used to step that `font-size` down again, selected on their own copy
+(`.hero:has(.hero__text > p + p)`), because their heroes carried extra
+paragraphs and something had to give for everything to fit one screen. That is
+what left 3D Visualisations' carousel 120px clear of each edge and Project
+Management's 233px clear — one rule, the same effect on both. With the extra
+copy out of the hero, both rules are gone and all six pages run the one sizing.
+
+**Nothing overflows sideways.** The row is `overflow-x: clip`, so the cards that
+run past the viewport are clipped rather than scrolled: `document.scrollWidth`
+equals `clientWidth` on all six pages at 375×667, 390×844, 1440×700, 1440×900,
+1920×1080 and 2560×1440.
 
 On a phone the height coupling is dropped and the card goes back to being sized
-by width alone. The hero is allowed to run past the fold there — nothing is
-clipped, it simply scrolls — and tying the card to viewport height only made
-the images small for no gain.
+by width alone (`clamp(10.5px, 2.9vw, 14px)`, on a `15em` card and a `1.25em`
+gap). The hero is allowed to run past the fold there — nothing is clipped, it
+simply scrolls — and tying the card to viewport height only made the images
+small for no gain. At 390×844 the hero is exactly one screen; at 375×667 it is
+712px, so the second CTA sits just below the fold.
 
 `--slider-curve` stays at the reference's 30deg. A flatter arc spreads the row
 wider, which suits the wide hero, but it also puts more cards on screen at once
@@ -860,10 +938,17 @@ desktop resize, and catches nothing else — the card is measured in `svh`, whic
 does not move when a mobile toolbar hides, so scrolling a phone never
 re-initialises the slider.
 
+**Known limit.** On a window much wider than it is tall — 1440×700, say, where
+the height term wins and the card is 174px — the row still stops a little short
+of the edges: 18px each side at that size, against 57px before this pass. Wider
+than about 1.9:1 is where that starts; at every ratio below it the arc covers
+the viewport.
+
 ### CTA labels
 
-Shortened site-wide. Every destination URL is unchanged, and this is the only
-copy on any page that changed.
+Shortened site-wide. Every destination URL is unchanged; apart from the hero
+copy moved and removed above, this is the only copy on any page that has
+changed.
 
 | Was | Now |
 |---|---|

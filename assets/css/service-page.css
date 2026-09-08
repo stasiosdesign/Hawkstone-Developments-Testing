@@ -189,10 +189,20 @@ p:last-child{margin-bottom:0}
   font-family:var(--serif);font-weight:300;
   font-size:clamp(1.1rem,2vw,1.62rem);line-height:1.45;
   color:var(--ink);letter-spacing:-.012em;position:relative;
+  margin:0;
 }
 .statement__text::before{
   content:"";position:absolute;left:-40px;top:.62em;
   width:24px;height:1px;background:var(--accent);
+}
+/* A second line under the statement, for the band that carries two: the
+   practice line Project Management's hero used to close with, demoted beneath
+   the offer the way the hero's own rule demoted it. */
+.statement__note{
+  grid-column:2/11;
+  margin:clamp(16px,1.8vw,24px) 0 0;
+  font-size:.95rem;line-height:1.62;color:var(--muted);
+  max-width:62ch;
 }
 @media (max-width:860px){
   .statement .wrap{display:block}

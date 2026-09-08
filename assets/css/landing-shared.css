@@ -97,27 +97,44 @@ button,input,select,textarea,
 
    One composition on every page, stacked and centred:
 
-     H1  ·  Liquid Glass image strip  ·  supporting copy  ·  CTAs
+     eyebrow · H1 · image carousel · one paragraph · two CTAs
 
-   The strip runs full-bleed so the glass reads as a bar crossing
-   the page rather than an object sitting inside a column; the type
-   above and below it keeps the container's own gutter and measure.
+   and nothing else. The carousel runs full-bleed so it reads as a
+   band crossing the page rather than an object sitting inside a
+   column; the type above and below it keeps the container's own
+   gutter and measure. Where a page arrived with more copy than the
+   one paragraph, that copy moved down into the statement band
+   beneath the hero rather than being cut.
 
-   The type is set down from what the split heroes carried. Those
+   The hero holds the whole of the first view — a full viewport
+   height, so no part of the section below it shows before the
+   reader scrolls — and the composition is centred in it, under a
+   top padding that leaves the production navigation bar its room.
+   The type is set down from what the split heroes carried: those
    ran display sizes against a photograph in the next column, where
-   they had a whole viewport height to fill. Here the H1 has an
+   they had a whole viewport height to fill, and here the H1 has an
    image directly beneath it and copy directly beneath that, so it
-   holds hierarchy at a smaller size and the hero stays about one
-   screen instead of overflowing it.
+   holds hierarchy at a smaller size.
    ========================================================= */
 .hero{
   background:var(--paper);
-  display:block;
-  /* Measured against the viewport's height, not its width: the hero has to
-     hold the H1, the slider, the copy and both CTAs inside one screen, and
-     the height is what it runs out of. */
-  padding-block:clamp(18px,3.4vh,60px) clamp(18px,3.2vh,66px);
-  padding-block:clamp(18px,3.4svh,60px) clamp(18px,3.2svh,66px);
+  /* One screen, always. The hero is the whole of the first view: no part of
+     the section beneath it — not even a band of its ground colour — shows
+     before the reader scrolls. min-height rather than height, so a hero that
+     needs more room than the screen has (a phone, a very short window) grows
+     instead of clipping. */
+  min-height:100vh;
+  min-height:100svh;
+  /* Centred inside that screen. The top padding is the room the production
+     navigation bar will need plus air beneath it, so the composition sits
+     clear of the bar rather than flush against the top; because the column is
+     centred, that padding sets the minimum clearance and whatever height is
+     left over is shared above and below. */
+  display:flex;
+  flex-flow:column;
+  justify-content:center;
+  padding-block:clamp(88px,12vh,148px) clamp(40px,6vh,84px);
+  padding-block:clamp(88px,12svh,148px) clamp(40px,6svh,84px);
   text-align:center;
 }
 .hero__head,
@@ -126,7 +143,7 @@ button,input,select,textarea,
   margin-inline:auto;
   padding-inline:var(--gutter);
 }
-.hero .eyebrow{justify-content:center;margin-bottom:clamp(10px,1.4vh,16px)}
+.hero .eyebrow{justify-content:center;margin-bottom:clamp(12px,1.6vh,20px)}
 .hero h1{
   /* Height-aware as well as width-aware: on a short screen the headline
      comes down with everything else rather than pushing the CTAs off the
@@ -134,44 +151,40 @@ button,input,select,textarea,
   font-size:clamp(1.5rem,min(3.15vw,4.3vh),2.72rem);
   line-height:1.1;
   letter-spacing:-.022em;
-  max-width:23ch;
+  /* The measure, not the size, is what carries the headlines: at 23ch the
+     longest of them broke over four lines and four more ran to three. Wide
+     enough here that every page sets two, from 900px up — the shortest
+     headline, Listed Buildings, sets one. Below the phone breakpoint the cap
+     comes off and the longest headlines take three. */
+  max-width:38ch;
   margin:0 auto;
   text-wrap:balance;
 }
-.hero__text{margin-top:clamp(16px,2.6vh,38px)}
-@supports (height:1svh){.hero__text{margin-top:clamp(16px,2.6svh,38px)}}
+.hero__text{margin-top:clamp(20px,3.2vh,48px)}
+@supports (height:1svh){.hero__text{margin-top:clamp(20px,3.2svh,48px)}}
+/* The hero carries one paragraph: the positioning line, and nothing after it.
+   Any further copy a page has belongs to the statement band below the hero,
+   which is where the pages that had it now keep it. */
 .hero .lede{
-  font-size:clamp(.92rem,min(1.1vw,2.15vh),1.08rem);
+  font-size:clamp(.88rem,min(1.02vw,2vh),1.02rem);
   line-height:1.62;
   max-width:64ch;
   margin-inline:auto;
 }
-/* The second and third paragraphs two pages carry: quieter than the
-   lede, never competing with it. */
-.hero__text > p + p{
-  margin-top:clamp(10px,1.2vh,16px);
-  font-size:.95rem;
-  line-height:1.62;
-  color:var(--muted);
-  max-width:62ch;
-  margin-inline:auto;
-}
-.hero__text > p.hero__inst{
-  margin-top:clamp(12px,1.6vh,22px);
-  padding-top:clamp(10px,1.3vh,18px);
-  border-top:1px solid var(--rule-2);
-  font-size:.88rem;
-  color:var(--muted);
-  max-width:54ch;
+@supports (height:1svh){
+  .hero .lede{font-size:clamp(.88rem,min(1.02vw,2svh),1.02rem)}
 }
 .hero__cta{
-  margin-top:clamp(14px,2.1vh,32px);
+  margin-top:clamp(18px,2.6vh,40px);
   justify-content:center;
 }
-@supports (height:1svh){.hero__cta{margin-top:clamp(14px,2.1svh,32px)}}
-.hero__cta .arrowlink{padding-block:4px}
+@supports (height:1svh){.hero__cta{margin-top:clamp(18px,2.6svh,40px)}}
+/* Both calls to action come down a step with the rest of the composition —
+   the button and the text link that stands beside it on most pages. */
+.hero__cta .btn{font-size:.88rem;padding:14px 26px}
+.hero__cta .arrowlink{font-size:.88rem;padding-block:4px}
 @media (max-width:640px){
-  .hero{padding-block:clamp(32px,7vw,56px) clamp(36px,7vw,60px)}
+  .hero{padding-block:clamp(72px,15vw,104px) clamp(36px,7vw,60px)}
   .hero h1{max-width:none}
   .hero__cta{flex-direction:column;align-items:stretch;gap:12px}
   .hero__cta .btn{width:100%}
@@ -200,11 +213,14 @@ button,input,select,textarea,
 .spatial-slider{
   position:relative;
   width:100%;
-  margin-top:clamp(16px,2.4vh,34px);
+  margin-top:clamp(20px,3.2vh,48px);
   /* One size drives card width, gap and dot size. It is measured against
      viewport height as well as width, because on a short screen the card is
-     the first thing that has to give for the hero to fit one screen. */
-  font-size:clamp(9px,min(1.1vw,1.5vh),15.5px);
+     the first thing that has to give for the hero to fit one screen. The
+     ceiling is the viewport width wherever that asks for more: a flat 15.5px
+     stopped the row growing at about 1990px, and past that the arc ended
+     short of both edges — the one thing this component must not do. */
+  font-size:clamp(9px,min(1.1vw,1.5vh),max(15.5px,.8vw));
   display:flex;
   flex-flow:column;
   align-items:center;
@@ -218,14 +234,22 @@ button,input,select,textarea,
 }
 @supports (height:1svh){
   .spatial-slider{
-    margin-top:clamp(16px,2.4svh,34px);
-    font-size:clamp(9px,min(1.1vw,1.5svh),15.5px);
+    margin-top:clamp(20px,3.2svh,48px);
+    font-size:clamp(9px,min(1.1vw,1.5svh),max(15.5px,.8vw));
   }
 }
 [data-spatial-slider-init]{
-  --slider-gap:2.25em;
+  /* Gap and perspective are set together with the card width below, because
+     the three of them decide one thing between them: how far the arc reaches.
+     The script solves its radius from the card width and the gap, so widening
+     the gap by what the card gave up holds the arc exactly where it was, and
+     the slightly shorter perspective holds the scale of the outermost cards.
+     The centre of the composition comes down; the far left and right — the
+     big, raked images the effect is built on — do not, and the row still runs
+     off both edges of the viewport. */
+  --slider-gap:3.65em;
   --slider-curve:30deg;
-  --slider-perspective:120em;
+  --slider-perspective:114em;
   /* Curving toward the viewer: the reference's own default, and the variant
      that reads right here. The cards are smallest in the middle and scale up
      to the left and right, which puts the biggest images out where the hero
@@ -262,7 +286,7 @@ button,input,select,textarea,
 .spatial-slider__item{flex:none}
 .spatial-slider__media{
   position:relative;
-  width:18em;
+  width:16.6em;
   aspect-ratio:3/4;
   border-radius:var(--radius);
   overflow:hidden;
@@ -324,31 +348,7 @@ button,input,select,textarea,
      it simply scrolls — so the card goes back to being sized by width alone.
      Coupling it to viewport height here only made the images small for no
      gain. */
-  .spatial-slider,
-  .hero:has(.hero__text > p + p) .spatial-slider,
-  .hero:has(.hero__text > p + p + p) .spatial-slider{
+  .spatial-slider{
     font-size:clamp(10.5px,2.9vw,14px);
   }
-}
-
-/* Two heroes carry more than one paragraph of supporting copy — 3D
-   Visualisations has two, Project Management three and a rule. That copy is
-   fixed, so the slider is what gives: the card steps down on those pages so
-   the H1, the images, the copy and both CTAs still land inside one screen.
-   Selected on the copy itself rather than a page class, so a hero that gains
-   or loses a paragraph adjusts on its own. */
-.hero:has(.hero__text > p + p) .spatial-slider{
-  font-size:clamp(8px,min(1vw,1.05vh),13.5px);
-}
-.hero:has(.hero__text > p + p + p) .spatial-slider{
-  font-size:clamp(6.6px,min(1vw,.85vh),12px);
-}
-@supports (height:1svh){
-  .hero:has(.hero__text > p + p) .spatial-slider{
-    font-size:clamp(8px,min(1vw,1.05svh),13.5px);
-  }
-  .hero:has(.hero__text > p + p + p) .spatial-slider{
-    font-size:clamp(6.6px,min(1vw,.85svh),12px);
-  }
-  .hero .lede{font-size:clamp(.92rem,min(1.1vw,2.15svh),1.08rem)}
 }
