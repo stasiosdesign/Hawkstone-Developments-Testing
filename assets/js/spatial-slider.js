@@ -33,16 +33,30 @@
   const slideDuration = 1;
   const clickEase = 'spatial';
 
-  function debounceOnWidthChange(fn, ms) {
+  /* The reference re-measures on width change alone. The card here is sized
+     from viewport height as well as width, so a height-only resize changes it
+     and the cached geometry would go stale. Watching the card itself catches
+     both, and catches nothing else: it is measured in svh, which does not move
+     when a mobile toolbar hides, so scrolling a phone never re-initialises. */
+  function cardWidth() {
+    const el = document.querySelector('[data-spatial-slider-item] .spatial-slider__media');
+    return el ? Math.round(el.getBoundingClientRect().width) : 0;
+  }
+
+  function debounceOnSizeChange(fn, ms) {
     let lastWidth = window.innerWidth;
+    let lastCard = cardWidth();
     let timer;
 
     return function (...args) {
       clearTimeout(timer);
 
       timer = setTimeout(() => {
-        if (window.innerWidth === lastWidth) return;
-        lastWidth = window.innerWidth;
+        const width = window.innerWidth;
+        const card = cardWidth();
+        if (width === lastWidth && card === lastCard) return;
+        lastWidth = width;
+        lastCard = card;
         fn.apply(this, args);
       }, ms);
     };
@@ -384,7 +398,7 @@
 
     if (initSpatialCardsSlider._resize) window.removeEventListener('resize', initSpatialCardsSlider._resize);
 
-    initSpatialCardsSlider._resize = debounceOnWidthChange(initSpatialCardsSlider, 200);
+    initSpatialCardsSlider._resize = debounceOnSizeChange(initSpatialCardsSlider, 200);
     window.addEventListener('resize', initSpatialCardsSlider._resize);
   }
 

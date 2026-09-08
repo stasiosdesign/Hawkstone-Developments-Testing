@@ -779,10 +779,12 @@ single hero photograph is now the strip.
 **Typography is set down from the split heroes.** Those ran display sizes
 against a photograph in the next column with a viewport height to fill. Here the
 H1 has an image directly beneath it and copy directly beneath that, so it holds
-hierarchy at a smaller size: H1 `clamp(1.85rem, 3.15vw, 2.72rem)` (43.5px at
-1440, down from 66px), lede `clamp(.98rem, 1.1vw, 1.08rem)` (15.8px, down from
-19.8px). The hero comes out at 999–1242px tall depending on how many paragraphs
-the page carries.
+hierarchy at a smaller size, and both it and the lede are capped against
+viewport height as well as width so the whole hero lands inside one screen:
+H1 `clamp(1.5rem, min(3.15vw, 4.3svh), 2.72rem)` — 38.7px on a 1440×900
+viewport, against 66px on the old split heroes — and lede
+`clamp(.92rem, min(1.1vw, 2.15svh), 1.08rem)`. The H1 stays better than twice
+the lede at every size.
 
 ### The slider
 
@@ -797,25 +799,46 @@ unchanged. Three things differ:
    second pair of buttons in between reads as a competing call to action. The
    generated dots stay — they are the component's only non-textual control, and
    without them the slider would be drag-only and unreachable by keyboard.
-2. **The arc curves away from the viewer, not toward it** (`--slider-direction:
-   -1`, which the component documents). Curving toward, the outer cards scale up
-   past the centre one; that is fine on the reference's full-height stage but in
-   a hero strip it makes the edges the largest thing on the page, and there is
-   nowhere to put the extra height — measured, the outer cards came out at 585px
-   against the centre card's 372px and were clipped top and bottom. Away, the
-   centre card is the biggest and the row recedes, which is also the right
-   emphasis here.
+2. **The arc curves toward the viewer** (`--slider-direction: 1`, the
+   reference's own default and one of the two variants it documents). The cards
+   are smallest in the middle and scale up to the left and right, so the biggest
+   images sit out where the hero has whitespace and the centre of the
+   composition stays quiet. The slider is clipped sideways but open vertically,
+   which is what makes that affordable: the near cards grow into the hero's own
+   left and right margins, clear of the centred type, and only the smallest card
+   — the one in the middle — counts toward the hero's height.
 3. **Initialisation is gated on `prefers-reduced-motion`**, the same check
    `smooth-scroll.js` already makes, and the 3D layout is scoped in CSS to the
    `data-spatial-slider-drag-status` the script itself sets. The reference
    authors that attribute into the markup, which would leave the no-JS and
    reduced-motion states with every card stacked on the first one.
 
-Tuning: `--slider-curve` is 20deg rather than the reference's 30. At 30 the arc
-converged well inside the viewport and left about 190px of paper each side; at
-20 the row runs 65→1360 of a 1425px viewport, near edge to edge, and the curve
-is still plainly a curve. The whole component is sized from one `font-size` on
-`.spatial-slider`, so card width, gap and dot size scale together.
+**Fitting one screen.** The whole hero — H1, images, copy and both CTAs — has
+to land inside 100vh, so the component is sized from viewport *height* as well
+as width: one `font-size` on `.spatial-slider` drives card width, gap and dot
+size together, and it is `min(1.1vw, 1.5svh)`. The vertical rhythm around it
+(hero padding, the gaps between H1, slider, copy and CTAs) is on `svh` clamps
+for the same reason, and the H1 and lede take a height-aware cap so they scale
+with everything else rather than pushing the CTAs off the bottom.
+
+Two heroes carry more than one paragraph of supplied copy — 3D Visualisations
+two, Project Management three and a rule — and that copy cannot change, so the
+card steps down again on those pages. The step is selected on the copy itself
+(`.hero:has(.hero__text > p + p)`), not a page class, so a hero that gains or
+loses a paragraph adjusts on its own. Measured, every page now fits at
+1366×700, 1440×820, 1440×900, 1536×745, 1920×960 and 2560×1300; below about
+1280×660 the two copy-heavy heroes run a little past the fold, which scrolls
+rather than clips.
+
+On a phone the height coupling is dropped and the card goes back to being sized
+by width alone. The hero is allowed to run past the fold there — nothing is
+clipped, it simply scrolls — and tying the card to viewport height only made
+the images small for no gain.
+
+`--slider-curve` stays at the reference's 30deg. A flatter arc spreads the row
+wider, which suits the wide hero, but it also puts more cards on screen at once
+than some pages have photographs, and the loop then shows the same image twice
+in one row.
 
 **Fallbacks.** Without GSAP, or under `prefers-reduced-motion`, the list is a
 plain horizontal snapping strip of the same portrait images and the dots are
@@ -825,8 +848,17 @@ the reduced-motion switch can be thrown either way at runtime.
 **Images.** Each slider carries five to seven photographs from that service's
 own folder, at `loading="lazy"` with the reference's IntersectionObserver
 upgrading them the moment the hero is in view. Where the arc needs more cards
-than a page supplies, the script clones whole sets — 14 items from 7 originals
-at desktop — reusing the same image URLs, so cloning costs no extra requests.
+than a page supplies, the script clones whole sets — reusing the same image
+URLs, so cloning costs no extra requests. Project Management supplies five
+photographs against seven visible positions, so one pair repeats on screen;
+every other page has enough for a full row.
+
+**Re-measuring.** The reference re-solves its geometry on width change alone.
+The card here is sized from viewport height as well, so `debounceOnSizeChange`
+watches the card's own measured width instead: that catches a height-only
+desktop resize, and catches nothing else — the card is measured in `svh`, which
+does not move when a mobile toolbar hides, so scrolling a phone never
+re-initialises the slider.
 
 ### CTA labels
 

@@ -113,7 +113,11 @@ button,input,select,textarea,
 .hero{
   background:var(--paper);
   display:block;
-  padding-block:clamp(40px,5vw,80px) clamp(46px,5.6vw,92px);
+  /* Measured against the viewport's height, not its width: the hero has to
+     hold the H1, the slider, the copy and both CTAs inside one screen, and
+     the height is what it runs out of. */
+  padding-block:clamp(18px,3.4vh,60px) clamp(18px,3.2vh,66px);
+  padding-block:clamp(18px,3.4svh,60px) clamp(18px,3.2svh,66px);
   text-align:center;
 }
 .hero__head,
@@ -122,18 +126,22 @@ button,input,select,textarea,
   margin-inline:auto;
   padding-inline:var(--gutter);
 }
-.hero .eyebrow{justify-content:center;margin-bottom:16px}
+.hero .eyebrow{justify-content:center;margin-bottom:clamp(10px,1.4vh,16px)}
 .hero h1{
-  font-size:clamp(1.85rem,3.15vw,2.72rem);
+  /* Height-aware as well as width-aware: on a short screen the headline
+     comes down with everything else rather than pushing the CTAs off the
+     bottom. It stays better than twice the lede at every size. */
+  font-size:clamp(1.5rem,min(3.15vw,4.3vh),2.72rem);
   line-height:1.1;
   letter-spacing:-.022em;
   max-width:23ch;
   margin:0 auto;
   text-wrap:balance;
 }
-.hero__text{margin-top:clamp(28px,3.2vw,44px)}
+.hero__text{margin-top:clamp(16px,2.6vh,38px)}
+@supports (height:1svh){.hero__text{margin-top:clamp(16px,2.6svh,38px)}}
 .hero .lede{
-  font-size:clamp(.98rem,1.1vw,1.08rem);
+  font-size:clamp(.92rem,min(1.1vw,2.15vh),1.08rem);
   line-height:1.62;
   max-width:64ch;
   margin-inline:auto;
@@ -141,7 +149,7 @@ button,input,select,textarea,
 /* The second and third paragraphs two pages carry: quieter than the
    lede, never competing with it. */
 .hero__text > p + p{
-  margin-top:1em;
+  margin-top:clamp(10px,1.2vh,16px);
   font-size:.95rem;
   line-height:1.62;
   color:var(--muted);
@@ -149,17 +157,18 @@ button,input,select,textarea,
   margin-inline:auto;
 }
 .hero__text > p.hero__inst{
-  margin-top:clamp(18px,2vw,24px);
-  padding-top:clamp(14px,1.6vw,20px);
+  margin-top:clamp(12px,1.6vh,22px);
+  padding-top:clamp(10px,1.3vh,18px);
   border-top:1px solid var(--rule-2);
   font-size:.88rem;
   color:var(--muted);
   max-width:54ch;
 }
 .hero__cta{
-  margin-top:clamp(24px,2.6vw,34px);
+  margin-top:clamp(14px,2.1vh,32px);
   justify-content:center;
 }
+@supports (height:1svh){.hero__cta{margin-top:clamp(14px,2.1svh,32px)}}
 .hero__cta .arrowlink{padding-block:4px}
 @media (max-width:640px){
   .hero{padding-block:clamp(32px,7vw,56px) clamp(36px,7vw,60px)}
@@ -191,27 +200,37 @@ button,input,select,textarea,
 .spatial-slider{
   position:relative;
   width:100%;
-  margin-top:clamp(26px,3vw,42px);
-  font-size:clamp(10.5px,1.12vw,15.5px);
+  margin-top:clamp(16px,2.4vh,34px);
+  /* One size drives card width, gap and dot size. It is measured against
+     viewport height as well as width, because on a short screen the card is
+     the first thing that has to give for the hero to fit one screen. */
+  font-size:clamp(9px,min(1.1vw,1.5vh),15.5px);
   display:flex;
   flex-flow:column;
   align-items:center;
-  gap:2em;
-  /* The clip stops the receding arc scrolling the page sideways; the padding
-     keeps it clear of the cards' own shadow line. */
-  padding-block:1.4em;
-  overflow:clip;
+  gap:1.35em;
+  padding-block:.5em;
+  /* Clipped sideways so the arc never scrolls the page, open vertically so
+     the cards nearest the viewer are not cut off. They grow into the hero's
+     own left and right whitespace, well clear of the centred type. */
+  overflow-x:clip;
+  overflow-y:visible;
+}
+@supports (height:1svh){
+  .spatial-slider{
+    margin-top:clamp(16px,2.4svh,34px);
+    font-size:clamp(9px,min(1.1vw,1.5svh),15.5px);
+  }
 }
 [data-spatial-slider-init]{
   --slider-gap:2.25em;
-  --slider-curve:20deg;
+  --slider-curve:30deg;
   --slider-perspective:120em;
-  /* Curving away, not toward. Toward the viewer the outer cards scale up
-     past the centre one — fine in the reference's full-height stage, but in
-     a hero strip it makes the edges the largest thing on the page and there
-     is nowhere to put the extra height. Away, the centre card is the biggest
-     and the row recedes, which is also the right emphasis here. */
-  --slider-direction:-1;
+  /* Curving toward the viewer: the reference's own default, and the variant
+     that reads right here. The cards are smallest in the middle and scale up
+     to the left and right, which puts the biggest images out where the hero
+     has whitespace and keeps the centre of the composition quiet. */
+  --slider-direction:1;
 }
 .spatial-slider__collection{max-width:100%;position:relative}
 .spatial-slider__list{
@@ -301,4 +320,35 @@ button,input,select,textarea,
     --slider-curve:40deg;
   }
   .spatial-slider__media{width:15em}
+  /* On a phone the hero is allowed to run past the fold — nothing is clipped,
+     it simply scrolls — so the card goes back to being sized by width alone.
+     Coupling it to viewport height here only made the images small for no
+     gain. */
+  .spatial-slider,
+  .hero:has(.hero__text > p + p) .spatial-slider,
+  .hero:has(.hero__text > p + p + p) .spatial-slider{
+    font-size:clamp(10.5px,2.9vw,14px);
+  }
+}
+
+/* Two heroes carry more than one paragraph of supporting copy — 3D
+   Visualisations has two, Project Management three and a rule. That copy is
+   fixed, so the slider is what gives: the card steps down on those pages so
+   the H1, the images, the copy and both CTAs still land inside one screen.
+   Selected on the copy itself rather than a page class, so a hero that gains
+   or loses a paragraph adjusts on its own. */
+.hero:has(.hero__text > p + p) .spatial-slider{
+  font-size:clamp(8px,min(1vw,1.05vh),13.5px);
+}
+.hero:has(.hero__text > p + p + p) .spatial-slider{
+  font-size:clamp(6.6px,min(1vw,.85vh),12px);
+}
+@supports (height:1svh){
+  .hero:has(.hero__text > p + p) .spatial-slider{
+    font-size:clamp(8px,min(1vw,1.05svh),13.5px);
+  }
+  .hero:has(.hero__text > p + p + p) .spatial-slider{
+    font-size:clamp(6.6px,min(1vw,.85svh),12px);
+  }
+  .hero .lede{font-size:clamp(.92rem,min(1.1vw,2.15svh),1.08rem)}
 }
